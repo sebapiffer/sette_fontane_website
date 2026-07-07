@@ -1,0 +1,74 @@
+import { useRef } from 'react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+import Cta from './Cta.jsx'
+import { territorio } from '../data/content.js'
+
+export default function Territorio() {
+  const ref = useRef(null)
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia()
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        // Il panorama si scopre da sinistra a destra, come uno sguardo che si apre sulla valle
+        gsap.fromTo(
+          '.territorio-img',
+          { clipPath: 'inset(0 100% 0 0)', scale: 1.1 },
+          {
+            clipPath: 'inset(0 0% 0 0)',
+            scale: 1.05,
+            duration: 1.6,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: ref.current, start: 'top 85%' },
+          }
+        )
+        gsap.from('.territorio-content > *', {
+          autoAlpha: 0,
+          y: 32,
+          duration: 0.9,
+          ease: 'power2.out',
+          stagger: 0.12,
+          scrollTrigger: { trigger: ref.current, start: 'top 60%' },
+        })
+      })
+    },
+    { scope: ref }
+  )
+
+  return (
+    <section
+      id={territorio.id}
+      ref={ref}
+      data-nav-theme="light"
+      className="relative overflow-hidden bg-offwhite py-[clamp(5rem,12vw,9rem)]"
+    >
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
+        <div className="territorio-content">
+          <p className="eyebrow text-moro">{territorio.eyebrow}</p>
+          <h2 className="mt-5 font-display text-[clamp(2rem,4.5vw,3.4rem)] leading-[1.08] text-antracite">
+            {territorio.title}
+          </h2>
+          <p className="mt-7 max-w-prose font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-antracite/70">
+            {territorio.text}
+          </p>
+          <div className="mt-10">
+            <Cta href="#territorio" className="btn-dark">
+              {territorio.cta}
+            </Cta>
+          </div>
+        </div>
+        <figure className="mx-auto w-full max-w-md overflow-hidden md:max-w-none">
+          <img
+            src={territorio.image.src}
+            alt={territorio.image.alt}
+            loading="lazy"
+            width="1920"
+            height="1080"
+            className="territorio-img aspect-[4/5] w-full object-cover"
+          />
+        </figure>
+      </div>
+    </section>
+  )
+}

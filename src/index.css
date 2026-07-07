@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-antracite font-sans text-antracite antialiased;
+  }
+  ::selection {
+    @apply bg-tortora text-offwhite;
+  }
+  :focus-visible {
+    outline: 2px solid #a48a7b;
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-sans text-[0.7rem] font-medium uppercase tracking-[0.35em];
+  }
+  .btn {
+    @apply inline-flex items-center gap-3 rounded-full border px-8 py-3
+      font-sans text-[0.72rem] font-medium uppercase tracking-[0.25em]
+      transition-colors duration-300;
+  }
+  .btn-dark {
+    @apply border-antracite/40 text-antracite hover:border-antracite hover:bg-antracite hover:text-offwhite;
+  }
+  .btn-light {
+    @apply border-sabbia/50 text-sabbia hover:border-sabbia hover:bg-sabbia hover:text-antracite;
+  }
+}
+
+/* Logo in navbar: le gocce fanno un piccolo balzo in sequenza al passaggio del mouse. */
+@keyframes dropWobble {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  45% {
+    transform: translateY(-5px);
+  }
+}
+.group:hover .drop {
+  animation: dropWobble 0.65s ease-in-out;
+}
+.group:hover .drop:nth-of-type(2) {
+  animation-delay: 0.04s;
+}
+.group:hover .drop:nth-of-type(3) {
+  animation-delay: 0.08s;
+}
+.group:hover .drop:nth-of-type(4) {
+  animation-delay: 0.12s;
+}
+.group:hover .drop:nth-of-type(5) {
+  animation-delay: 0.16s;
+}
+.group:hover .drop:nth-of-type(6) {
+  animation-delay: 0.2s;
+}
+.group:hover .drop:nth-of-type(7) {
+  animation-delay: 0.24s;
+}
+
+/* Bottiglia San Florian: stato zoomato gestito da GSAP Flip.
+   Le media query definiscono il layout finale responsive del Flip. */
+.sf-bottle {
+  will-change: transform, opacity;
+}
+.sf-bottle.bottle-zoom {
+  position: fixed;
+  z-index: 70;
+  top: 6vh;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 44vh;
+  width: auto;
+  max-width: none;
+}
+@media (min-width: 1024px) {
+  .sf-bottle.bottle-zoom {
+    top: 50%;
+    left: auto;
+    right: 10vw;
+    transform: translateY(-50%);
+    height: 82vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
