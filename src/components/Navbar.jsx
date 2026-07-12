@@ -20,7 +20,7 @@ export default function Navbar() {
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll('[data-nav-theme]'))
     const probe = 72
-    const onScroll = () => {
+    const aggiorna = () => {
       setScrolled(window.scrollY > 60)
       const active = sections.find((el) => {
         const r = el.getBoundingClientRect()
@@ -28,7 +28,18 @@ export default function Navbar() {
       })
       if (active) setTheme(active.dataset.navTheme)
     }
-    onScroll()
+    // Gli eventi scroll possono arrivare più volte per frame: le letture dei
+    // rect si coalizzano in una sola per frame via requestAnimationFrame.
+    let inCoda = false
+    const onScroll = () => {
+      if (inCoda) return
+      inCoda = true
+      requestAnimationFrame(() => {
+        inCoda = false
+        aggiorna()
+      })
+    }
+    aggiorna()
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onScroll)
     return () => {
@@ -76,7 +87,7 @@ export default function Navbar() {
             aria-label="Sette Fontane — inizio pagina"
           >
             <DropsLogo className="h-9 w-auto text-tortora" spacingX={1.5} />
-            <span className="font-sans leading-none">
+            <span className="font-display leading-none">
               <span className="block text-[0.62rem] font-light uppercase tracking-[0.5em] opacity-80">
                 {site.nameParts[0]}
               </span>

@@ -7,6 +7,7 @@ export default function ComingSoon() {
 
   return (
     <section
+      id="coming-soon"
       ref={ref}
       data-nav-theme="light"
       className="bg-creta py-[clamp(5rem,12vw,8rem)] text-center"

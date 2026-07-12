@@ -22,6 +22,11 @@ export const hero = {
   eyebrow: 'Maso e cantina biologica',
   location: 'Giovo · Val di Cembra',
   scrollHint: 'Scorri',
+  // [placeholder] sostituire con il video definitivo (stesso percorso o
+  // aggiornare src). Consigliato: mp4 H.264, 1080p, < 8 MB, senza audio.
+  video: {
+    src: '/video/hero-placeholder.mp4',
+  },
 }
 
 export const azienda = {

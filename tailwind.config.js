@@ -12,9 +12,9 @@ export default {
         offwhite: '#FDFDFD',
       },
       fontFamily: {
-        display: ['Marcellus', 'serif'],
-        sans: ['Jost', 'sans-serif'],
-        prose: ['Newsreader', 'Georgia', 'serif'],
+        display: ["'Mason Sans'", 'sans-serif'],
+        sans: ["'LT Wave'", 'sans-serif'],
+        prose: ["'LT Wave'", 'sans-serif'],
       },
     },
   },

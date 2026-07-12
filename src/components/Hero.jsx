@@ -1,8 +1,10 @@
 import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import DropsLogo from './DropsLogo.jsx'
+import DropsLogo, { CADUTA_GOCCE } from './DropsLogo.jsx'
+import Wordmark from './Wordmark.jsx'
 import { site, hero } from '../data/content.js'
+import { quandoPronto } from '../lib/ambiente.js'
 
 export default function Hero() {
   const sectionRef = useRef(null)
@@ -12,17 +14,15 @@ export default function Hero() {
       const mm = gsap.matchMedia()
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         // Sequenza di apertura: le sette gocce cadono in formazione,
-        // poi il nome del maso emerge.
-        const tl = gsap.timeline({ defaults: { ease: 'power2.out' } })
-        tl.from('.drop', {
-          y: -70,
-          autoAlpha: 0,
-          duration: 0.8,
-          stagger: 0.11,
-        })
+        // poi il nome del maso emerge. Parte solo quando il preloader ha
+        // finito (`sf:ready`), altrimenti suonerebbe a sipario chiuso.
+        const tl = gsap.timeline({ paused: true, defaults: { ease: 'power2.out' } })
+        tl.from('.drop', { ...CADUTA_GOCCE })
           .from('.hero-word', { autoAlpha: 0, y: 26, duration: 0.9, stagger: 0.15 }, '-=0.3')
           .from('.hero-rule', { scaleX: 0, duration: 0.7 }, '-=0.4')
           .from('.hero-sub', { autoAlpha: 0, duration: 0.8 }, '-=0.3')
+
+        const annulla = quandoPronto(() => tl.play())
 
         // Allo scroll la hero sfuma verso il fondo chiaro della sezione successiva.
         gsap
@@ -36,9 +36,13 @@ export default function Hero() {
             },
           })
           .to('.hero-content', { autoAlpha: 0, y: -70, ease: 'none', duration: 0.5 }, 0)
+          // il video si dissolve per lasciar emergere il colore di fondo animato
+          .to('.hero-media', { autoAlpha: 0, ease: 'none', duration: 0.45 }, 0.05)
           // passa per il tortora del brand per non attraversare grigi spenti
           .to(sectionRef.current, { backgroundColor: '#A48A7B', ease: 'none', duration: 0.55 }, 0.15)
           .to(sectionRef.current, { backgroundColor: '#F5F1EC', ease: 'none', duration: 0.3 }, 0.7)
+
+        return annulla
       })
     },
     { scope: sectionRef }
@@ -51,18 +55,31 @@ export default function Hero() {
       data-nav-theme="dark"
       className="relative flex min-h-screen items-center justify-center overflow-hidden bg-antracite"
     >
-      <div className="hero-content flex flex-col items-center px-6 text-center">
+      {/* Video di sfondo con velo scuro per la leggibilità; sotto resta il
+          bg-antracite della sezione, che fa da fallback (e da destinazione
+          della dissolvenza allo scroll). Nascosto con prefers-reduced-motion. */}
+      <div className="hero-media absolute inset-0" aria-hidden="true">
+        <video
+          className="h-full w-full object-cover"
+          src={hero.video.src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          disablePictureInPicture
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-antracite/45 via-antracite/55 to-antracite/75" />
+      </div>
+
+      <div className="hero-content relative flex flex-col items-center px-6 text-center">
         <DropsLogo
           title="Logo Sette Fontane: sette gocce d'acqua"
           className="h-[clamp(7rem,16vh,10.5rem)] w-auto text-tortora"
         />
-        <h1 className="mt-8 font-sans leading-none text-offwhite">
-          <span className="hero-word block text-[clamp(1.15rem,3.4vw,2rem)] font-light uppercase tracking-[0.6em] text-sabbia">
-            {site.nameParts[0]}
-          </span>
-          <span className="hero-word mt-2 block text-[clamp(2.1rem,6.5vw,4.2rem)] font-semibold uppercase tracking-[0.22em]">
-            {site.nameParts[1]}
-          </span>
+        <h1 className="mt-8 text-offwhite">
+          <span className="sr-only">{site.nameParts.join(' ')}</span>
+          <Wordmark className="hero-word w-[clamp(13rem,42vw,26rem)]" />
         </h1>
         <span className="hero-rule mt-8 block h-px w-16 bg-tortora" aria-hidden="true" />
         <p className="hero-sub eyebrow mt-6 text-tortora">

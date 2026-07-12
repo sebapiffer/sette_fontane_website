@@ -2,6 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Font di brand, self-hosted da public/fonts (i sorgenti ttf/otf sono in
+   references/Fonts.zip): Mason Sans per logo e titoli, LT Wave per i testi. */
+@font-face {
+  font-family: 'Mason Sans';
+  src: url('/fonts/MasonSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mason Sans';
+  src: url('/fonts/MasonSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LT Wave';
+  src: url('/fonts/LTWave-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LT Wave';
+  src: url('/fonts/LTWave-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LT Wave';
+  src: url('/fonts/LTWave-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -23,15 +61,69 @@
     @apply font-sans text-[0.7rem] font-medium uppercase tracking-[0.35em];
   }
   .btn {
-    @apply inline-flex items-center gap-3 rounded-full border px-8 py-3
-      font-sans text-[0.72rem] font-medium uppercase tracking-[0.25em]
-      transition-colors duration-300;
+    @apply relative isolate inline-flex items-center gap-3 overflow-hidden rounded-full border px-8 py-3
+      font-sans text-[0.72rem] font-medium uppercase tracking-[0.25em];
+    /* Il colore del testo cambia con un piccolo ritardo, quando il liquido
+       lo sta già raggiungendo; il bordo reagisce subito. */
+    transition: color 0.4s ease 0.12s, border-color 0.3s ease;
   }
   .btn-dark {
-    @apply border-antracite/40 text-antracite hover:border-antracite hover:bg-antracite hover:text-offwhite;
+    @apply border-antracite/40 text-antracite hover:border-antracite hover:text-offwhite;
+  }
+  .btn-dark::before,
+  .btn-dark::after {
+    @apply bg-antracite;
   }
   .btn-light {
-    @apply border-sabbia/50 text-sabbia hover:border-sabbia hover:bg-sabbia hover:text-antracite;
+    @apply border-sabbia/50 text-sabbia hover:border-sabbia hover:text-antracite;
+  }
+  .btn-light::before,
+  .btn-light::after {
+    @apply bg-sabbia;
+  }
+}
+
+/* Riempimento "liquido" dei pulsanti: due blob quadrati dagli angoli molto
+   arrotondati partono nascosti sotto la pillola e salgono ruotando — il bordo
+   che passa sul testo disegna l'onda. ::after è la cresta semitrasparente e
+   arriva un attimo prima del liquido pieno (::before). Le percentuali di
+   translateY sono relative al blob stesso, quindi la corsa scala con la
+   larghezza del pulsante. */
+.btn::before,
+.btn::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: -25%;
+  top: 100%;
+  width: 150%;
+  aspect-ratio: 1;
+  border-radius: 44%;
+  transform: translateY(0) rotate(0turn);
+  transition: transform 0.8s cubic-bezier(0.45, 0.1, 0.3, 1);
+}
+.btn::after {
+  border-radius: 47%;
+  opacity: 0.55;
+  transition-duration: 0.65s;
+}
+.btn:hover::before {
+  transform: translateY(-72%) rotate(0.45turn);
+}
+.btn:hover::after {
+  transform: translateY(-72%) rotate(-0.4turn);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn::before,
+  .btn::after {
+    transition: none;
+  }
+  .btn {
+    transition: none;
+  }
+  /* Niente video in movimento: resta il fondo antracite della hero. */
+  .hero-media {
+    display: none;
   }
 }
 

@@ -58,11 +58,13 @@ export default function Territorio() {
             </Cta>
           </div>
         </div>
-        <figure className="mx-auto w-full max-w-md overflow-hidden md:max-w-none">
+        {/* z-10: il viticcio decorativo passa dietro il panorama */}
+        <figure className="relative z-10 mx-auto w-full max-w-md overflow-hidden md:max-w-none">
           <img
             src={territorio.image.src}
             alt={territorio.image.alt}
             loading="lazy"
+            decoding="async"
             width="1920"
             height="1080"
             className="territorio-img aspect-[4/5] w-full object-cover"

@@ -40,12 +40,14 @@ export default function Azienda() {
             </Cta>
           </div>
         </div>
-        <figure className="mx-auto w-full max-w-md overflow-hidden md:max-w-none">
+        {/* z-10: il viticcio decorativo passa dietro la foto */}
+        <figure className="relative z-10 mx-auto w-full max-w-md overflow-hidden md:max-w-none">
           <img
             data-reveal-img
             src={azienda.image.src}
             alt={azienda.image.alt}
             loading="lazy"
+            decoding="async"
             width="960"
             height="1200"
             className="aspect-[4/5] w-full object-cover"

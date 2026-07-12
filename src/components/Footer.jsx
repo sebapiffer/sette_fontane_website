@@ -19,7 +19,7 @@ export default function Footer() {
         <div data-reveal>
           <div className="flex items-center gap-3">
             <DropsLogo className="h-10 w-auto text-tortora" />
-            <span className="font-sans leading-none">
+            <span className="font-display leading-none">
               <span className="block text-[0.65rem] font-light uppercase tracking-[0.5em] text-sabbia">
                 {site.nameParts[0]}
               </span>

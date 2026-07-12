@@ -6,33 +6,49 @@ import { X } from 'lucide-react'
 import useReveal from '../hooks/useReveal.js'
 import Cta from './Cta.jsx'
 import { sanFlorian } from '../data/content.js'
-
-const reduceMotion = () =>
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+import { riduciMovimento, BREAKPOINT_LG } from '../lib/ambiente.js'
 
 export default function SanFlorian() {
   const sectionRef = useReveal()
   const bottleRef = useRef(null)
   const overlayRef = useRef(null)
   const flipState = useRef(null)
-  const bobTween = useRef(null)
   const glowTween = useRef(null)
   const [zoomed, setZoomed] = useState(false)
   const [format, setFormat] = useState(sanFlorian.formats[0])
 
   // Cattura lo stato della bottiglia prima del cambio layout, poi lascia che
-  // l'effetto esegua il Flip flicker-free. Il fluttuare va messo in pausa e
-  // il suo transform inline azzerato *prima* di leggere lo stato, altrimenti
-  // Flip riparte da una posizione sfalsata e la bottiglia non torna centrata.
+  // l'effetto esegua il Flip flicker-free.
   const toggleZoom = (next) => {
     if (next) {
-      bobTween.current?.pause()
+      // Segnala l'overlay attivo PRIMA che la bottiglia diventi `fixed` (esce
+      // dal flow → la pagina si accorcia): così il ResizeObserver del Viticcio
+      // salta il ricalcolo, che altrimenti gira sul main thread a metà del
+      // Flip e lo fa bloccare. Rimosso a chiusura completata (onComplete).
+      document.documentElement.dataset.sfZoom = '1'
       glowTween.current?.pause()
+      // Il crossfade del formato (gsap.from al mount) lascia sulla bottiglia
+      // un transform inline residuo (translate(0,0)): va tolto PRIMA di
+      // leggere lo stato, o sovrascrive il translate di .bottle-zoom e la
+      // bottiglia zoomata finisce mezza fuori schermo.
       gsap.set(bottleRef.current, { clearProps: 'transform' })
+      overlayRef.current.scrollTop = 0
+    } else {
+      // Su mobile lo scroll dell'overlay può aver dissolto la bottiglia:
+      // va riportata piena prima di catturare lo stato per il Flip di ritorno.
+      gsap.set(bottleRef.current, { clearProps: 'opacity' })
     }
     flipState.current = Flip.getState(bottleRef.current)
     if (next) document.body.style.overflow = 'hidden'
     setZoomed(next)
+  }
+
+  // Sotto lg la bottiglia zoomata resta fissa in alto mentre le note scorrono:
+  // la si dissolve con lo scroll dell'overlay, così non copre mai il testo.
+  const onOverlayScroll = (e) => {
+    if (!zoomed || window.innerWidth >= BREAKPOINT_LG) return
+    const progresso = Math.min(e.currentTarget.scrollTop / 260, 1)
+    gsap.set(bottleRef.current, { opacity: 1 - progresso })
   }
 
   useGSAP(
@@ -40,30 +56,39 @@ export default function SanFlorian() {
       if (!flipState.current) return
       const state = flipState.current
       flipState.current = null
-      const dur = reduceMotion() ? 0 : 1
+      const dur = riduciMovimento() ? 0 : 0.62
 
       Flip.from(state, {
         duration: dur,
-        ease: 'power3.inOut',
+        ease: 'power2.inOut',
+        // La bottiglia ha una drop-shadow con blur enorme (70px): ricalcolarla
+        // a ogni frame mentre scala è la causa principale degli scatti. La
+        // spengo per la durata del moto (il Flip così anima solo transform,
+        // fluido) e la ripristino a fine.
+        onStart: () => gsap.set(bottleRef.current, { filter: 'none' }),
         onComplete: () => {
+          gsap.set(bottleRef.current, { clearProps: 'filter' })
           if (!zoomed) {
             document.body.style.overflow = ''
             gsap.set(bottleRef.current, { clearProps: 'transform' })
-            bobTween.current?.play()
             glowTween.current?.play()
+            // overlay chiuso e a bocce ferme: sblocca il Viticcio e fagli
+            // ricalcolare i tracciati una volta sola, senza jankare nulla
+            delete document.documentElement.dataset.sfZoom
+            window.dispatchEvent(new Event('sf:relayout'))
           }
         },
       })
 
       if (zoomed) {
-        gsap.to(overlayRef.current, { autoAlpha: 1, duration: dur * 0.6 })
+        gsap.to(overlayRef.current, { autoAlpha: 1, duration: dur * 0.5 })
         gsap.fromTo(
           '.sf-detail',
           { autoAlpha: 0, y: 26 },
-          { autoAlpha: 1, y: 0, duration: dur * 0.7, stagger: dur * 0.06, delay: dur * 0.45 }
+          { autoAlpha: 1, y: 0, duration: dur * 0.7, stagger: dur * 0.05, delay: dur * 0.35 }
         )
       } else {
-        gsap.to(overlayRef.current, { autoAlpha: 0, duration: dur * 0.45 })
+        gsap.to(overlayRef.current, { autoAlpha: 0, duration: dur * 0.4 })
       }
     },
     { dependencies: [zoomed] }
@@ -75,27 +100,19 @@ export default function SanFlorian() {
       gsap.from(bottleRef.current, {
         autoAlpha: 0,
         scale: 0.94,
-        duration: reduceMotion() ? 0 : 0.6,
+        duration: riduciMovimento() ? 0 : 0.6,
         ease: 'power2.out',
       })
     },
     { dependencies: [format] }
   )
 
-  // La bottiglia respira con un fluttuare lentissimo, e l'alone pulsa piano.
-  // Creati una sola volta; toggleZoom li mette in pausa esplicitamente prima
-  // del Flip e li fa ripartire solo a transizione di chiusura completata.
+  // L'alone dietro la bottiglia pulsa piano. Creato una sola volta; toggleZoom
+  // lo mette in pausa prima del Flip e lo fa ripartire a chiusura completata.
   useGSAP(
     () => {
       const mm = gsap.matchMedia()
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        bobTween.current = gsap.to(bottleRef.current, {
-          y: '+=14',
-          duration: 2.8,
-          ease: 'sine.inOut',
-          yoyo: true,
-          repeat: -1,
-        })
         glowTween.current = gsap.to('.sf-glow', {
           scale: 1.12,
           opacity: 0.85,
@@ -114,6 +131,20 @@ export default function SanFlorian() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [zoomed])
+
+  // Scalda in cache entrambe le bottiglie nei tempi morti, così il cambio
+  // formato (e lo zoom) non mostra mai un'immagine ancora da scaricare.
+  useEffect(() => {
+    const idle = window.requestIdleCallback ?? ((cb) => setTimeout(cb, 2500))
+    const cancella = window.cancelIdleCallback ?? clearTimeout
+    const id = idle(() => {
+      sanFlorian.formats.forEach((f) => {
+        const img = new Image()
+        img.src = f.image
+      })
+    })
+    return () => cancella(id)
+  }, [])
 
   return (
     <section
@@ -153,8 +184,11 @@ export default function SanFlorian() {
         </div>
 
         <div className="relative flex items-center justify-center">
+          {/* Alone di luce dietro la bottiglia: gradiente radiale caldo
+              (sabbia → tortora → trasparente) che sfuma da sé, senza filtri
+              blur — più economico da comporre mentre il pulse lo scala. */}
           <div
-            className="sf-glow absolute h-[52vh] w-[52vh] max-w-full rounded-full bg-tortora/10 blur-3xl"
+            className="sf-glow absolute h-[58vh] w-[58vh] max-w-full rounded-full bg-[radial-gradient(closest-side,rgba(201,180,164,0.30),rgba(164,138,123,0.13)_55%,transparent_78%)]"
             aria-hidden="true"
           />
           <span
@@ -169,6 +203,7 @@ export default function SanFlorian() {
             alt={`Bottiglia di San Florian, formato ${format.label} ${format.volume}`}
             width="279"
             height="914"
+            decoding="async"
             className={`sf-bottle relative z-10 h-[52vh] w-auto object-contain drop-shadow-[0_40px_70px_rgba(0,0,0,0.55)] lg:h-[66vh] ${
               zoomed ? 'bottle-zoom' : ''
             }`}
@@ -184,6 +219,7 @@ export default function SanFlorian() {
         aria-label="San Florian — note di degustazione e scheda tecnica"
         className="invisible fixed inset-0 z-[60] overflow-y-auto bg-[#181816] opacity-0"
         style={{ pointerEvents: zoomed ? 'auto' : 'none' }}
+        onScroll={onOverlayScroll}
       >
         <button
           type="button"

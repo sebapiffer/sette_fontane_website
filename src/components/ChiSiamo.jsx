@@ -31,6 +31,7 @@ export default function ChiSiamo() {
                 src={person.image.src}
                 alt={person.image.alt}
                 loading="lazy"
+                decoding="async"
                 width="720"
                 height="960"
                 className="aspect-[3/4] w-full object-cover"
@@ -46,7 +47,8 @@ export default function ChiSiamo() {
           ))}
         </div>
 
-        <div data-reveal className="mt-14">
+        {/* z-10: il viticcio decorativo passa dietro il pulsante */}
+        <div data-reveal className="relative z-10 mt-14">
           <Cta href="#chi-siamo" className="btn-light">
             {chiSiamo.cta}
           </Cta>
