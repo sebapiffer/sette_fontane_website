@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { Menu, X } from 'lucide-react'
 import DropsLogo from './DropsLogo.jsx'
+import Wordmark from './Wordmark.jsx'
 import { site, nav } from '../data/content.js'
 
 export default function Navbar() {
@@ -87,14 +88,8 @@ export default function Navbar() {
             aria-label="Sette Fontane — inizio pagina"
           >
             <DropsLogo className="h-9 w-auto text-tortora" spacingX={1.5} />
-            <span className="font-display leading-none">
-              <span className="block text-[0.62rem] font-light uppercase tracking-[0.5em] opacity-80">
-                {site.nameParts[0]}
-              </span>
-              <span className="block text-[0.8rem] font-semibold uppercase tracking-[0.3em]">
-                {site.nameParts[1]}
-              </span>
-            </span>
+            <span className="sr-only">{site.nameParts.join(' ')}</span>
+            <Wordmark className="h-9 w-auto" />
           </a>
           <button
             type="button"
