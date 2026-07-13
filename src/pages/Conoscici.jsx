@@ -1,4 +1,3 @@
-import SubpageHeader from '../components/SubpageHeader.jsx'
 import Footer from '../components/Footer.jsx'
 import SplitHeading from '../components/SplitHeading.jsx'
 import useReveal from '../hooks/useReveal.js'
@@ -9,9 +8,12 @@ export default function Conoscici() {
 
   return (
     <>
-      <SubpageHeader />
       <main>
-        <section ref={ref} className="bg-antracite py-[clamp(5rem,12vw,9rem)]">
+        <section
+          ref={ref}
+          data-nav-theme="dark"
+          className="bg-antracite pb-[clamp(5rem,12vw,9rem)] pt-[clamp(8rem,15vw,11rem)]"
+        >
           <div className="mx-auto max-w-3xl px-5 text-center sm:px-8">
             <p data-reveal className="eyebrow text-sabbia">
               {conosciciPage.eyebrow}

@@ -591,14 +591,13 @@ const CONFIGURAZIONI = [
         ramo: {
           lato: 'destra',
           punti: [
-            { u: 18, v: 42 },
-            { u: 50, v: 92 },
-            { u: 78, v: 142 },
+            { u: 50, v: 102 },
+            { u: 98, v: 142 },
           ],
           // bobina a induttore che si apre leggermente a ventaglio: ogni
           // spira più stretta ruota di qualche grado rispetto alla precedente
           ricciolo: {
-            spire: [{ ampiezza: 9 }, { ampiezza: 6, inclinazione: 14 }, { ampiezza: 4, inclinazione: 14 }],
+            spire: [{ ampiezza: 19 }, { ampiezza: 16, inclinazione: 14 }, { ampiezza: 14, inclinazione: 14 }],
           },
         },
       }),
@@ -610,7 +609,6 @@ const CONFIGURAZIONI = [
         ramo: {
           lato: 'destra',
           punti: [
-            { u: 22, v: 52 },
             { u: 62, v: 115 },
             { u: 95, v: 178 },
             { u: 82, v: 214 },
@@ -618,10 +616,8 @@ const CONFIGURAZIONI = [
           figli: [
             {
               lato: 'sinistra',
-              da: 2,
+              da: 1,
               punti: [
-                { u: 20, v: 40 },
-                { u: 45, v: 85 },
                 { u: 40, v: 110 },
               ],
             },
@@ -641,7 +637,7 @@ const CONFIGURAZIONI = [
       p('#chi-siamo figure', -0.139, 0.82, { asola: { raggio: 24, lato: 'sinistra' } }, 1),
       // giro completo attorno all'estremità destra del pulsante "Conoscici"
       p('#chi-siamo .btn-light', 0.598, -1.29),
-      avvolgi('#chi-siamo .btn-light'),
+            p('#chi-siamo .btn-light', 1.2, 0.29),
       // scavalca il panorama del territorio e scende nel canale a sinistra;
       // un'altra foglia nel vuoto tra Chi Siamo e Territorio, lato opposto
       // alla precedente per varietà

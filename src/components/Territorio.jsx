@@ -44,27 +44,6 @@ export default function Territorio() {
           stagger: 0.03,
           scrollTrigger: { trigger: ref.current, start: 'top 60%' },
         })
-
-        // Parallax: wrapper a parte rispetto a .territorio-img (che ha già
-        // il proprio scale/clip-path qui sopra), tween nuovo e indipendente.
-        const parallaxWrapper = ref.current.querySelector('[data-parallax]')
-        if (parallaxWrapper) {
-          gsap.set(parallaxWrapper, { scale: 1.2 })
-          gsap.fromTo(
-            parallaxWrapper,
-            { yPercent: -8 },
-            {
-              yPercent: 8,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: parallaxWrapper,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: true,
-              },
-            }
-          )
-        }
       })
     },
     { scope: ref }
@@ -97,7 +76,7 @@ export default function Territorio() {
         </div>
         {/* z-10: il viticcio decorativo passa dietro il panorama */}
         <figure className="relative z-10 mx-auto w-full max-w-md overflow-hidden md:max-w-none">
-          <div data-parallax className="aspect-[4/5] w-full">
+          <div className="aspect-[4/5] w-full">
             <img
               src={territorio.image.src}
               alt={territorio.image.alt}

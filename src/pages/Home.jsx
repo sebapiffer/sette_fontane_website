@@ -1,5 +1,4 @@
 import Preloader from '../components/Preloader.jsx'
-import Navbar from '../components/Navbar.jsx'
 import Hero from '../components/Hero.jsx'
 import Azienda from '../components/Azienda.jsx'
 import ChiSiamo from '../components/ChiSiamo.jsx'
@@ -13,7 +12,6 @@ export default function Home() {
   return (
     <>
       <Preloader />
-      <Navbar />
       <main>
         <Hero />
         {/* Il contenitore relativo fa da tela al viticcio, che cresce

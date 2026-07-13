@@ -16,7 +16,16 @@ export default function SplitHeading({ as: Tag = 'h2', children, className = '',
       <span aria-hidden="true">
         {parole.map((parola, i) => (
           <Fragment key={i}>
-            <span className="inline-block overflow-hidden">
+            {/* La maschera è alta quanto la line-box, ma con leading stretto
+                (i titoli usano leading-[1.08]) l'inchiostro di Mason Sans —
+                maiuscole, apici, accenti — sborda sopra la line-box e verrebbe
+                tranciato da overflow-hidden. Il padding-top le dà aria in
+                testa (l'overflow clippa al padding box, quindi lì il glifo si
+                vede) e il margin-top negativo la riassorbe, così il titolo
+                resta esattamente dov'era. Solo sopra: il bordo BASSO deve
+                restare aderente alla line-box, è quello che nasconde la parola
+                prima che scivoli su. */}
+            <span className="inline-block overflow-hidden pt-[0.2em] -mt-[0.2em]">
               <span className="split-word inline-block">{parola}</span>
             </span>
             {i < parole.length - 1 ? ' ' : ''}

@@ -59,31 +59,6 @@ export default function useReveal() {
             scrollTrigger: { trigger: ref.current, start: 'top 72%' },
           })
         }
-
-        // Parallax fotografico: [data-parallax] è il wrapper attorno
-        // all'immagine (mai l'immagine stessa, che è già scalata/clippata dal
-        // reveal qui sopra — due nodi diversi non si contendono la stessa
-        // transform). È scalato una volta sola oltre la cornice — il figure
-        // padre lo ritaglia con overflow-hidden — per lasciare margine allo
-        // scrub verticale senza mai scoprire un bordo vuoto.
-        const parallaxWrappers = ref.current.querySelectorAll('[data-parallax]')
-        parallaxWrappers.forEach((wrapper) => {
-          gsap.set(wrapper, { scale: 1.2 })
-          gsap.fromTo(
-            wrapper,
-            { yPercent: -8 },
-            {
-              yPercent: 8,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: wrapper,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: true,
-              },
-            }
-          )
-        })
       })
     },
     { scope: ref }

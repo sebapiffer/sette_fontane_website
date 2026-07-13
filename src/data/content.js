@@ -8,8 +8,14 @@ export const site = {
   location: 'Giovo · Val di Cembra · Trentino',
 }
 
+// Voci del menu: tutte puntano a una sezione della home (`href`), anche
+// quelle che hanno una pagina di approfondimento — a quelle ci si arriva dai
+// pulsanti dentro le sezioni, non dal menu. La sola `to` è la Home stessa.
+// Dalle sottopagine la Navbar antepone "/" all'ancora e ScrollToTop porta
+// alla sezione dopo il cambio rotta.
 export const nav = {
   links: [
+    { label: 'Home', to: '/' },
     { label: "L'azienda", href: '#azienda' },
     { label: 'Chi siamo', href: '#chi-siamo' },
     { label: 'Il territorio', href: '#territorio' },

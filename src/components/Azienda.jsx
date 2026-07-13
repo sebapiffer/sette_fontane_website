@@ -45,7 +45,7 @@ export default function Azienda() {
         </div>
         {/* z-10: il viticcio decorativo passa dietro la foto */}
         <figure className="relative z-10 mx-auto w-full max-w-md overflow-hidden md:max-w-none">
-          <div data-parallax className="aspect-[4/5] w-full">
+          <div className="aspect-[4/5] w-full">
             <img
               data-reveal-img
               src={azienda.image.src}

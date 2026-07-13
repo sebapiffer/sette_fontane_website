@@ -1,4 +1,3 @@
-import SubpageHeader from '../components/SubpageHeader.jsx'
 import Footer from '../components/Footer.jsx'
 import SplitHeading from '../components/SplitHeading.jsx'
 import useReveal from '../hooks/useReveal.js'
@@ -9,9 +8,12 @@ export default function ScopriTerritorio() {
 
   return (
     <>
-      <SubpageHeader />
       <main>
-        <section ref={ref} className="bg-offwhite py-[clamp(5rem,12vw,9rem)]">
+        <section
+          ref={ref}
+          data-nav-theme="light"
+          className="bg-offwhite pb-[clamp(5rem,12vw,9rem)] pt-[clamp(8rem,15vw,11rem)]"
+        >
           <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
             <div>
               <p data-reveal className="eyebrow text-moro">
@@ -37,7 +39,7 @@ export default function ScopriTerritorio() {
               </div>
             </div>
             <figure className="mx-auto w-full max-w-md overflow-hidden md:max-w-none">
-              <div data-parallax className="aspect-[4/5] w-full">
+              <div className="aspect-[4/5] w-full">
                 <img
                   data-reveal-img
                   src={scopriTerritorioPage.image.src}

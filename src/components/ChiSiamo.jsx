@@ -29,7 +29,7 @@ export default function ChiSiamo() {
         <div className="mx-auto mt-14 grid max-w-4xl grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-16">
           {chiSiamo.people.map((person) => (
             <figure key={person.name} className="mx-auto w-full max-w-sm overflow-hidden">
-              <div data-parallax className="aspect-[3/4] w-full">
+              <div className="aspect-[3/4] w-full">
                 <img
                   data-reveal-img
                   src={person.image.src}

@@ -159,6 +159,70 @@
   animation-delay: 0.24s;
 }
 
+/* Burger della navbar: tre linee che diventano una croce. Le stesse tre
+   linee restano in scena — la prima e la terza ruotano di ±45° attorno al
+   proprio capo sinistro, la mediana si accorcia a zero e svanisce. Lo stato
+   arriva da aria-expanded del <button> (niente checkbox nascosta: il bottone
+   resta un bottone anche per gli screen reader). Proporzioni ridisegnate sul
+   peso di linea del sito — 2px invece di 4 — e in currentColor, così le linee
+   seguono il tema chiaro/scuro della sezione sotto la navbar.
+
+   Le misure non sono a occhio: ruotando di 45° attorno al capo sinistro una
+   barra lunga W proietta una diagonale d = W/√2, più corta di W. Perché la
+   croce sia simmetrica e centrata nel box servono quindi left = (W − d)/2
+   (recupera lo spazio che la rotazione lascia a destra), la barra bassa a
+   top = d e un box alto d + spessore. Con W = 24 → d ≈ 17: box 24×19,
+   left 3.5px. Così le due barre si incrociano esattamente al centro. */
+.burger {
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 19px;
+  background: transparent;
+  cursor: pointer;
+}
+.burger span {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 9px;
+  background: currentColor;
+  opacity: 1;
+  transform: rotate(0deg);
+  transition: transform 0.25s ease-in-out, width 0.25s ease-in-out,
+    opacity 0.25s ease-in-out, top 0.25s ease-in-out, left 0.25s ease-in-out;
+}
+.burger span:nth-of-type(1) {
+  top: 0;
+  transform-origin: left center;
+}
+.burger span:nth-of-type(2) {
+  top: 50%;
+  transform: translateY(-50%);
+  transform-origin: left center;
+}
+.burger span:nth-of-type(3) {
+  top: 100%;
+  transform: translateY(-100%);
+  transform-origin: left center;
+}
+.burger[aria-expanded='true'] span:nth-of-type(1) {
+  top: 0;
+  left: 3.5px;
+  transform: rotate(45deg);
+}
+.burger[aria-expanded='true'] span:nth-of-type(2) {
+  width: 0;
+  opacity: 0;
+}
+.burger[aria-expanded='true'] span:nth-of-type(3) {
+  top: 17px;
+  left: 3.5px;
+  transform: rotate(-45deg);
+}
+
 /* Bottiglia San Florian: stato zoomato gestito da GSAP Flip.
    Le media query definiscono il layout finale responsive del Flip. */
 .sf-bottle {

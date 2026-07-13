@@ -1,6 +1,5 @@
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import SubpageHeader from '../components/SubpageHeader.jsx'
 import Footer from '../components/Footer.jsx'
 import SplitHeading from '../components/SplitHeading.jsx'
 import useReveal from '../hooks/useReveal.js'
@@ -41,11 +40,14 @@ export default function ScopriAzienda() {
 
   return (
     <>
-      <SubpageHeader />
       <main>
+        {/* pt maggiorato: la navbar è fissa (come in Home) e qui, a
+            differenza della Hero, non c'è una sezione full-bleed sotto a
+            farle da sfondo — il contenuto deve iniziare sotto di lei. */}
         <section
           ref={introRef}
-          className="bg-creta py-[clamp(5rem,12vw,9rem)]"
+          data-nav-theme="light"
+          className="bg-creta pb-[clamp(5rem,12vw,9rem)] pt-[clamp(8rem,15vw,11rem)]"
         >
           <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
             <div>
@@ -72,7 +74,7 @@ export default function ScopriAzienda() {
               </div>
             </div>
             <figure className="mx-auto w-full max-w-md overflow-hidden md:max-w-none">
-              <div data-parallax className="aspect-[4/5] w-full">
+              <div className="aspect-[4/5] w-full">
                 <img
                   data-reveal-img
                   src={scopriAziendaPage.image.src}
@@ -88,7 +90,11 @@ export default function ScopriAzienda() {
           </div>
         </section>
 
-        <section ref={timelineRef} className="bg-offwhite py-[clamp(5rem,12vw,9rem)]">
+        <section
+          ref={timelineRef}
+          data-nav-theme="light"
+          className="bg-offwhite py-[clamp(5rem,12vw,9rem)]"
+        >
           <div className="mx-auto max-w-4xl px-5 sm:px-8">
             <p data-reveal className="eyebrow text-center text-moro">
               {scopriAziendaPage.timelineEyebrow}
