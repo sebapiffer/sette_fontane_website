@@ -41,6 +41,49 @@ export default function useReveal() {
             }
           )
         }
+
+        // Titoli spezzati in parole (SplitHeading, [data-reveal-words]): ogni
+        // parola scivola su da sotto la propria maschera overflow-hidden,
+        // invece del fade in blocco riservato al resto del testo. Un piccolo
+        // delay la stacca dall'eyebrow che la precede nello stesso ordine con
+        // cui appariva nella sequenza [data-reveal].
+        const parole = ref.current.querySelectorAll('[data-reveal-words] .split-word')
+        if (parole.length) {
+          gsap.from(parole, {
+            yPercent: 110,
+            autoAlpha: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            stagger: 0.03,
+            delay: 0.08,
+            scrollTrigger: { trigger: ref.current, start: 'top 72%' },
+          })
+        }
+
+        // Parallax fotografico: [data-parallax] è il wrapper attorno
+        // all'immagine (mai l'immagine stessa, che è già scalata/clippata dal
+        // reveal qui sopra — due nodi diversi non si contendono la stessa
+        // transform). È scalato una volta sola oltre la cornice — il figure
+        // padre lo ritaglia con overflow-hidden — per lasciare margine allo
+        // scrub verticale senza mai scoprire un bordo vuoto.
+        const parallaxWrappers = ref.current.querySelectorAll('[data-parallax]')
+        parallaxWrappers.forEach((wrapper) => {
+          gsap.set(wrapper, { scale: 1.2 })
+          gsap.fromTo(
+            wrapper,
+            { yPercent: -8 },
+            {
+              yPercent: 8,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: wrapper,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
+            }
+          )
+        })
       })
     },
     { scope: ref }

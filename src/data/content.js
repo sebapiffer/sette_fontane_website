@@ -121,6 +121,50 @@ export const sanFlorian = {
   chiudi: 'Torna alla cantina',
 }
 
+export const scopriAziendaPage = {
+  eyebrow: "L'azienda",
+  title: 'La storia di Maso Sette Fontane [placeholder]',
+  intro: [
+    'Testo placeholder: qui troverà spazio il racconto disteso del maso, della sua conduzione biologica e della filosofia che guida il lavoro in vigna. [Testo placeholder da sostituire.]',
+    'Testo placeholder: un secondo paragrafo di approfondimento, con i dettagli che non trovano posto nella sintesi della home. [Testo placeholder da sostituire.]',
+  ],
+  image: {
+    src: 'https://picsum.photos/seed/maso-storia/1600/900',
+    alt: 'Veduta del maso [placeholder]',
+  },
+  timelineEyebrow: 'La nostra storia',
+  timelineTitle: 'Una storia per tappe [placeholder]',
+  timeline: [
+    { anno: '19xx [placeholder]', titolo: 'Le origini [placeholder]', testo: 'Testo placeholder da sostituire con il primo capitolo della storia del maso.' },
+    { anno: '19xx [placeholder]', titolo: 'La pergola trentina [placeholder]', testo: 'Testo placeholder da sostituire: l’impianto dei filari storici e i primi anni di conduzione familiare.' },
+    { anno: '20xx [placeholder]', titolo: 'La conversione biologica [placeholder]', testo: 'Testo placeholder da sostituire: la scelta di un’agricoltura interamente biologica.' },
+    { anno: '20xx [placeholder]', titolo: 'San Florian [placeholder]', testo: 'Testo placeholder da sostituire: la nascita del primo vino a portare il nome della chiesa di Giovo.' },
+    { anno: 'Oggi [placeholder]', titolo: 'Il progetto continua [placeholder]', testo: 'Testo placeholder da sostituire con lo stato attuale del progetto e le prospettive future.' },
+  ],
+}
+
+export const conosciciPage = {
+  eyebrow: 'Chi siamo',
+  title: 'Conoscici [placeholder]',
+  paragraphs: [
+    'Testo placeholder: qui troverà spazio un ritratto più disteso di Davide e Andrea, del loro percorso e di come si dividono il lavoro tra vigna e cantina. [Testo placeholder da sostituire.]',
+    'Testo placeholder: un secondo paragrafo dedicato ai valori e alle persone che, insieme ai due fratelli, contribuiscono al progetto Sette Fontane. [Testo placeholder da sostituire.]',
+  ],
+}
+
+export const scopriTerritorioPage = {
+  eyebrow: 'Il territorio',
+  title: 'Giovo e la Val di Cembra [placeholder]',
+  paragraphs: [
+    'Testo placeholder: qui troverà spazio l’approfondimento sul territorio, i terrazzamenti di porfido e il microclima che caratterizza la Val di Cembra. [Testo placeholder da sostituire.]',
+    'Testo placeholder: un secondo paragrafo dedicato alle varietà coltivate e al legame tra suolo e stile dei vini. [Testo placeholder da sostituire.]',
+  ],
+  image: {
+    src: 'https://picsum.photos/seed/cembra-dettaglio/1600/900',
+    alt: 'Terrazzamenti della Val di Cembra [placeholder]',
+  },
+}
+
 export const comingSoon = {
   eyebrow: 'Coming soon',
   title: 'Qualcosa riposa ancora in cantina',

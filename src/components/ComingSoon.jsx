@@ -1,5 +1,6 @@
 import useReveal from '../hooks/useReveal.js'
 import DropsLogo from './DropsLogo.jsx'
+import SplitHeading from './SplitHeading.jsx'
 import { comingSoon } from '../data/content.js'
 
 export default function ComingSoon() {
@@ -17,12 +18,13 @@ export default function ComingSoon() {
         <p data-reveal className="eyebrow mt-8 text-moro">
           {comingSoon.eyebrow}
         </p>
-        <h2
-          data-reveal
+        <SplitHeading
+          as="h2"
+          data-reveal-words
           className="mt-4 font-display text-[clamp(1.7rem,3.5vw,2.6rem)] leading-tight text-antracite"
         >
           {comingSoon.title}
-        </h2>
+        </SplitHeading>
         <p data-reveal className="mt-4 font-prose text-lg text-antracite/60">
           {comingSoon.text}
         </p>

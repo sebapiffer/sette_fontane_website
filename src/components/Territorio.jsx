@@ -1,7 +1,9 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import Cta from './Cta.jsx'
+import SplitHeading from './SplitHeading.jsx'
 import { territorio } from '../data/content.js'
 
 export default function Territorio() {
@@ -23,7 +25,10 @@ export default function Territorio() {
             scrollTrigger: { trigger: ref.current, start: 'top 85%' },
           }
         )
-        gsap.from('.territorio-content > *', {
+        // Il titolo (h2) è escluso qui: è uno SplitHeading, animato parola
+        // per parola dal tween subito sotto invece che in blocco con gli
+        // altri figli.
+        gsap.from('.territorio-content > *:not(h2)', {
           autoAlpha: 0,
           y: 32,
           duration: 0.9,
@@ -31,6 +36,35 @@ export default function Territorio() {
           stagger: 0.12,
           scrollTrigger: { trigger: ref.current, start: 'top 60%' },
         })
+        gsap.from('.territorio-content .split-word', {
+          yPercent: 110,
+          autoAlpha: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          stagger: 0.03,
+          scrollTrigger: { trigger: ref.current, start: 'top 60%' },
+        })
+
+        // Parallax: wrapper a parte rispetto a .territorio-img (che ha già
+        // il proprio scale/clip-path qui sopra), tween nuovo e indipendente.
+        const parallaxWrapper = ref.current.querySelector('[data-parallax]')
+        if (parallaxWrapper) {
+          gsap.set(parallaxWrapper, { scale: 1.2 })
+          gsap.fromTo(
+            parallaxWrapper,
+            { yPercent: -8 },
+            {
+              yPercent: 8,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: parallaxWrapper,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
+            }
+          )
+        }
       })
     },
     { scope: ref }
@@ -46,29 +80,34 @@ export default function Territorio() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
         <div className="territorio-content">
           <p className="eyebrow text-moro">{territorio.eyebrow}</p>
-          <h2 className="mt-5 font-display text-[clamp(2rem,4.5vw,3.4rem)] leading-[1.08] text-antracite">
+          <SplitHeading
+            as="h2"
+            className="mt-5 font-display text-[clamp(2rem,4.5vw,3.4rem)] leading-[1.08] text-antracite"
+          >
             {territorio.title}
-          </h2>
+          </SplitHeading>
           <p className="mt-7 max-w-prose font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-antracite/70">
             {territorio.text}
           </p>
           <div className="mt-10">
-            <Cta href="#territorio" className="btn-dark">
+            <Cta as={Link} to="/scopri-territorio" className="btn-dark">
               {territorio.cta}
             </Cta>
           </div>
         </div>
         {/* z-10: il viticcio decorativo passa dietro il panorama */}
         <figure className="relative z-10 mx-auto w-full max-w-md overflow-hidden md:max-w-none">
-          <img
-            src={territorio.image.src}
-            alt={territorio.image.alt}
-            loading="lazy"
-            decoding="async"
-            width="1920"
-            height="1080"
-            className="territorio-img aspect-[4/5] w-full object-cover"
-          />
+          <div data-parallax className="aspect-[4/5] w-full">
+            <img
+              src={territorio.image.src}
+              alt={territorio.image.alt}
+              loading="lazy"
+              decoding="async"
+              width="1920"
+              height="1080"
+              className="territorio-img h-full w-full object-cover"
+            />
+          </div>
         </figure>
       </div>
     </section>

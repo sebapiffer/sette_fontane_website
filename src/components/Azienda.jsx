@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom'
 import useReveal from '../hooks/useReveal.js'
 import Cta from './Cta.jsx'
+import SplitHeading from './SplitHeading.jsx'
 import { azienda } from '../data/content.js'
 
 export default function Azienda() {
@@ -17,12 +19,13 @@ export default function Azienda() {
           <p data-reveal className="eyebrow text-moro">
             {azienda.eyebrow}
           </p>
-          <h2
-            data-reveal
+          <SplitHeading
+            as="h2"
+            data-reveal-words
             className="mt-5 font-display text-[clamp(2rem,4.5vw,3.4rem)] leading-[1.08] text-antracite"
           >
             {azienda.title}
-          </h2>
+          </SplitHeading>
           <div className="mt-7 space-y-5">
             {azienda.paragraphs.map((p, i) => (
               <p
@@ -35,23 +38,25 @@ export default function Azienda() {
             ))}
           </div>
           <div data-reveal className="mt-10">
-            <Cta href="#azienda" className="btn-dark">
+            <Cta as={Link} to="/scopri-azienda" className="btn-dark">
               {azienda.cta}
             </Cta>
           </div>
         </div>
         {/* z-10: il viticcio decorativo passa dietro la foto */}
         <figure className="relative z-10 mx-auto w-full max-w-md overflow-hidden md:max-w-none">
-          <img
-            data-reveal-img
-            src={azienda.image.src}
-            alt={azienda.image.alt}
-            loading="lazy"
-            decoding="async"
-            width="960"
-            height="1200"
-            className="aspect-[4/5] w-full object-cover"
-          />
+          <div data-parallax className="aspect-[4/5] w-full">
+            <img
+              data-reveal-img
+              src={azienda.image.src}
+              alt={azienda.image.alt}
+              loading="lazy"
+              decoding="async"
+              width="960"
+              height="1200"
+              className="h-full w-full object-cover"
+            />
+          </div>
         </figure>
       </div>
     </section>

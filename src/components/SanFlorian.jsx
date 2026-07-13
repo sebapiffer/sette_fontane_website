@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { Flip } from 'gsap/Flip'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { X } from 'lucide-react'
 import useReveal from '../hooks/useReveal.js'
 import Cta from './Cta.jsx'
+import SplitHeading from './SplitHeading.jsx'
 import { sanFlorian } from '../data/content.js'
 import { riduciMovimento, BREAKPOINT_LG } from '../lib/ambiente.js'
 
@@ -94,6 +96,25 @@ export default function SanFlorian() {
     { dependencies: [zoomed] }
   )
 
+  // Titoli spezzati in parole (SplitHeading) dentro l'overlay: tween a parte,
+  // non tocca né sostituisce la timeline del Flip qui sopra — si affianca
+  // agli stessi elementi .sf-detail con la stessa dipendenza [zoomed].
+  useGSAP(
+    () => {
+      if (!zoomed) return
+      const dur = riduciMovimento() ? 0 : 0.62
+      gsap.from('.sf-detail .split-word', {
+        yPercent: 110,
+        autoAlpha: 0,
+        duration: dur * 0.6,
+        ease: 'power3.out',
+        stagger: 0.025,
+        delay: dur * 0.35,
+      })
+    },
+    { dependencies: [zoomed] }
+  )
+
   // Crossfade al cambio formato (Renana / Magnum)
   useGSAP(
     () => {
@@ -146,6 +167,13 @@ export default function SanFlorian() {
     return () => cancella(id)
   }, [])
 
+  // Il nuovo blocco "La storia" in fondo all'overlay non allunga il body
+  // (l'overlay è fixed inset-0 con scroll interno suo), ma un refresh al
+  // montaggio non guasta: effetto isolato, non tocca le timeline sopra.
+  useEffect(() => {
+    ScrollTrigger.refresh()
+  }, [])
+
   return (
     <section
       id={sanFlorian.id}
@@ -158,12 +186,13 @@ export default function SanFlorian() {
           <p data-reveal className="eyebrow text-tortora">
             {sanFlorian.eyebrow}
           </p>
-          <h2
-            data-reveal
+          <SplitHeading
+            as="h2"
+            data-reveal-words
             className="mt-5 font-display text-[clamp(2.4rem,5.5vw,4.2rem)] leading-[1.05] text-offwhite"
           >
             {sanFlorian.title}
-          </h2>
+          </SplitHeading>
           <p
             data-reveal
             className="mt-3 font-sans text-[0.8rem] font-light uppercase tracking-[0.35em] text-sabbia"
@@ -211,12 +240,17 @@ export default function SanFlorian() {
         </div>
       </div>
 
-      {/* Overlay dettaglio: sempre montato, mostrato via GSAP per un fade pulito */}
+      {/* Overlay dettaglio: sempre montato, mostrato via GSAP per un fade pulito.
+          data-lenis-prevent: ha un proprio scroll interno nativo (overflow-y-auto);
+          senza questo attributo Lenis (montato globalmente) intercetterebbe la
+          rotellina e scrollerebbe la pagina sotto invece del dialog. Non tocca
+          né la logica né le timeline del Flip qui sopra: è solo un attributo. */}
       <div
         ref={overlayRef}
         role="dialog"
         aria-modal={zoomed}
         aria-label="San Florian — note di degustazione e scheda tecnica"
+        data-lenis-prevent
         className="invisible fixed inset-0 z-[60] overflow-y-auto bg-[#181816] opacity-0"
         style={{ pointerEvents: zoomed ? 'auto' : 'none' }}
         onScroll={onOverlayScroll}
@@ -233,9 +267,12 @@ export default function SanFlorian() {
         <div className="mx-auto min-h-full max-w-7xl px-5 pb-20 pt-[52vh] sm:px-8 lg:flex lg:items-center lg:py-24 lg:pr-[42vw] lg:pt-24">
           <div className="max-w-xl">
             <p className="sf-detail eyebrow text-tortora">{sanFlorian.eyebrow}</p>
-            <h3 className="sf-detail mt-4 font-display text-[clamp(2.2rem,5vw,3.8rem)] leading-[1.05] text-offwhite">
+            <SplitHeading
+              as="h3"
+              className="sf-detail mt-4 font-display text-[clamp(2.2rem,5vw,3.8rem)] leading-[1.05] text-offwhite"
+            >
               {sanFlorian.title}
-            </h3>
+            </SplitHeading>
             <p className="sf-detail mt-3 font-sans text-[0.8rem] font-light uppercase tracking-[0.35em] text-sabbia">
               {sanFlorian.denominazione}
             </p>
@@ -273,6 +310,48 @@ export default function SanFlorian() {
                   {f.label} {f.volume}
                 </button>
               ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Indicatore di scroll verso la storia del vino: stessa struttura e
+            classi dell'indicatore "Scorri" della Hero (testo + linea
+            verticale pulsante), qui in-flow invece che ancorato al fondo del
+            viewport visto che scorre dentro il dialog dell'overlay. La
+            classe "hero-content" non viene ripresa: lì serve al fade legato
+            al pin scroll della Hero, qui non avrebbe alcun effetto. */}
+        <div className="lg:pr-[42vw]">
+          <a
+            href="#san-florian-storia"
+            className="sf-detail mx-auto flex w-fit flex-col items-center gap-3 py-6 text-offwhite/50 transition-colors hover:text-offwhite"
+          >
+            <span className="text-[0.62rem] uppercase tracking-[0.4em]">Scorri</span>
+            <span className="block h-10 w-px animate-pulse bg-current" aria-hidden="true" />
+          </a>
+
+          <div id="san-florian-storia" className="mx-auto max-w-3xl px-5 pb-24 pt-6 sm:px-8">
+            <SplitHeading
+              as="h2"
+              className="sf-detail text-center font-display text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.1] text-offwhite"
+            >
+              La storia del San Florian
+            </SplitHeading>
+            <div className="sf-detail mt-8 space-y-5">
+              <p className="font-prose text-[1.05rem] leading-relaxed text-offwhite/70">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </p>
+              <p className="font-prose text-[1.05rem] leading-relaxed text-offwhite/70">
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+              <p className="font-prose text-[1.05rem] leading-relaxed text-offwhite/70">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+                doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+                veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+              </p>
             </div>
           </div>
         </div>
