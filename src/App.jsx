@@ -10,7 +10,9 @@ import Navbar from './components/Navbar.jsx'
 import PageTransition from './components/PageTransition.jsx'
 import Home from './pages/Home.jsx'
 import ScopriAzienda from './pages/ScopriAzienda.jsx'
-import Conoscici from './pages/Conoscici.jsx'
+// Alias: il nome ChiSiamo è già preso dalla sezione della Home
+// (components/ChiSiamo.jsx), questa è la pagina dedicata.
+import ChiSiamoPage from './pages/ChiSiamo.jsx'
 import ScopriTerritorio from './pages/ScopriTerritorio.jsx'
 
 gsap.registerPlugin(ScrollTrigger, Flip, useGSAP)
@@ -28,7 +30,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/scopri-azienda" element={<ScopriAzienda />} />
-        <Route path="/conoscici" element={<Conoscici />} />
+        <Route path="/chi-siamo" element={<ChiSiamoPage />} />
         <Route path="/scopri-territorio" element={<ScopriTerritorio />} />
       </Routes>
     </>

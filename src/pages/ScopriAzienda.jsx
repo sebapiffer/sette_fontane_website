@@ -5,6 +5,62 @@ import SplitHeading from '../components/SplitHeading.jsx'
 import useReveal from '../hooks/useReveal.js'
 import { scopriAziendaPage } from '../data/content.js'
 
+// Ogni blocco ha il proprio useReveal invece di condividere quello della
+// sezione: useReveal aggancia lo ScrollTrigger al contenitore che riceve il
+// ref, quindi con un solo ref per l'intera sezione il secondo blocco si
+// animerebbe mentre è ancora sotto la piega, arrivando già rivelato.
+function BloccoAlternato({ blocco, immagineASinistra }) {
+  const ref = useReveal()
+
+  return (
+    <div
+      ref={ref}
+      className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16 lg:gap-24"
+    >
+      <div className={immagineASinistra ? 'md:order-2' : undefined}>
+        <p data-reveal className="eyebrow text-moro">
+          {blocco.eyebrow}
+        </p>
+        <SplitHeading
+          as="h2"
+          data-reveal-words
+          className="mt-5 max-w-prose font-display text-[clamp(1.8rem,3.4vw,2.6rem)] leading-[1.12] text-antracite"
+        >
+          {blocco.titolo}
+        </SplitHeading>
+        <div className="mt-6 space-y-5">
+          {blocco.testo.map((p, j) => (
+            <p
+              key={j}
+              data-reveal
+              className="max-w-prose font-prose text-[clamp(1rem,1.3vw,1.12rem)] leading-relaxed text-antracite/75"
+            >
+              {p}
+            </p>
+          ))}
+        </div>
+      </div>
+
+      <figure
+        className={`mx-auto w-full max-w-md md:max-w-none ${immagineASinistra ? 'md:order-1' : ''}`}
+      >
+        <div className="aspect-[4/5] w-full overflow-hidden">
+          <img
+            data-reveal-img
+            src={blocco.image.src}
+            alt={blocco.image.alt}
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="1500"
+            className="h-full w-full rounded-t-full object-cover"
+          />
+        </div>
+      </figure>
+    </div>
+  )
+}
+
 export default function ScopriAzienda() {
   const introRef = useReveal()
   const timelineRef = useReveal()
@@ -19,10 +75,8 @@ export default function ScopriAzienda() {
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         // start/end sulla stessa soglia (85%): la distanza di scroll fra i
         // due punti è sempre esattamente l'altezza della lista, quindi il
-        // disegno completa SEMPRE entro la fine pagina — a differenza di
-        // soglie diverse (es. 'top 80%'/'bottom 20%'), che qui non si
-        // raggiungono mai: è l'ultima sezione prima di un Footer troppo
-        // corto per scrollare fino a quel punto, e il tratto resta a metà.
+        // disegno completa SEMPRE entro la fine della lista, qualunque sia
+        // il numero di tappe.
         gsap.to('.timeline-line', {
           strokeDashoffset: 0,
           ease: 'none',
@@ -49,8 +103,8 @@ export default function ScopriAzienda() {
           data-nav-theme="light"
           className="bg-creta pb-[clamp(5rem,12vw,9rem)] pt-[clamp(8rem,15vw,11rem)]"
         >
-          <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
-            <div>
+          <div className="mx-auto max-w-7xl px-5 sm:px-8">
+            <div className="mx-auto max-w-3xl text-center">
               <p data-reveal className="eyebrow text-moro">
                 {scopriAziendaPage.eyebrow}
               </p>
@@ -66,26 +120,36 @@ export default function ScopriAzienda() {
                   <p
                     key={i}
                     data-reveal
-                    className="max-w-prose font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-antracite/75"
+                    className="font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-antracite/75"
                   >
                     {p}
                   </p>
                 ))}
               </div>
             </div>
-            <figure className="mx-auto w-full max-w-md overflow-hidden md:max-w-none">
-              <div className="aspect-[4/5] w-full">
+
+            {/* Foto di gruppo: larga ma non full-bleed (max-w-5xl dentro il
+                contenitore di pagina), scoperta con la stessa tendina
+                clip-path di useReveal usata da ogni immagine del sito. */}
+            <figure className="mx-auto mt-[clamp(3rem,7vw,5rem)] w-full max-w-5xl">
+              <div className="aspect-[16/9] w-full overflow-hidden">
                 <img
                   data-reveal-img
-                  src={scopriAziendaPage.image.src}
-                  alt={scopriAziendaPage.image.alt}
+                  src={scopriAziendaPage.gruppo.src}
+                  alt={scopriAziendaPage.gruppo.alt}
                   loading="lazy"
                   decoding="async"
-                  width="1600"
-                  height="900"
-                  className="h-full w-full rounded-t-full object-cover"
+                  width="1800"
+                  height="1100"
+                  className="h-full w-full object-cover"
                 />
               </div>
+              <figcaption
+                data-reveal
+                className="mt-5 text-center font-prose text-sm leading-relaxed text-antracite/60"
+              >
+                {scopriAziendaPage.gruppo.caption}
+              </figcaption>
             </figure>
           </div>
         </section>
@@ -141,6 +205,18 @@ export default function ScopriAzienda() {
                 ))}
               </ol>
             </div>
+          </div>
+        </section>
+
+        {/* Blocchi alternati: su mobile una colonna (immagine sempre sotto il
+            testo, ordine del DOM = ordine di lettura); da md in poi due
+            colonne e il blocco dispari inverte l'ordine visivo portando
+            l'immagine a sinistra. */}
+        <section data-nav-theme="light" className="bg-creta py-[clamp(5rem,12vw,9rem)]">
+          <div className="mx-auto max-w-7xl space-y-[clamp(4rem,10vw,8rem)] px-5 sm:px-8">
+            {scopriAziendaPage.blocchi.map((blocco, i) => (
+              <BloccoAlternato key={i} blocco={blocco} immagineASinistra={i % 2 === 1} />
+            ))}
           </div>
         </section>
       </main>

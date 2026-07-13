@@ -134,9 +134,12 @@ export const scopriAziendaPage = {
     'Testo placeholder: qui troverà spazio il racconto disteso del maso, della sua conduzione biologica e della filosofia che guida il lavoro in vigna. [Testo placeholder da sostituire.]',
     'Testo placeholder: un secondo paragrafo di approfondimento, con i dettagli che non trovano posto nella sintesi della home. [Testo placeholder da sostituire.]',
   ],
-  image: {
-    src: 'https://picsum.photos/seed/maso-storia/1600/900',
-    alt: 'Veduta del maso [placeholder]',
+  // Foto di gruppo: apre la pagina sotto il titolo, formato panoramico
+  // (non full-bleed), didascalia sotto.
+  gruppo: {
+    src: 'https://picsum.photos/seed/maso-gruppo/1800/1100',
+    alt: 'Foto di gruppo della famiglia e delle persone del maso [placeholder]',
+    caption: 'Le persone di Maso Sette Fontane [didascalia placeholder]',
   },
   timelineEyebrow: 'La nostra storia',
   timelineTitle: 'Una storia per tappe [placeholder]',
@@ -147,27 +150,122 @@ export const scopriAziendaPage = {
     { anno: '20xx [placeholder]', titolo: 'San Florian [placeholder]', testo: 'Testo placeholder da sostituire: la nascita del primo vino a portare il nome della chiesa di Giovo.' },
     { anno: 'Oggi [placeholder]', titolo: 'Il progetto continua [placeholder]', testo: 'Testo placeholder da sostituire con lo stato attuale del progetto e le prospettive future.' },
   ],
+  // Blocchi alternati testo/immagine sotto la timeline: l'ordine visivo si
+  // inverte a blocchi pari (immagine a sinistra) — vedi ScopriAzienda.
+  blocchi: [
+    {
+      eyebrow: 'La filosofia [placeholder]',
+      titolo: 'Lavorare assecondando la vigna [placeholder]',
+      testo: [
+        'Testo placeholder: il primo paragrafo racconta l’approccio al lavoro in vigna, fatto di interventi minimi e di osservazione costante delle piante e del suolo. [Testo placeholder da sostituire.]',
+        'Testo placeholder: il secondo paragrafo entra nel merito delle pratiche biologiche adottate e del perché siano una scelta identitaria, non una certificazione da esibire. [Testo placeholder da sostituire.]',
+        'Testo placeholder: il terzo paragrafo chiude sul rapporto tra il tempo della vigna e il tempo del lavoro quotidiano. [Testo placeholder da sostituire.]',
+      ],
+      image: {
+        src: 'https://picsum.photos/seed/maso-filosofia/1200/1500',
+        alt: 'Dettaglio del lavoro in vigna [placeholder]',
+      },
+    },
+    {
+      eyebrow: 'I valori [placeholder]',
+      titolo: 'Un maso, poche bottiglie, nessuna fretta [placeholder]',
+      testo: [
+        'Testo placeholder: il primo paragrafo descrive la scelta di produrre poco e bene, con una resa contenuta per ettaro. [Testo placeholder da sostituire.]',
+        'Testo placeholder: il secondo paragrafo parla delle persone che contribuiscono al progetto e del legame con la comunità di Giovo. [Testo placeholder da sostituire.]',
+        'Testo placeholder: il terzo paragrafo guarda avanti, alle vendemmie che verranno e ai vini ancora in cantina. [Testo placeholder da sostituire.]',
+      ],
+      image: {
+        src: 'https://picsum.photos/seed/maso-valori/1200/1500',
+        alt: 'Bottiglie e cantina del maso [placeholder]',
+      },
+    },
+  ],
 }
 
-export const conosciciPage = {
-  eyebrow: 'Chi siamo',
-  title: 'Conoscici [placeholder]',
-  paragraphs: [
-    'Testo placeholder: qui troverà spazio un ritratto più disteso di Davide e Andrea, del loro percorso e di come si dividono il lavoro tra vigna e cantina. [Testo placeholder da sostituire.]',
-    'Testo placeholder: un secondo paragrafo dedicato ai valori e alle persone che, insieme ai due fratelli, contribuiscono al progetto Sette Fontane. [Testo placeholder da sostituire.]',
+export const chiSiamoPage = {
+  eyebrow: 'Le persone',
+  title: 'Chi siamo',
+  intro:
+    'Testo placeholder: una riga di apertura che presenta i due fratelli e il maso. [Testo placeholder da sostituire.]',
+  // Ritratti: il primo ha l'immagine a destra, il secondo la specchia a
+  // sinistra — l'alternanza è calcolata sull'indice in ChiSiamo.jsx.
+  persone: [
+    {
+      nome: 'Davide',
+      ruolo: 'Vigna e campagna',
+      paragrafi: [
+        'Testo placeholder: il ruolo di Davide in cantina e in vigna, il suo percorso di studi e la formazione agronomica che porta ogni giorno tra i filari. [Testo placeholder da sostituire.]',
+        'Testo placeholder: la dedizione alle stagioni — potatura, palco verde, vendemmia — e la scelta di intervenire il meno possibile, lasciando che sia la pianta a dettare i tempi. [Testo placeholder da sostituire.]',
+        'Testo placeholder: il suo approccio alla terra, fatto di osservazione e pazienza più che di ricette. [Testo placeholder da sostituire.]',
+      ],
+      image: {
+        src: 'https://picsum.photos/seed/davide/1200/1500',
+        alt: 'Ritratto di Davide [placeholder]',
+      },
+    },
+    {
+      nome: 'Andrea',
+      ruolo: 'Cantina e progetto',
+      paragrafi: [
+        'Testo placeholder: la personalità di Andrea e il modo in cui la sua curiosità ha dato forma all’identità del progetto Sette Fontane. [Testo placeholder da sostituire.]',
+        'Testo placeholder: le sue passioni, dentro e fuori dalla cantina, e come si riflettono nello stile dei vini. [Testo placeholder da sostituire.]',
+        'Testo placeholder: il contributo quotidiano, dalla pressa alla bottiglia, e il dialogo costante con il lavoro del fratello in vigna. [Testo placeholder da sostituire.]',
+      ],
+      image: {
+        src: 'https://picsum.photos/seed/andrea/1200/1500',
+        alt: 'Ritratto di Andrea [placeholder]',
+      },
+    },
   ],
+  radici: {
+    eyebrow: 'Le nostre radici',
+    citazione:
+      'Mio nonno diceva sempre che il vino non si fa in cantina, si fa ascoltando la terra.',
+    paragrafi: [
+      'Testo placeholder: Davide e Andrea sono cresciuti seguendo i passi del nonno tra i filari, imparando prima a guardare che a fare — il tempo della vigna non si accorcia, si asseconda. [Testo placeholder da sostituire.]',
+      'Testo placeholder: da lui hanno raccolto il rispetto per i tempi della natura e un’eredità che non sta in un ettaro di terra, ma in un modo di stare al mondo. [Testo placeholder da sostituire.]',
+    ],
+    foto: {
+      src: 'https://picsum.photos/seed/nonno-vigna/1000/1200?grayscale',
+      alt: 'Fotografia d’archivio del nonno tra le vigne [placeholder]',
+      caption: 'Il nonno tra i filari del maso, anni ’60 [didascalia placeholder]',
+    },
+  },
 }
 
 export const scopriTerritorioPage = {
   eyebrow: 'Il territorio',
-  title: 'Giovo e la Val di Cembra [placeholder]',
-  paragraphs: [
-    'Testo placeholder: qui troverà spazio l’approfondimento sul territorio, i terrazzamenti di porfido e il microclima che caratterizza la Val di Cembra. [Testo placeholder da sostituire.]',
-    'Testo placeholder: un secondo paragrafo dedicato alle varietà coltivate e al legame tra suolo e stile dei vini. [Testo placeholder da sostituire.]',
-  ],
+  title: 'La Valle di Cembra',
+  // Immagine d'apertura: larga ma non full-bleed, sotto il titolo.
   image: {
-    src: 'https://picsum.photos/seed/cembra-dettaglio/1600/900',
-    alt: 'Terrazzamenti della Val di Cembra [placeholder]',
+    src: 'https://picsum.photos/seed/cembra-valle/1800/1100',
+    alt: 'Veduta della Valle di Cembra [placeholder]',
+    caption: 'I terrazzamenti della Val di Cembra [didascalia placeholder]',
+  },
+  paragraphs: [
+    'Testo placeholder: la Val di Cembra si apre come una scala di terrazzamenti in porfido, settecento chilometri di muretti a secco che disegnano il fianco della montagna. [Testo placeholder da sostituire.]',
+    'Testo placeholder: il microclima nasce dall’escursione termica fra il giorno e la notte e dai venti che risalgono la valle, e regala ai bianchi acidità e profumo. [Testo placeholder da sostituire.]',
+    'Testo placeholder: suoli acidi e minerali, pendenze impossibili, vigne fra i 400 e gli 800 metri: qui la viticoltura è una scelta, mai una comodità. [Testo placeholder da sostituire.]',
+  ],
+  mappa: {
+    // Ricerca su Google Maps: nessuna chiave API, nessun iframe di terze parti
+    // (il box è disegnato in casa, vedi ScopriTerritorio.jsx).
+    href: 'https://www.google.com/maps/search/?api=1&query=Valle+di+Cembra%2C+Trentino',
+    label: 'Valle di Cembra',
+    sublabel: 'Trentino, Italia',
+    cta: 'Apri in Google Maps',
+  },
+  news: {
+    eyebrow: 'Approfondimenti',
+    titolo: 'La viticoltura eroica',
+    paragrafi: [
+      'Testo placeholder: si chiama eroica la viticoltura che si pratica oltre il 30% di pendenza, dove nessun mezzo può salire e ogni gesto — potare, legare, vendemmiare — resta lavoro di mani. [Testo placeholder da sostituire.]',
+      'Testo placeholder: i muretti a secco che sostengono i terrazzamenti sono un paesaggio costruito pietra su pietra da generazioni, e vanno mantenuti come si mantiene una vigna. [Testo placeholder da sostituire.]',
+    ],
+    image: {
+      src: 'https://picsum.photos/seed/muretti-secco/1200/1500',
+      alt: 'Muretti a secco e vendemmia eroica sui terrazzamenti [placeholder]',
+    },
   },
 }
 

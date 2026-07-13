@@ -54,7 +54,7 @@ export default function ChiSiamo() {
 
         {/* z-10: il viticcio decorativo passa dietro il pulsante */}
         <div data-reveal className="relative z-10 mt-14">
-          <Cta as={Link} to="/conoscici" className="btn-light">
+          <Cta as={Link} to="/chi-siamo" className="btn-light">
             {chiSiamo.cta}
           </Cta>
         </div>
