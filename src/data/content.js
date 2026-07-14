@@ -48,6 +48,13 @@ export const azienda = {
     src: 'https://picsum.photos/seed/pergola/960/1200',
     alt: 'Filari a pergola trentina del maso [placeholder]',
   },
+  // Sfondo di sezione: foto ampia e poco leggibile in dettaglio (una vigna in
+  // campo lungo), non un soggetto — sta sotto un velo di creta e serve come
+  // profondità, non come informazione. Vedi SfondoSezione.
+  background: {
+    src: 'https://picsum.photos/seed/vigna-sfondo/1920/1280',
+    // [placeholder] campo lungo dei filari del maso
+  },
 }
 
 export const chiSiamo = {
@@ -75,6 +82,10 @@ export const chiSiamo = {
     },
   ],
   cta: 'Conoscici',
+  background: {
+    src: 'https://picsum.photos/seed/vigna-notte/1920/1280',
+    // [placeholder] vigna al crepuscolo, tonalità scure
+  },
 }
 
 export const territorio = {
@@ -83,9 +94,16 @@ export const territorio = {
   title: 'Giovo, Val di Cembra',
   text: 'Pendii ripidi, terrazzamenti di porfido e un’escursione termica che firma i profumi del vino. Qui il Müller Thurgau ha trovato la sua casa di montagna. [Testo placeholder da sostituire.]',
   cta: 'Scopri il territorio',
+  // La figura resta la "finestra sul paesaggio" (rettangolare, mai ad arco):
+  // qui però mostra un dettaglio — i terrazzamenti in porfido — perché il
+  // panorama d'insieme è passato a fare da sfondo all'intera sezione.
   image: {
+    src: 'https://picsum.photos/seed/porfido/1200/1500',
+    alt: 'Terrazzamenti e muretti a secco in porfido [placeholder]',
+  },
+  background: {
     src: 'https://picsum.photos/seed/cembra/1920/1080',
-    alt: 'Vista panoramica della Val di Cembra [placeholder]',
+    // [placeholder] panorama della Val di Cembra
   },
 }
 
@@ -97,6 +115,10 @@ export const sanFlorian = {
   intro:
     'Il nostro primo vino porta il nome della chiesa che veglia sulle vigne di Giovo. Questa bottiglia racconta il nostro Trentino: la memoria di una tradizione antica e il coraggio di una nuova generazione che guarda lontano.',
   cta: 'Assapora San Florian',
+  background: {
+    src: 'https://picsum.photos/seed/cantina/1920/1280',
+    // [placeholder] cantina/botti, immagine scura: sta sotto un velo antracite
+  },
   formats: [
     {
       id: 'renana',
@@ -278,6 +300,10 @@ export const comingSoon = {
 export const footer = {
   id: 'contatti',
   heading: 'Contatti',
+  background: {
+    src: 'https://picsum.photos/seed/maso-sera/1920/1080',
+    // [placeholder] il maso visto da fuori: è l'invito a venirci a trovare
+  },
   indirizzo: 'Maso Sette Fontane — Giovo (TN), Val di Cembra [placeholder]',
   email: 'info@settefontanewinery.com',
   telefono: '+39 000 000 0000 [placeholder]',

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import useReveal from '../hooks/useReveal.js'
 import Cta from './Cta.jsx'
+import SfondoSezione from './SfondoSezione.jsx'
 import SplitHeading from './SplitHeading.jsx'
 import { chiSiamo } from '../data/content.js'
 
@@ -12,9 +13,18 @@ export default function ChiSiamo() {
       id={chiSiamo.id}
       ref={ref}
       data-nav-theme="dark"
-      className="bg-antracite py-[clamp(5rem,12vw,9rem)]"
+      className="relative overflow-hidden bg-antracite py-[clamp(5rem,12vw,9rem)]"
     >
-      <div className="mx-auto max-w-7xl px-5 text-center sm:px-8">
+      <SfondoSezione src={chiSiamo.background.src} opacita={0.3}>
+        {/* Testo centrato su fondo scuro: velo pieno ai bordi (dove entrano e
+            escono le sezioni adiacenti) e appena più aperto al centro, dove
+            cadono i due ritratti. Il testo resta su un fondo praticamente
+            antracite pieno. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-antracite via-antracite/75 to-antracite" />
+        <div className="absolute inset-0 bg-antracite/45" />
+      </SfondoSezione>
+
+      <div className="relative mx-auto max-w-7xl px-5 text-center sm:px-8">
         <p data-reveal className="eyebrow text-sabbia">
           {chiSiamo.eyebrow}
         </p>

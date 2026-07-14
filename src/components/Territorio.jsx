@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import Cta from './Cta.jsx'
+import SfondoSezione from './SfondoSezione.jsx'
 import SplitHeading from './SplitHeading.jsx'
 import { territorio } from '../data/content.js'
 
@@ -56,7 +57,15 @@ export default function Territorio() {
       data-nav-theme="light"
       className="relative overflow-hidden bg-offwhite py-[clamp(5rem,12vw,9rem)]"
     >
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
+      {/* Il panorama della valle è qui, a tutta sezione: è il soggetto più
+          grande del sito dopo la hero. Il velo lo tiene sotto la soglia di
+          rumore del testo — pieno a sinistra sulla colonna scritta, aperto a
+          destra dove c'è solo la figura. */}
+      <SfondoSezione src={territorio.background.src} opacita={0.55}>
+        <div className="absolute inset-0 bg-gradient-to-b from-offwhite/95 via-offwhite/85 to-offwhite/80 md:bg-gradient-to-r md:from-offwhite md:via-offwhite/80 md:to-offwhite/25" />
+      </SfondoSezione>
+
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
         <div className="territorio-content">
           <p className="eyebrow text-moro">{territorio.eyebrow}</p>
           <SplitHeading
@@ -82,8 +91,8 @@ export default function Territorio() {
               alt={territorio.image.alt}
               loading="lazy"
               decoding="async"
-              width="1920"
-              height="1080"
+              width="1200"
+              height="1500"
               className="territorio-img h-full w-full object-cover"
             />
           </div>

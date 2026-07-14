@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import useReveal from '../hooks/useReveal.js'
 import Cta from './Cta.jsx'
+import SfondoSezione from './SfondoSezione.jsx'
 import SplitHeading from './SplitHeading.jsx'
 import { azienda } from '../data/content.js'
 
@@ -12,9 +13,16 @@ export default function Azienda() {
       id={azienda.id}
       ref={ref}
       data-nav-theme="light"
-      className="bg-creta py-[clamp(5rem,12vw,9rem)]"
+      className="relative overflow-hidden bg-creta py-[clamp(5rem,12vw,9rem)]"
     >
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
+      <SfondoSezione src={azienda.background.src} opacita={0.45}>
+        {/* Il testo sta a sinistra: il velo è pieno lì e si alleggerisce verso
+            la foto. In colonna singola le due metà si sovrappongono, quindi il
+            gradiente scende invece di attraversare. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-creta/95 via-creta/85 to-creta/75 md:bg-gradient-to-r md:from-creta md:via-creta/85 md:to-creta/35" />
+      </SfondoSezione>
+
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
         <div>
           <p data-reveal className="eyebrow text-moro">
             {azienda.eyebrow}

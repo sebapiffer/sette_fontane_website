@@ -6,6 +6,7 @@ import { useGSAP } from '@gsap/react'
 import { X } from 'lucide-react'
 import useReveal from '../hooks/useReveal.js'
 import Cta from './Cta.jsx'
+import SfondoSezione from './SfondoSezione.jsx'
 import SplitHeading from './SplitHeading.jsx'
 import { sanFlorian } from '../data/content.js'
 import { riduciMovimento, BREAKPOINT_LG } from '../lib/ambiente.js'
@@ -181,7 +182,16 @@ export default function SanFlorian() {
       data-nav-theme="dark"
       className="relative overflow-hidden bg-antracite py-[clamp(5rem,12vw,9rem)]"
     >
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-5 sm:px-8 lg:grid-cols-2">
+      {/* Sfondo tenuto molto basso: qui il soggetto è la bottiglia, la foto è
+          solo la stanza attorno. Il velo è pieno sulla colonna di testo e
+          resta comunque scuro dietro l'alone, che deve continuare a leggersi
+          come l'unica sorgente di luce della sezione. */}
+      <SfondoSezione src={sanFlorian.background.src} opacita={0.22}>
+        <div className="absolute inset-0 bg-gradient-to-b from-antracite via-antracite/70 to-antracite" />
+        <div className="absolute inset-0 bg-antracite/40 lg:bg-gradient-to-r lg:from-antracite lg:via-antracite/70 lg:to-antracite/45" />
+      </SfondoSezione>
+
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-5 sm:px-8 lg:grid-cols-2">
         <div>
           <p data-reveal className="eyebrow text-tortora">
             {sanFlorian.eyebrow}

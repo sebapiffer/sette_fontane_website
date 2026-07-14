@@ -1,6 +1,7 @@
 import { Instagram, Facebook } from 'lucide-react'
 import useReveal from '../hooks/useReveal.js'
 import DropsLogo from './DropsLogo.jsx'
+import SfondoSezione from './SfondoSezione.jsx'
 import { site, footer } from '../data/content.js'
 
 const ICONS = { instagram: Instagram, facebook: Facebook }
@@ -13,9 +14,16 @@ export default function Footer() {
       ref={ref}
       id={footer.id}
       data-nav-theme="dark"
-      className="bg-antracite pb-10 pt-[clamp(4rem,9vw,6.5rem)] text-offwhite"
+      className="relative overflow-hidden bg-antracite pb-10 pt-[clamp(4rem,9vw,6.5rem)] text-offwhite"
     >
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 sm:px-8 md:grid-cols-3">
+      {/* Il maso in fondo alla pagina: chiude il racconto proprio dove si
+          invita a venire a trovarci. Sfuma nell'antracite verso il basso, dove
+          stanno i contatti e le note legali. */}
+      <SfondoSezione src={footer.background.src} opacita={0.3}>
+        <div className="absolute inset-0 bg-gradient-to-b from-antracite/85 via-antracite/85 to-antracite" />
+      </SfondoSezione>
+
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 sm:px-8 md:grid-cols-3">
         <div data-reveal>
           <div className="flex items-center gap-3">
             <DropsLogo className="h-10 w-auto text-tortora" />
@@ -73,7 +81,10 @@ export default function Footer() {
         </div>
       </div>
 
-      <div data-reveal className="mx-auto mt-14 max-w-7xl border-t border-offwhite/10 px-5 pt-6 sm:px-8">
+      <div
+        data-reveal
+        className="relative mx-auto mt-14 max-w-7xl border-t border-offwhite/10 px-5 pt-6 sm:px-8"
+      >
         <ul className="flex flex-col gap-2 font-sans text-xs font-light tracking-wide text-offwhite/40 sm:flex-row sm:justify-between">
           {footer.note.map((n) => (
             <li key={n}>{n}</li>
