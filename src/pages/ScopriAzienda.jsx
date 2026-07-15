@@ -1,6 +1,7 @@
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import Footer from '../components/Footer.jsx'
+import SfondoSezione from '../components/SfondoSezione.jsx'
 import SplitHeading from '../components/SplitHeading.jsx'
 import useReveal from '../hooks/useReveal.js'
 import { scopriAziendaPage } from '../data/content.js'
@@ -53,7 +54,7 @@ function BloccoAlternato({ blocco, immagineASinistra }) {
             decoding="async"
             width="1200"
             height="1500"
-            className="h-full w-full rounded-t-full object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
       </figure>
@@ -101,9 +102,12 @@ export default function ScopriAzienda() {
         <section
           ref={introRef}
           data-nav-theme="light"
-          className="bg-creta pb-[clamp(5rem,12vw,9rem)] pt-[clamp(8rem,15vw,11rem)]"
+          className="relative overflow-hidden bg-creta pb-[clamp(5rem,12vw,9rem)] pt-[clamp(8rem,15vw,11rem)]"
         >
-          <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <SfondoSezione src={scopriAziendaPage.background.src} opacita={0.5}>
+            <div className="absolute inset-0 bg-gradient-to-b from-creta via-creta/85 to-creta/70" />
+          </SfondoSezione>
+          <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
             <div className="mx-auto max-w-3xl text-center">
               <p data-reveal className="eyebrow text-moro">
                 {scopriAziendaPage.eyebrow}
@@ -212,8 +216,14 @@ export default function ScopriAzienda() {
             testo, ordine del DOM = ordine di lettura); da md in poi due
             colonne e il blocco dispari inverte l'ordine visivo portando
             l'immagine a sinistra. */}
-        <section data-nav-theme="light" className="bg-creta py-[clamp(5rem,12vw,9rem)]">
-          <div className="mx-auto max-w-7xl space-y-[clamp(4rem,10vw,8rem)] px-5 sm:px-8">
+        <section
+          data-nav-theme="light"
+          className="relative overflow-hidden bg-creta py-[clamp(5rem,12vw,9rem)]"
+        >
+          <SfondoSezione src={scopriAziendaPage.blocchiBackground.src} opacita={0.6}>
+            <div className="absolute inset-0 bg-creta/75" />
+          </SfondoSezione>
+          <div className="relative mx-auto max-w-7xl space-y-[clamp(4rem,10vw,8rem)] px-5 sm:px-8">
             {scopriAziendaPage.blocchi.map((blocco, i) => (
               <BloccoAlternato key={i} blocco={blocco} immagineASinistra={i % 2 === 1} />
             ))}

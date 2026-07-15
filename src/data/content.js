@@ -52,8 +52,9 @@ export const azienda = {
   // campo lungo), non un soggetto — sta sotto un velo di creta e serve come
   // profondità, non come informazione. Vedi SfondoSezione.
   background: {
-    src: 'https://picsum.photos/seed/vigna-sfondo/1920/1280',
-    // [placeholder] campo lungo dei filari del maso
+    src: '/img/sfondo-vigna-filari.webp',
+    // [placeholder] campo lungo dei filari del maso — immagine segnaposto (vigna
+    // di repertorio), da sostituire con una foto reale del maso
   },
 }
 
@@ -83,8 +84,9 @@ export const chiSiamo = {
   ],
   cta: 'Conoscici',
   background: {
-    src: 'https://picsum.photos/seed/vigna-notte/1920/1280',
-    // [placeholder] vigna al crepuscolo, tonalità scure
+    src: '/img/sfondo-vigna-strada.webp',
+    // [placeholder] vigna al crepuscolo, tonalità scure — segnaposto (strada tra
+    // le viti, cielo carico), da sostituire con una foto reale
   },
 }
 
@@ -102,8 +104,9 @@ export const territorio = {
     alt: 'Terrazzamenti e muretti a secco in porfido [placeholder]',
   },
   background: {
-    src: 'https://picsum.photos/seed/cembra/1920/1080',
-    // [placeholder] panorama della Val di Cembra
+    src: '/img/sfondo-vigna-monti.webp',
+    // [placeholder] panorama della Val di Cembra — segnaposto (vigna, prato e
+    // monti), da sostituire con una foto reale della valle
   },
 }
 
@@ -116,8 +119,9 @@ export const sanFlorian = {
     'Il nostro primo vino porta il nome della chiesa che veglia sulle vigne di Giovo. Questa bottiglia racconta il nostro Trentino: la memoria di una tradizione antica e il coraggio di una nuova generazione che guarda lontano.',
   cta: 'Assapora San Florian',
   background: {
-    src: 'https://picsum.photos/seed/cantina/1920/1280',
-    // [placeholder] cantina/botti, immagine scura: sta sotto un velo antracite
+    src: '/img/sfondo-vigna-terrazze.webp',
+    // [placeholder] terrazzamenti vitati: sta sotto un velo antracite —
+    // segnaposto, da sostituire con una foto reale
   },
   formats: [
     {
@@ -152,6 +156,16 @@ export const sanFlorian = {
 export const scopriAziendaPage = {
   eyebrow: "L'azienda",
   title: 'La storia di Maso Sette Fontane [placeholder]',
+  // Sfondi fotografici di sezione (segnaposto, vigne di repertorio — vedi
+  // SfondoSezione): sotto un velo tarato sul testo, servono da profondità.
+  background: {
+    src: '/img/sfondo-vigna-cielo.webp',
+    // [placeholder] filari e cielo aperto — da sostituire con una foto del maso
+  },
+  blocchiBackground: {
+    src: '/img/sfondo-vigna-nebbia.webp',
+    // [placeholder] collina vitata nella foschia — da sostituire con una foto reale
+  },
   intro: [
     'Testo placeholder: qui troverà spazio il racconto disteso del maso, della sua conduzione biologica e della filosofia che guida il lavoro in vigna. [Testo placeholder da sostituire.]',
     'Testo placeholder: un secondo paragrafo di approfondimento, con i dettagli che non trovano posto nella sintesi della home. [Testo placeholder da sostituire.]',
@@ -207,6 +221,16 @@ export const scopriAziendaPage = {
 export const chiSiamoPage = {
   eyebrow: 'Le persone',
   title: 'Chi siamo',
+  // Sfondi fotografici di sezione (segnaposto — vedi SfondoSezione): sotto un
+  // velo tarato sul testo, servono da profondità.
+  background: {
+    src: '/img/sfondo-borgo-vigna.webp',
+    // [placeholder] il borgo e la chiesa sopra le vigne — da sostituire
+  },
+  radiciBackground: {
+    src: '/img/sfondo-vigna-bruma.webp',
+    // [placeholder] filari nella bruma (bianco e nero, tono d'archivio) — da sostituire
+  },
   intro:
     'Testo placeholder: una riga di apertura che presenta i due fratelli e il maso. [Testo placeholder da sostituire.]',
   // Ritratti: il primo ha l'immagine a destra, il secondo la specchia a
@@ -258,6 +282,16 @@ export const chiSiamoPage = {
 export const scopriTerritorioPage = {
   eyebrow: 'Il territorio',
   title: 'La Valle di Cembra',
+  // Sfondi fotografici di sezione (segnaposto — vedi SfondoSezione): sotto un
+  // velo tarato sul testo, servono da profondità.
+  background: {
+    src: '/img/sfondo-terrazzamenti.webp',
+    // [placeholder] fianco terrazzato della valle — da sostituire con una foto reale
+  },
+  newsBackground: {
+    src: '/img/sfondo-borgo-monti.webp',
+    // [placeholder] borgo vitato tra i monti — da sostituire con una foto reale
+  },
   // Immagine d'apertura: larga ma non full-bleed, sotto il titolo.
   image: {
     src: 'https://picsum.photos/seed/cembra-valle/1800/1100',
@@ -270,11 +304,16 @@ export const scopriTerritorioPage = {
     'Testo placeholder: suoli acidi e minerali, pendenze impossibili, vigne fra i 400 e gli 800 metri: qui la viticoltura è una scelta, mai una comodità. [Testo placeholder da sostituire.]',
   ],
   mappa: {
-    // Ricerca su Google Maps: nessuna chiave API, nessun iframe di terze parti
-    // (il box è disegnato in casa, vedi ScopriTerritorio.jsx).
-    href: 'https://www.google.com/maps/search/?api=1&query=Valle+di+Cembra%2C+Trentino',
+    // Mappa reale della Val di Cembra generata da tile OpenStreetMap e servita
+    // in locale (niente chiave API né iframe di terze parti): centrata su Giovo,
+    // così il pin di brand cade sulla cantina. Leggermente desaturata e velata
+    // di creta per stare nella palette. Attribuzione © OpenStreetMap impressa
+    // nell'immagine. Il box resta un link alla ricerca su Google Maps.
+    src: '/img/mappa-val-di-cembra.webp',
+    alt: 'Mappa della Val di Cembra, in Trentino, con Giovo al centro',
+    href: 'https://www.google.com/maps/search/?api=1&query=Giovo%2C+Val+di+Cembra%2C+Trentino',
     label: 'Valle di Cembra',
-    sublabel: 'Trentino, Italia',
+    sublabel: 'Giovo — Trentino, Italia',
     cta: 'Apri in Google Maps',
   },
   news: {
@@ -301,8 +340,9 @@ export const footer = {
   id: 'contatti',
   heading: 'Contatti',
   background: {
-    src: 'https://picsum.photos/seed/maso-sera/1920/1080',
-    // [placeholder] il maso visto da fuori: è l'invito a venirci a trovare
+    src: '/img/sfondo-vigna-autunno.webp',
+    // [placeholder] il maso visto da fuori: è l'invito a venirci a trovare —
+    // segnaposto (vigna d'autunno, luce di sera), da sostituire con una foto reale
   },
   indirizzo: 'Maso Sette Fontane — Giovo (TN), Val di Cembra [placeholder]',
   email: 'info@settefontanewinery.com',

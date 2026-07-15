@@ -15,7 +15,7 @@ export default function ChiSiamo() {
       data-nav-theme="dark"
       className="relative overflow-hidden bg-antracite py-[clamp(5rem,12vw,9rem)]"
     >
-      <SfondoSezione src={chiSiamo.background.src} opacita={0.3}>
+      <SfondoSezione src={chiSiamo.background.src} opacita={0.5}>
         {/* Testo centrato su fondo scuro: velo pieno ai bordi (dove entrano e
             escono le sezioni adiacenti) e appena più aperto al centro, dove
             cadono i due ritratti. Il testo resta su un fondo praticamente

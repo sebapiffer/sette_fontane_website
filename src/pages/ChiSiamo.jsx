@@ -1,4 +1,5 @@
 import Footer from '../components/Footer.jsx'
+import SfondoSezione from '../components/SfondoSezione.jsx'
 import SplitHeading from '../components/SplitHeading.jsx'
 import useReveal from '../hooks/useReveal.js'
 import { chiSiamoPage } from '../data/content.js'
@@ -42,9 +43,10 @@ function Ritratto({ persona, immagineASinistra }) {
       <figure
         className={`mx-auto w-full max-w-md md:max-w-none ${immagineASinistra ? 'md:order-1' : ''}`}
       >
-        {/* Bordo e ombra stanno sul contenitore, non sull'<img>: useReveal
-            anima clip-path e scale sull'immagine, che li taglierebbe via. */}
-        <div className="aspect-[4/5] w-full overflow-hidden rounded-2xl border border-antracite/15 shadow-2xl shadow-antracite/20">
+        {/* Ritaglio pulito, senza bordo/ombra/arrotondamento: stesso stile
+            fotografico delle sezioni della home (foto rettangolari a taglio
+            netto, la sola tendina di useReveal come trattamento). */}
+        <div className="aspect-[4/5] w-full overflow-hidden">
           <img
             data-reveal-img
             src={persona.image.src}
@@ -74,9 +76,12 @@ export default function ChiSiamo() {
         <section
           ref={headerRef}
           data-nav-theme="dark"
-          className="bg-antracite pb-[clamp(4rem,9vw,7rem)] pt-[clamp(8rem,15vw,11rem)]"
+          className="relative overflow-hidden bg-antracite pb-[clamp(4rem,9vw,7rem)] pt-[clamp(8rem,15vw,11rem)]"
         >
-          <div className="mx-auto max-w-3xl px-5 text-center sm:px-8">
+          <SfondoSezione src={chiSiamoPage.background.src} opacita={0.5}>
+            <div className="absolute inset-0 bg-gradient-to-b from-antracite via-antracite/75 to-antracite" />
+          </SfondoSezione>
+          <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
             <p data-reveal className="eyebrow text-sabbia">
               {chiSiamoPage.eyebrow}
             </p>
@@ -113,9 +118,12 @@ export default function ChiSiamo() {
         <section
           ref={radiciRef}
           data-nav-theme="dark"
-          className="bg-moro py-[clamp(5rem,12vw,9rem)]"
+          className="relative overflow-hidden bg-moro py-[clamp(5rem,12vw,9rem)]"
         >
-          <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
+          <SfondoSezione src={chiSiamoPage.radiciBackground.src} opacita={0.5}>
+            <div className="absolute inset-0 bg-gradient-to-b from-moro/90 via-moro/80 to-moro/90 md:bg-gradient-to-r md:from-moro/45 md:via-moro/75 md:to-moro" />
+          </SfondoSezione>
+          <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
             {/* Foto d'archivio in cornice polaroid: bordo bianco, leggera
                 inclinazione, bianco e nero via grayscale. */}
             <figure className="mx-auto w-full max-w-sm -rotate-2 bg-offwhite p-3 pb-5 shadow-2xl shadow-antracite/40">

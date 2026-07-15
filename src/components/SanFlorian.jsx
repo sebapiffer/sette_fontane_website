@@ -186,7 +186,7 @@ export default function SanFlorian() {
           solo la stanza attorno. Il velo è pieno sulla colonna di testo e
           resta comunque scuro dietro l'alone, che deve continuare a leggersi
           come l'unica sorgente di luce della sezione. */}
-      <SfondoSezione src={sanFlorian.background.src} opacita={0.22}>
+      <SfondoSezione src={sanFlorian.background.src} opacita={0.34}>
         <div className="absolute inset-0 bg-gradient-to-b from-antracite via-antracite/70 to-antracite" />
         <div className="absolute inset-0 bg-antracite/40 lg:bg-gradient-to-r lg:from-antracite lg:via-antracite/70 lg:to-antracite/45" />
       </SfondoSezione>

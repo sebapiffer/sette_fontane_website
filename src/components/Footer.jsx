@@ -19,7 +19,7 @@ export default function Footer() {
       {/* Il maso in fondo alla pagina: chiude il racconto proprio dove si
           invita a venire a trovarci. Sfuma nell'antracite verso il basso, dove
           stanno i contatti e le note legali. */}
-      <SfondoSezione src={footer.background.src} opacita={0.3}>
+      <SfondoSezione src={footer.background.src} opacita={0.52}>
         <div className="absolute inset-0 bg-gradient-to-b from-antracite/85 via-antracite/85 to-antracite" />
       </SfondoSezione>
 
