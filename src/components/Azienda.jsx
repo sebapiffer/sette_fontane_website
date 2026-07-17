@@ -13,7 +13,7 @@ export default function Azienda() {
       id={azienda.id}
       ref={ref}
       data-nav-theme="light"
-      className="relative overflow-hidden bg-creta py-[clamp(5rem,12vw,9rem)]"
+      className="relative overflow-hidden bg-creta pb-[clamp(5rem,12vw,9rem)] pt-[clamp(2.5rem,5vw,4rem)]"
     >
       <SfondoSezione src={azienda.background.src} opacita={0.5}>
         {/* Il testo sta a sinistra: il velo è pieno lì e si alleggerisce verso

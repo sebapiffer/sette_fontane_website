@@ -24,23 +24,40 @@ export default function Hero() {
 
         const annulla = quandoPronto(() => tl.play())
 
-        // Allo scroll la hero sfuma verso il fondo chiaro della sezione successiva.
+        // Allo scroll la hero sfuma verso il fondo chiaro della sezione
+        // successiva. NIENTE pin: era il pin la causa della "pagina bianca".
+        // La hero è alta un intero viewport; pinnandola, dopo che il contenuto
+        // era sfumato restava a schermo il suo fondo (ormai creta) tenuto fermo
+        // e vuoto finché il colore non finiva — schermo pieno di vuoto. Senza
+        // pin la hero scorre via naturalmente e Azienda, che la segue subito
+        // (è a un viewport esatto, nessun gap), sale a coprirla dal basso:
+        // mentre il contenuto della hero sfuma in alto, Azienda è già in vista
+        // in basso, quindi non c'è mai un fotogramma interamente vuoto.
+        // Il fondo vira ad antracite → tortora → creta e chiude su creta presto
+        // (progresso ~0.75), così quando il bordo hero/Azienda entra in campo i
+        // due fondi combaciano e la giunzione è invisibile. `scrub` mappa tutto
+        // sui primi ~55% di uscita della hero.
+        // Con `scrub` l'ULTIMO tween chiude sempre a fine range: la corsa
+        // (30%) è quindi la distanza entro cui il fondo raggiunge creta. Oltre,
+        // la hero (creta) finisce di scorrere via su Azienda (creta) — stesso
+        // colore, giunzione invisibile e nessuna tenuta vuota. Le posizioni
+        // qui sono frazioni della corsa: contenuto e video via a ~metà, il
+        // colore antracite → tortora → creta chiude a fondo corsa.
         gsap
           .timeline({
             scrollTrigger: {
               trigger: sectionRef.current,
               start: 'top top',
-              end: '+=85%',
-              pin: true,
+              end: '+=30%',
               scrub: true,
             },
           })
           .to('.hero-content', { autoAlpha: 0, y: -70, ease: 'none', duration: 0.5 }, 0)
           // il video si dissolve per lasciar emergere il colore di fondo animato
-          .to('.hero-media', { autoAlpha: 0, ease: 'none', duration: 0.45 }, 0.05)
+          .to('.hero-media', { autoAlpha: 0, ease: 'none', duration: 0.4 }, 0.05)
           // passa per il tortora del brand per non attraversare grigi spenti
-          .to(sectionRef.current, { backgroundColor: '#A48A7B', ease: 'none', duration: 0.55 }, 0.15)
-          .to(sectionRef.current, { backgroundColor: '#F5F1EC', ease: 'none', duration: 0.3 }, 0.7)
+          .to(sectionRef.current, { backgroundColor: '#A48A7B', ease: 'none', duration: 0.3 }, 0.1)
+          .to(sectionRef.current, { backgroundColor: '#F5F1EC', ease: 'none', duration: 0.6 }, 0.4)
 
         return annulla
       })
