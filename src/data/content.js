@@ -110,6 +110,15 @@ export const territorio = {
   },
 }
 
+// Fascia-separatore che apre il capitolo dei vini: lunga, bassa, a tutta
+// larghezza. Il titolo è spezzato in due per far entrare il logo a gocce nel
+// mezzo — vedi IntroVini.
+export const vini = {
+  id: 'la-nostra-cantina',
+  title: 'La nostra cantina',
+  titleParts: ['La nostra', 'cantina'],
+}
+
 export const sanFlorian = {
   id: 'san-florian',
   eyebrow: 'La nostra cantina',

@@ -663,9 +663,21 @@ const CONFIGURAZIONI = [
           ricciolo: { tipo: 'piatta', ampiezza: 9, giri: 2, restringimento: 0.88 },
         },
       }),
+      // Attraversa la fascia "I nostri vini" nel canale libero a destra del
+      // titolo: i nodi sono ancorati al filo destro (indice 1) proprio perché
+      // quel filo È il canale — nasce dove il titolo finisce e arriva al
+      // bordo, quindi la linea resta larga dal testo a ogni larghezza senza
+      // ritarature. Attraversa il filo: è una decorazione, l'intreccio ci sta.
+      p('.vini-filo', 0.12, 0, { dy: -78 }, 1),
+      p('.vini-filo', 0.22, 0, {}, 1),
+      p('.vini-filo', 0.1, 0, { dy: 78 }, 1),
       // aggira la bottiglia: entra da sinistra, le gira dietro e riemerge.
-      // Nel vuoto scuro a destra della bottiglia il ramo più elaborato
-      p('.sf-bottle', -1.02, -0.199),
+      // Nel vuoto scuro a destra della bottiglia il ramo più elaborato.
+      // Il nodo d'ingresso è sceso da -0.199 a -0.02: la fascia costringe la
+      // linea nel canale a destra fino a 18 px sopra il vecchio ingresso, e
+      // rientrare a sinistra in quello spazio era un gomito. Più in basso, la
+      // rientranza torna una curva.
+      p('.sf-bottle', -1.02, -0.02),
       p('.sf-bottle', -0.29, 0.267),
       p('.sf-bottle', -0.14, 0.482, { asola: { raggio: 27, lato: 'sinistra' } }),
       p('.sf-bottle', 0.5, 0.643),
@@ -782,8 +794,16 @@ const CONFIGURAZIONI = [
       p('#territorio figure', 0.94, 0),
       p('#territorio figure', 0.28, 0.72),
       p('#territorio figure', 0.28, 1),
-      // seconda foglia, nel vuoto tra Territorio e San Florian
-      p('#territorio figure', 0.32, 1.18, { foglia: { lato: 'destra', scala: 1, rotazione: 10 } }, ),
+      // Seconda foglia: il vuoto tra Territorio e San Florian ora è occupato
+      // dalla fascia "I nostri vini", quindi la foglia risale nella striscia
+      // che resta sopra la fascia — mai a cavallo del suo bordo.
+      p('#territorio figure', 0.32, 1.06, { foglia: { lato: 'destra', scala: 1, rotazione: 10 } }),
+      // Attraversa la fascia nel canale libero a sinistra del titolo, ancorata
+      // al filo sinistro (indice 0), che quel canale lo delimita da sé a ogni
+      // larghezza. Vedi la nota gemella nella configurazione desktop.
+      p('.vini-filo', 0.4, 0, { dy: -58 }, 0),
+      p('.vini-filo', 0.3, 0, {}, 0),
+      p('.vini-filo', 0.55, 0, { dy: 58 }, 0),
       // costeggia il testo di San Florian e aggira la bottiglia
       p('#san-florian .grid > div', 1.028, 0.05),
       p('#san-florian .grid > div', 1.037, 0.55),

@@ -3,6 +3,7 @@ import Hero from '../components/Hero.jsx'
 import Azienda from '../components/Azienda.jsx'
 import ChiSiamo from '../components/ChiSiamo.jsx'
 import Territorio from '../components/Territorio.jsx'
+import IntroVini from '../components/IntroVini.jsx'
 import SanFlorian from '../components/SanFlorian.jsx'
 import ComingSoon from '../components/ComingSoon.jsx'
 import Viticcio from '../components/Viticcio.jsx'
@@ -20,6 +21,7 @@ export default function Home() {
           <Azienda />
           <ChiSiamo />
           <Territorio />
+          <IntroVini />
           <SanFlorian />
           <ComingSoon />
           <Viticcio />
