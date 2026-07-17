@@ -1,6 +1,12 @@
 // Contenuti del sito — sostituire i testi segnalati come [placeholder]
 // prima della pubblicazione. La struttura non va modificata.
 
+// Gli asset in public/ sono referenziati con percorso assoluto (/img, /video):
+// Vite non riscrive le stringhe dei dati come fa per HTML/CSS/JS, quindi vanno
+// prefissate a mano con il base path (import.meta.env.BASE_URL) o si rompono
+// sotto GitHub Pages, dove il sito vive in una sottocartella. In dev è '/'.
+const asset = (p) => import.meta.env.BASE_URL + p.replace(/^\//, '')
+
 export const site = {
   name: 'Sette Fontane',
   nameParts: ['Sette', 'Fontane'],
@@ -31,7 +37,7 @@ export const hero = {
   // [placeholder] sostituire con il video definitivo (stesso percorso o
   // aggiornare src). Consigliato: mp4 H.264, 1080p, < 8 MB, senza audio.
   video: {
-    src: '/video/hero-placeholder.mp4',
+    src: asset('/video/hero-placeholder.mp4'),
   },
 }
 
@@ -52,7 +58,7 @@ export const azienda = {
   // campo lungo), non un soggetto — sta sotto un velo di creta e serve come
   // profondità, non come informazione. Vedi SfondoSezione.
   background: {
-    src: '/img/sfondo-vigna-filari.webp',
+    src: asset('/img/sfondo-vigna-filari.webp'),
     // [placeholder] campo lungo dei filari del maso — immagine segnaposto (vigna
     // di repertorio), da sostituire con una foto reale del maso
   },
@@ -84,7 +90,7 @@ export const chiSiamo = {
   ],
   cta: 'Conoscici',
   background: {
-    src: '/img/sfondo-vigna-strada.webp',
+    src: asset('/img/sfondo-vigna-strada.webp'),
     // [placeholder] vigna al crepuscolo, tonalità scure — segnaposto (strada tra
     // le viti, cielo carico), da sostituire con una foto reale
   },
@@ -104,7 +110,7 @@ export const territorio = {
     alt: 'Terrazzamenti e muretti a secco in porfido [placeholder]',
   },
   background: {
-    src: '/img/sfondo-vigna-monti.webp',
+    src: asset('/img/sfondo-vigna-monti.webp'),
     // [placeholder] panorama della Val di Cembra — segnaposto (vigna, prato e
     // monti), da sostituire con una foto reale della valle
   },
@@ -128,7 +134,7 @@ export const sanFlorian = {
     'Il nostro primo vino porta il nome della chiesa che veglia sulle vigne di Giovo. Questa bottiglia racconta il nostro Trentino: la memoria di una tradizione antica e il coraggio di una nuova generazione che guarda lontano.',
   cta: 'Assapora San Florian',
   background: {
-    src: '/img/sfondo-vigna-terrazze.webp',
+    src: asset('/img/sfondo-vigna-terrazze.webp'),
     // [placeholder] terrazzamenti vitati: sta sotto un velo antracite —
     // segnaposto, da sostituire con una foto reale
   },
@@ -137,13 +143,13 @@ export const sanFlorian = {
       id: 'renana',
       label: 'Renana',
       volume: '0,75 L',
-      image: '/img/san-florian-renana.webp',
+      image: asset('/img/san-florian-renana.webp'),
     },
     {
       id: 'magnum',
       label: 'Magnum',
       volume: '1,5 L',
-      image: '/img/san-florian-magnum.webp',
+      image: asset('/img/san-florian-magnum.webp'),
     },
   ],
   degustazione: {
@@ -168,11 +174,11 @@ export const scopriAziendaPage = {
   // Sfondi fotografici di sezione (segnaposto, vigne di repertorio — vedi
   // SfondoSezione): sotto un velo tarato sul testo, servono da profondità.
   background: {
-    src: '/img/sfondo-vigna-cielo.webp',
+    src: asset('/img/sfondo-vigna-cielo.webp'),
     // [placeholder] filari e cielo aperto — da sostituire con una foto del maso
   },
   blocchiBackground: {
-    src: '/img/sfondo-vigna-nebbia.webp',
+    src: asset('/img/sfondo-vigna-nebbia.webp'),
     // [placeholder] collina vitata nella foschia — da sostituire con una foto reale
   },
   intro: [
@@ -233,11 +239,11 @@ export const chiSiamoPage = {
   // Sfondi fotografici di sezione (segnaposto — vedi SfondoSezione): sotto un
   // velo tarato sul testo, servono da profondità.
   background: {
-    src: '/img/sfondo-borgo-vigna.webp',
+    src: asset('/img/sfondo-borgo-vigna.webp'),
     // [placeholder] il borgo e la chiesa sopra le vigne — da sostituire
   },
   radiciBackground: {
-    src: '/img/sfondo-vigna-bruma.webp',
+    src: asset('/img/sfondo-vigna-bruma.webp'),
     // [placeholder] filari nella bruma (bianco e nero, tono d'archivio) — da sostituire
   },
   intro:
@@ -294,11 +300,11 @@ export const scopriTerritorioPage = {
   // Sfondi fotografici di sezione (segnaposto — vedi SfondoSezione): sotto un
   // velo tarato sul testo, servono da profondità.
   background: {
-    src: '/img/sfondo-terrazzamenti.webp',
+    src: asset('/img/sfondo-terrazzamenti.webp'),
     // [placeholder] fianco terrazzato della valle — da sostituire con una foto reale
   },
   newsBackground: {
-    src: '/img/sfondo-borgo-monti.webp',
+    src: asset('/img/sfondo-borgo-monti.webp'),
     // [placeholder] borgo vitato tra i monti — da sostituire con una foto reale
   },
   // Immagine d'apertura: larga ma non full-bleed, sotto il titolo.
@@ -318,7 +324,7 @@ export const scopriTerritorioPage = {
     // così il pin di brand cade sulla cantina. Leggermente desaturata e velata
     // di creta per stare nella palette. Attribuzione © OpenStreetMap impressa
     // nell'immagine. Il box resta un link alla ricerca su Google Maps.
-    src: '/img/mappa-val-di-cembra.webp',
+    src: asset('/img/mappa-val-di-cembra.webp'),
     alt: 'Mappa della Val di Cembra, in Trentino, con Giovo al centro',
     href: 'https://www.google.com/maps/search/?api=1&query=Giovo%2C+Val+di+Cembra%2C+Trentino',
     label: 'Valle di Cembra',
@@ -349,7 +355,7 @@ export const footer = {
   id: 'contatti',
   heading: 'Contatti',
   background: {
-    src: '/img/sfondo-vigna-autunno.webp',
+    src: asset('/img/sfondo-vigna-autunno.webp'),
     // [placeholder] il maso visto da fuori: è l'invito a venirci a trovare —
     // segnaposto (vigna d'autunno, luce di sera), da sostituire con una foto reale
   },
