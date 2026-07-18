@@ -583,21 +583,20 @@ const CONFIGURAZIONI = [
       // scavalca la foto del maso ed entra nel canale alla sua sinistra
       p('#azienda figure', 0.27, 0, { dy: -49 }),
       p('#azienda figure', 0.46, 0.085),
-      p('#azienda figure', 0, 0.283),
-      p('#azienda figure', -0.014, 0.471),
+      p('#azienda figure', 1.214, 0.471),
       p('#azienda figure', -0.083, 0.637),
       // dall'angolo basso-sinistra della foto un ramo diverge nel vuoto sotto
       p('#azienda figure', -0.102, 0.948, {
         ramo: {
-          lato: 'destra',
+          lato: 'sinistra',
           punti: [
             { u: 50, v: 102 },
-            { u: 98, v: 142 },
+            { u: -68, v: 212 },
           ],
           // bobina a induttore che si apre leggermente a ventaglio: ogni
           // spira più stretta ruota di qualche grado rispetto alla precedente
           ricciolo: {
-            spire: [{ ampiezza: 19 }, { ampiezza: 16, inclinazione: 14 }, { ampiezza: 14, inclinazione: 14 }],
+            spire: [{ ampiezza: 19 }, { ampiezza: 16, inclinazione: -24 }, { ampiezza: 14, inclinazione: -24 }],
           },
         },
       }),
@@ -605,25 +604,7 @@ const CONFIGURAZIONI = [
       // apre nel vuoto dell'ansa, con una biforcazione; nel vuoto appena sopra
       // una foglia segna il passaggio tra le due sezioni
       p('#chi-siamo', 0.3, -0.01, { foglia: { lato: 'destra', scala: 1.75, rotazione: 8 } }),
-      p('#chi-siamo', 0.18, 0.048, {
-        ramo: {
-          lato: 'destra',
-          punti: [
-            { u: 62, v: 115 },
-            { u: 95, v: 178 },
-            { u: 82, v: 214 },
-          ],
-          figli: [
-            {
-              lato: 'sinistra',
-              da: 1,
-              punti: [
-                { u: 40, v: 110 },
-              ],
-            },
-          ],
-        },
-      }),
+      p('#chi-siamo', 0.18, 0.048),
       p('#chi-siamo', 0.118, 0.123),
       p('#chi-siamo', 0.236, 0.219),
       // esce dall'angolo alto-destra del primo ritratto e ridiscende nel
