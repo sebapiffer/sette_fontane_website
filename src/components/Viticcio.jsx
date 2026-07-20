@@ -33,17 +33,19 @@ import { riduciMovimento, quandoPronto, BREAKPOINT_MD, BREAKPOINT_LG } from '../
 //      BIFORCAZIONE della spline principale, non più una curva parametrica.
 //      Nasce dal punto d'innesto TANGENTE alla linea madre (stessa saldatura
 //      C1 usata dalle asole) e da lì il tracciato si autora come un proprio
-//      array di `punti` — in coordinate LOCALI del gambo (`u` lungo la
-//      tangente d'innesto, `v` perpendicolare, positivo verso `lato`) —
-//      uniti dalla STESSA spline Catmull-Rom centripeta della linea madre:
-//      la stessa lista di punti produce la stessa forma relativa ovunque
-//      venga usata, qualunque direzione punti lì la linea. I rami sono POCHI
-//      ma AMPI: vivono solo negli spazi larghi, così abbracciano il layout
-//      con eleganza senza toccare il testo né sovrapporsi. Un ramo può
-//      ancora BIFORCARSI (`figli`): ogni figlio innesta tangente a un punto
-//      interno del gambo padre (indice `da`), con un proprio array di
-//      `punti`, ricorsivamente. Sono tutti path separati (i subBranches): la
-//      linea madre resta comunque una. In punta un ramo (a qualunque
+//      array di `punti`, uniti dalla STESSA spline Catmull-Rom centripeta
+//      della linea madre. `punti` usa la STESSA struttura ancorata alla
+//      pagina dei nodi principali: coordinate assolute prodotte da
+//      `p(ancora, fx, fy, …)`, frazioni del rettangolo di un elemento reale
+//      (di norma la stessa ancora del nodo d'innesto) — non più offset
+//      locali rispetto alla tangente. I rami sono POCHI ma AMPI: vivono solo
+//      negli spazi larghi, così abbracciano il layout con eleganza senza
+//      toccare il testo né sovrapporsi. Un ramo può ancora BIFORCARSI
+//      (`figli`): ogni figlio innesta tangente a un punto interno del gambo
+//      padre (indice `da`), con un proprio array di `punti` (stessa
+//      struttura ancorata alla pagina), ricorsivamente. Sono tutti path
+//      separati (i subBranches): la linea madre resta comunque una. In punta
+//      un ramo (a qualunque
 //      livello: anche un figlio, sotto-ramo secondario o terziario) può
 //      portare un `ricciolo`, in due varianti — entrambe restituiscono
 //      PUNTI campionati, accodati al gambo prima della stessa unica spline,
@@ -181,8 +183,8 @@ const PUNTI_CAPPIO = [
 const CAPPIO_USCITA_LOCALE = normalizza(0.55 - -0.25, -0.15 - 0.15)
 
 // Un cappio auto-intersecante (vedi PUNTI_CAPPIO), scalato per `raggio` e
-// piazzato in (punto, direzione) con la stessa trasformazione locale→
-// assoluta dei rami (puntoLocale). Ritorna l'array di `punti` (da accodare
+// piazzato in (punto, direzione) tramite la trasformazione locale→assoluta
+// puntoLocale. Ritorna l'array di `punti` (da accodare
 // al punto di partenza, che NON è incluso, per coerenza con
 // puntiSpiralePiatta) più punto e tangente d'uscita. Usato dalle asole
 // della linea madre (arcoAsola) e da ogni spira di un ricciolo a induttore
@@ -295,12 +297,14 @@ function catenaGambo(innesto, tangente, L, svolta, senso, punti) {
   return catena
 }
 
-// Converte un punto in coordinate LOCALI del gambo — `u` lungo la tangente
-// d'innesto, `v` perpendicolare, positivo verso `lato` — in coordinate
-// assolute di pagina. Con questo un array di punti si autora in numeri
-// piccoli e leggibili (quanto avanti, quanto di lato) indipendentemente
-// dalla posizione o dalla direzione della linea madre in quel nodo: la
-// stessa lista di punti produce la stessa forma relativa ovunque venga usata.
+// Converte un punto in coordinate LOCALI — `u` lungo una tangente d'ingresso,
+// `v` perpendicolare, positivo verso `lato` — in coordinate assolute di
+// pagina. Oggi la usano solo i cappi (PUNTI_CAPPIO/costruisciCappio, sia le
+// asole della linea madre sia le spire di un ricciolo a induttore): un
+// gesto fisso e piccolo, che ha senso restare relativo al suo innesto
+// qualunque direzione punti lì la linea. I rami maggiori non la usano più —
+// i loro `punti` sono ancorati alla pagina come i nodi principali, vedi
+// generaRamo.
 function puntoLocale(innesto, tangente, lato, u, v) {
   const senso = lato === 'destra' ? 1 : -1
   const perp = { x: -tangente.y, y: tangente.x }
@@ -314,20 +318,28 @@ function puntoLocale(innesto, tangente, lato, u, v) {
 // più una curva parametrica. Nasce dal punto d'innesto TANGENTE alla linea
 // madre (o al gambo padre, per i sotto-rami) — stessa saldatura C1 usata
 // dalle asole, la maniglia di Bézier è imposta sulla tangente — e da lì il
-// tracciato si autora come un proprio array di `punti` (coordinate locali,
-// vedi puntoLocale), uniti dalla STESSA spline Catmull-Rom centripeta della
-// linea madre: modificare il ramo significa modificare quell'array, non più
-// angolo/lunghezza/raggio di una formula.
+// tracciato si autora come un proprio array di `punti`, uniti dalla STESSA
+// spline Catmull-Rom centripeta della linea madre. Da quando i rami si sono
+// allineati alla linea principale, `punti` non è più una lista di offset
+// locali (u/v rispetto all'innesto) ma la STESSA identica struttura dei nodi
+// della linea madre: coordinate assolute di pagina prodotte da `p(ancora, fx,
+// fy, …)` nella config, frazioni del rettangolo di un elemento reale — così
+// un ramo resta ancorato a un elemento della pagina (tipicamente la stessa
+// ancora del suo innesto) esattamente come i nodi principali, e segue da solo
+// i cambi di layout invece di scostarsi per un vettore fisso; modificare il
+// ramo significa modificare quelle frazioni, misurate sul DOM come tutte le
+// altre, non un angolo/lunghezza/raggio di una formula.
 //
 // Un ramo può ancora BIFORCARSI (`figli`): ogni figlio innesta tangente a un
 // punto interno del gambo padre — indice `da` nel gambo risultante (0 =
 // l'innesto stesso, 1 = primo punto di `punti`, …) — con la tangente stimata
 // dai punti vicini (stesso criterio della linea madre), e ha il proprio
-// array `punti`, ricorsivamente. La ricorsione produce un ARRAY di path
-// separati (il tronco più ogni discendente): la linea madre resta comunque
-// una sola. Ogni path porta con sé il proprio `inizio` (il punto d'innesto):
-// serve a calcolare, già in generazione, la frazione della linea madre a cui
-// il ramo deve comparire — senza mai rimisurare i path dal DOM.
+// array `punti` (stessa struttura ancorata alla pagina), ricorsivamente. La
+// ricorsione produce un ARRAY di path separati (il tronco più ogni
+// discendente): la linea madre resta comunque una sola. Ogni path porta con
+// sé il proprio `inizio` (il punto d'innesto): serve a calcolare, già in
+// generazione, la frazione della linea madre a cui il ramo deve comparire —
+// senza mai rimisurare i path dal DOM.
 //
 // In punta si può innestare un `ricciolo`, in due varianti scelte da
 // `ricciolo.tipo`:
@@ -347,10 +359,7 @@ function puntoLocale(innesto, tangente, lato, u, v) {
 // funzione, ricorsivamente.
 function generaRamo(innesto, tangente, opzioni) {
   const { lato = 'destra', punti = [], figli = [], ricciolo } = opzioni
-  const gambo = [
-    { x: innesto.x, y: innesto.y },
-    ...punti.map(({ u, v }) => puntoLocale(innesto, tangente, lato, u, v)),
-  ]
+  const gambo = [{ x: innesto.x, y: innesto.y }, ...punti]
   let coda = []
   if (ricciolo) {
     const ultimo = gambo[gambo.length - 1]
@@ -590,8 +599,8 @@ const CONFIGURAZIONI = [
         ramo: {
           lato: 'sinistra',
           punti: [
-            { u: 50, v: 102 },
-            { u: -68, v: 212 },
+            p('#azienda figure', -0.0079, 1.0892),
+            p('#azienda figure', 0.2707, 1.0451),
           ],
           // bobina a induttore che si apre leggermente a ventaglio: ogni
           // spira più stretta ruota di qualche grado rispetto alla precedente
@@ -635,9 +644,9 @@ const CONFIGURAZIONI = [
         ramo: {
           lato: 'destra',
           punti: [
-            { u: 18, v: 42 },
-            { u: 50, v: 92 },
-            { u: 78, v: 142 },
+            p('#territorio figure', -0.1018, 0.9426),
+            p('#territorio figure', -0.1093, 1.026),
+            p('#territorio figure', -0.1225, 1.106),
           ],
           // qui invece la spirale piatta ripristinata, che si stringe verso
           // il centro in un giro e mezzo
@@ -671,24 +680,24 @@ const CONFIGURAZIONI = [
         ramo: {
           lato: 'destra',
           punti: [
-            { u: 20, v: 48 },
-            { u: 58, v: 108 },
-            { u: 90, v: 168 },
-                ],
-                        ricciolo: {
-                spire: [
-                  { ampiezza: 18, spaziatura: 20 },
-                  { ampiezza: 15, spaziatura: 25 },
-                  { ampiezza: 12, spaziatura: 25 },
-                ],
-              },
+            p('.sf-bottle', -0.7612, 1.1016),
+            p('.sf-bottle', -1.0246, 1.0303),
+            p('.sf-bottle', -1.2594, 0.9565),
+          ],
+          ricciolo: {
+            spire: [
+              { ampiezza: 18, spaziatura: 20 },
+              { ampiezza: 15, spaziatura: 25 },
+              { ampiezza: 12, spaziatura: 25 },
+            ],
+          },
           figli: [
             {
               lato: 'sinistra',
               da: 2,
               punti: [
-                { u: 18, v: 38 },
-                { u: 42, v: 80 },
+                p('.sf-bottle', -1.2188, 1.0532),
+                p('.sf-bottle', -1.4482, 1.0742),
               ],
               // il ricciolo funziona anche su un sotto-ramo (secondario):
               // qui spire più larghe e più distanziate del solito
@@ -763,9 +772,9 @@ const CONFIGURAZIONI = [
         ramo: {
           lato: 'destra',
           punti: [
-            { u: 30, v: 30 },
-            { u: 62, v: 55 },
-            { u: 80, v: 78 },
+            p('#territorio .territorio-content', 0.3852, -0.2908),
+            p('#territorio .territorio-content', 0.2717, -0.3155),
+            p('#territorio .territorio-content', 0.1965, -0.3534),
           ],
         },
       }),
@@ -798,15 +807,15 @@ const CONFIGURAZIONI = [
         ramo: {
           lato: 'destra',
           punti: [
-            { u: 34, v: 58 },
-            { u: 50, v: 88 }
+            p('.sf-bottle', -0.6888, 0.9323),
+            p('.sf-bottle', -0.8715, 0.9788),
           ],
           figli: [
             {
               lato: 'sinistra',
               da: 1,
               punti: [
-                { u: 26, v: 46 },
+                p('.sf-bottle', -0.613, 1.0428),
               ],
             },
           ],
