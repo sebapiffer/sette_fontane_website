@@ -126,7 +126,7 @@ export default function Navbar() {
               className="group flex items-center gap-3"
               aria-label="Sette Fontane — inizio pagina"
             >
-              <DropsLogo className="h-9 w-auto text-tortora" spacingX={1.5} />
+              <DropsLogo className="h-9 w-auto text-tortora" />
               <span className="sr-only">{site.nameParts.join(' ')}</span>
               <Wordmark className="h-9 w-auto" />
             </a>
@@ -136,7 +136,7 @@ export default function Navbar() {
               className="group flex items-center gap-3"
               aria-label="Sette Fontane — torna alla home"
             >
-              <DropsLogo className="h-9 w-auto text-tortora" spacingX={1.5} />
+              <DropsLogo className="h-9 w-auto text-tortora" />
               <span className="sr-only">{site.nameParts.join(' ')}</span>
               <Wordmark className="h-9 w-auto" />
             </Link>
