@@ -167,12 +167,15 @@ export default function ScopriAzienda() {
             <p data-reveal className="eyebrow text-center text-moro">
               {scopriAziendaPage.timelineEyebrow}
             </p>
-            <h2
-              data-reveal
+            {/* Come ogni altro titolo del sito: parole che salgono dalla
+                maschera. Era l'unico rimasto a fare un fade in blocco. */}
+            <SplitHeading
+              as="h2"
+              data-reveal-words
               className="mt-5 text-center font-display text-[clamp(2rem,4.5vw,3.4rem)] leading-[1.08] text-antracite"
             >
               {scopriAziendaPage.timelineTitle}
-            </h2>
+            </SplitHeading>
 
             <div className="relative mt-16">
               {/* La linea non è più un border statico: è disegnata da GSAP
