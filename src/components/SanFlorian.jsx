@@ -20,6 +20,11 @@ export default function SanFlorian() {
   const [zoomed, setZoomed] = useState(false);
   const [format, setFormat] = useState(sanFlorian.formats[0]);
 
+  const { acquisto } = sanFlorian;
+  const mailtoAcquisto = `mailto:${acquisto.email}?subject=${encodeURIComponent(
+    acquisto.oggetto(format),
+  )}&body=${encodeURIComponent(acquisto.corpo(format))}`;
+
   // Cattura lo stato della bottiglia prima del cambio layout, poi lascia che
   // l'effetto esegua il Flip flicker-free.
   const toggleZoom = (next) => {
@@ -30,6 +35,12 @@ export default function SanFlorian() {
       // Flip e lo fa bloccare. Rimosso a chiusura completata (onComplete).
       document.documentElement.dataset.sfZoom = "1";
       glowTween.current?.pause();
+      // Il viticcio si avvolge attorno alla bottiglia: mentre questa vola
+      // resterebbe disegnato attorno al vuoto (l'overlay sfuma prima che il
+      // Flip finisca). Lo si dissolve per la traversata — vedi Viticcio.
+      window.dispatchEvent(
+        new CustomEvent("sf:vola", { detail: { attivo: true } }),
+      );
       // Il crossfade del formato (gsap.from al mount) lascia sulla bottiglia
       // un transform inline residuo (translate(0,0)): va tolto PRIMA di
       // leggere lo stato, o sovrascrive il translate di .bottle-zoom e la
@@ -83,6 +94,11 @@ export default function SanFlorian() {
             // ricalcolare i tracciati una volta sola, senza jankare nulla
             delete document.documentElement.dataset.sfZoom;
             window.dispatchEvent(new Event("sf:relayout"));
+            // ...e solo ORA, a bottiglia atterrata e tracciati rimisurati,
+            // il viticcio può riapparire al posto giusto.
+            window.dispatchEvent(
+              new CustomEvent("sf:vola", { detail: { attivo: false } }),
+            );
           }
         },
       });
@@ -339,6 +355,15 @@ export default function SanFlorian() {
                   {f.label} {f.volume}
                 </button>
               ))}
+            </div>
+
+            {/* Richiesta d'acquisto: non si vende online, si concorda per
+                e-mail — il mailto arriva già compilato col formato scelto
+                qui sopra (cambia con il selettore). */}
+            <div className="sf-detail mt-8">
+              <Cta href={mailtoAcquisto} className="btn-light">
+                {sanFlorian.acquisto.etichetta}
+              </Cta>
             </div>
           </div>
         </div>

@@ -274,6 +274,44 @@ function puntiSpiralePiatta(punto, direzione, opzioni) {
   return punti
 }
 
+// Quota della timeline scrubbata (durata totale 1 = la linea madre) spesa a
+// disegnare un ramo e una foglia. Serve anche in generazione: il ritardo di
+// un sotto-ramo è una frazione della durata di disegno del padre.
+const DURATA_RAMO = 0.05
+const DURATA_FOGLIA = 0.08
+
+// Quota di disegno su cui la linea madre "emerge" (vedi il commento sulla
+// timeline): sul 3% la linea ha già percorso qualche centinaio di px, quindi
+// quando è del tutto opaca è una linea, non un punto.
+const EMERSIONE_LINEA = 0.03
+
+// Stato "tutto da disegnare" di un tratto. Il classico `dasharray: l,
+// offset: l` non basta e nemmeno lo spostamento del solo offset: servono
+// entrambi i confini del tratteggio fuori dal path, di un margine, e serve che
+// il pattern non si ripeta prima della fine.
+//   - confine sullo 0 del path (`offset: l`): con `stroke-linecap: round`
+//     Chrome disegna lo stesso la cappuccia tonda del pieno che finisce lì —
+//     il puntino sulla partenza della linea, in mezzo alla hero;
+//   - solo offset spostato (`dasharray: l`, `offset: l + m`): il pattern ha
+//     periodo 2l e SI RIPETE, quindi il vuoto finisce prima del capo opposto e
+//     riaffiora la coda del pieno — un trattino staccato in punta a ogni ramo
+//     e un pezzo di contorno di ogni foglia (misurato rasterizzando i path in
+//     un canvas: ~35 px per ramo, 3-4,5 mila per foglia, che vive in un
+//     sistema scalato dove il margine è enorme).
+// Vuoto più lungo del pieno (l + 2m) e offset che lo centra sul path: nessun
+// confine tocca i capi e il periodo non ci sta due volte. Il margine è in
+// multipli dello spessore proprio per la foglia, dove "3 px" non vorrebbe dire
+// nulla. A offset 0 il pieno copre esattamente [0, l]: il tween di arrivo non
+// cambia.
+const MARGINE_TRATTEGGIO = 3
+const nascondiTratto = (el, lunghezza) => {
+  const margine = MARGINE_TRATTEGGIO * (Number(el.getAttribute('stroke-width')) || 1)
+  gsap.set(el, {
+    strokeDasharray: `${lunghezza} ${lunghezza + 2 * margine}`,
+    strokeDashoffset: lunghezza + margine,
+  })
+}
+
 // Catena di punti di un gambo, integrando la curvatura passo-passo. Usata
 // solo dal ramoscello che porta la foglia (i rami maggiori sono ora
 // biforcazioni a punti espliciti, vedi generaRamo più sotto). La direzione
@@ -357,7 +395,7 @@ function puntoLocale(innesto, tangente, lato, u, v) {
 // Entrambe le varianti funzionano su qualunque ramo, compresi i `figli`
 // (sotto-rami secondari/terziari), perché passano per questa stessa
 // funzione, ricorsivamente.
-function generaRamo(innesto, tangente, opzioni) {
+function generaRamo(innesto, tangente, opzioni, ritardo = 0) {
   const { lato = 'destra', punti = [], figli = [], ricciolo } = opzioni
   const gambo = [{ x: innesto.x, y: innesto.y }, ...punti]
   let coda = []
@@ -373,14 +411,38 @@ function generaRamo(innesto, tangente, opzioni) {
         : puntiRiccioloInduttore(ultimo, direzioneUscita, ricciolo.spire, ricciolo.lato ?? lato)
   }
   const d = `M ${arrotonda(innesto.x)} ${arrotonda(innesto.y)}${splineSegmento([...gambo, ...coda], tangente, null)}`
-  const paths = [{ d, inizio: innesto }]
+  const paths = [{ d, inizio: innesto, ritardo }]
+  // Lunghezze cumulate della spezzata del ramo: bastano a dire A CHE PUNTO
+  // del proprio disegno il ramo padre arriva sull'innesto di ogni figlio
+  // (la spline ci passa dentro, quindi la spezzata la approssima bene).
+  const percorsoRamo = [...gambo, ...coda]
+  const cumulate = [0]
+  for (let i = 1; i < percorsoRamo.length; i++) {
+    cumulate[i] =
+      cumulate[i - 1] +
+      Math.hypot(percorsoRamo[i].x - percorsoRamo[i - 1].x, percorsoRamo[i].y - percorsoRamo[i - 1].y)
+  }
+  const totale = cumulate[cumulate.length - 1] || 1
   for (const figlio of figli) {
     const idx = Math.min(gambo.length - 1, Math.max(0, figlio.da ?? gambo.length - 1))
     const punto = gambo[idx]
     const prima = gambo[Math.max(idx - 1, 0)]
     const dopo = gambo[Math.min(idx + 1, gambo.length - 1)]
     const tang = normalizza(dopo.x - prima.x, dopo.y - prima.y)
-    paths.push(...generaRamo(punto, tang, figlio))
+    // Il figlio non parte con il padre: parte quando il TRATTO del padre gli
+    // arriva addosso, cioè dopo la frazione `u` della durata di disegno del
+    // padre. I ritardi si sommano lungo la ricorsione, così un terziario
+    // aspetta il secondario che aspetta la linea madre.
+    const u = cumulate[idx] / totale
+    const figliPaths = generaRamo(punto, tang, figlio, ritardo + u * DURATA_RAMO)
+    // La frazione di comparsa si misura sempre sulla linea madre, e i figli
+    // non la toccano: il loro innesto sta sul padre, non sulla madre, e
+    // cercarne il punto più vicino sulla madre darebbe un istante a caso.
+    // Ereditano l'innesto del padre e ci aggiungono solo il ritardo.
+    figliPaths.forEach((p) => {
+      p.inizio = innesto
+    })
+    paths.push(...figliPaths)
   }
   return paths
 }
@@ -505,7 +567,9 @@ function generaViticcio(nodi, { ramo: opzioniRamo = {}, foglia: opzioniFoglia = 
     if (nodo.foglia) {
       const { stelo, foglia } = generaRamoscello(nodo, marcia(i), { ...opzioniFoglia, ...nodo.foglia })
       rami.push({ d: stelo, inizio: nodo })
-      foglie.push(foglia)
+      // la foglia sta in punta al ramoscello: compare quando il ramoscello
+      // l'ha raggiunta, non quando la linea madre passa sull'innesto
+      foglie.push({ ...foglia, innesto: nodo })
     }
     if (nodo.asola) {
       const direzione = nodo.asola.direzione ?? marcia(i)
@@ -529,8 +593,11 @@ function generaViticcio(nodi, { ramo: opzioniRamo = {}, foglia: opzioniFoglia = 
   }
   return {
     mainBranch: d,
-    subBranches: rami.map((r) => ({ d: r.d, progresso: frazione(r.inizio) })),
-    leaves: foglie.map((f) => ({ ...f, progresso: frazione(f) })),
+    subBranches: rami.map((r) => ({ d: r.d, progresso: frazione(r.inizio) + (r.ritardo || 0) })),
+    leaves: foglie.map(({ innesto, ...f }) => ({
+      ...f,
+      progresso: frazione(innesto) + DURATA_RAMO,
+    })),
   }
 }
 
@@ -833,8 +900,13 @@ const CONFIGURAZIONI = [
 // Componente
 // ---------------------------------------------------------------------------
 
+// Opacità a riposo del gruppo (vedi il commento sul <g>): la dissolvenza
+// durante lo zoom di San Florian ci torna sopra, quindi vive qui.
+const OPACITA = 0.6
+
 export default function Viticcio() {
   const contenitore = useRef(null)
+  const gruppo = useRef(null)
   const firma = useRef('')
   const [stato, setStato] = useState(null)
 
@@ -909,17 +981,40 @@ export default function Viticcio() {
     }
   }, [])
 
+  // Dissolvenza durante lo zoom di San Florian. La bottiglia è un'ancora del
+  // tracciato, ma nel Flip (apertura e chiusura) vola per ~0.6 s mentre
+  // l'overlay sfuma in 0.25 s: per la parte restante del volo la pagina è
+  // scoperta e il viticcio si vedrebbe avvolto attorno al posto vuoto —
+  // quei "due frame fuori posto". Non si può inseguire la bottiglia (i nodi
+  // sono misurati, non legati a un transform), quindi si toglie di mezzo la
+  // linea per la traversata e la si riporta quando la bottiglia è ferma:
+  // SanFlorian manda `sf:vola` (attivo true/false) e, in chiusura, lo fa
+  // dopo `sf:relayout`, cioè a tracciati già rimisurati.
+  useEffect(() => {
+    const onVola = (e) => {
+      if (!gruppo.current) return
+      gsap.to(gruppo.current, {
+        opacity: e.detail?.attivo ? 0 : OPACITA,
+        duration: riduciMovimento() ? 0 : e.detail?.attivo ? 0.2 : 0.45,
+        ease: 'power2.out',
+      })
+    }
+    window.addEventListener('sf:vola', onVola)
+    return () => window.removeEventListener('sf:vola', onVola)
+  }, [])
+
   // Disegno progressivo scrubbato con lo scroll; ogni ramo e ogni foglia si
   // rivelano quando la punta della linea madre passa sul loro innesto: la
-  // frazione è già calcolata in generazione (data-progresso), qui si legge e
-  // basta. Con prefers-reduced-motion il viticcio resta statico, già disegnato.
+  // frazione è già calcolata in generazione (data-progresso, ritardo dei
+  // sotto-rami compreso), qui si legge e basta. Con prefers-reduced-motion il
+  // viticcio resta statico, già disegnato.
   useGSAP(
     () => {
       if (!stato || riduciMovimento()) return
       const svg = contenitore.current.querySelector('svg')
       const linea = svg.querySelector('.viticcio-linea')
       const lunghezza = linea.getTotalLength()
-      gsap.set(linea, { strokeDasharray: lunghezza, strokeDashoffset: lunghezza })
+      nascondiTratto(linea, lunghezza)
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: contenitore.current,
@@ -929,16 +1024,37 @@ export default function Viticcio() {
         },
       })
       timeline.to(linea, { strokeDashoffset: 0, ease: 'none', duration: 1 }, 0)
+      // La partenza della linea è l'unico capo LIBERO del disegno (i rami
+      // nascono sulla linea, le foglie sui rami): appena lo scrub parte, i
+      // suoi primi pixel sono una cappuccia tonda ferma in mezzo alla hero —
+      // un puntino, ben prima che si veda che è una linea. Non è il
+      // tratteggio: qui c'è inchiostro voluto, solo troppo poco. Quindi la
+      // linea EMERGE, dissolvendo sul primo tratto di disegno invece di
+      // comparire di colpo. L'opacità del gruppo (0.6) resta e si moltiplica.
+      timeline.fromTo(
+        linea,
+        { opacity: 0 },
+        { opacity: 1, ease: 'none', duration: EMERSIONE_LINEA },
+        0
+      )
       svg.querySelectorAll('.viticcio-ramo').forEach((ramo) => {
         const l = ramo.getTotalLength()
-        gsap.set(ramo, { strokeDasharray: l, strokeDashoffset: l })
-        timeline.to(ramo, { strokeDashoffset: 0, ease: 'none', duration: 0.05 }, Number(ramo.dataset.progresso))
+        nascondiTratto(ramo, l)
+        timeline.to(
+          ramo,
+          { strokeDashoffset: 0, ease: 'none', duration: DURATA_RAMO },
+          Number(ramo.dataset.progresso)
+        )
       })
       svg.querySelectorAll('.viticcio-foglia').forEach((foglia) => {
         const contorno = foglia.querySelector('path')
         const l = contorno.getTotalLength()
-        gsap.set(contorno, { strokeDasharray: l, strokeDashoffset: l })
-        timeline.to(contorno, { strokeDashoffset: 0, ease: 'none', duration: 0.08 }, Number(foglia.dataset.progresso))
+        nascondiTratto(contorno, l)
+        timeline.to(
+          contorno,
+          { strokeDashoffset: 0, ease: 'none', duration: DURATA_FOGLIA },
+          Number(foglia.dataset.progresso)
+        )
       })
     },
     { scope: contenitore, dependencies: [stato], revertOnUpdate: true }
@@ -955,7 +1071,7 @@ export default function Viticcio() {
         >
           {/* opacità sul gruppo, non sui singoli tratti: gli innesti dei rami
               si sovrappongono alla linea madre e resterebbero visibili */}
-          <g opacity="0.6">
+          <g ref={gruppo} opacity={OPACITA}>
             <path
               className="viticcio-linea"
               d={stato.mainBranch}

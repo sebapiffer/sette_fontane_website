@@ -7,6 +7,10 @@
 // sotto GitHub Pages, dove il sito vive in una sottocartella. In dev è '/'.
 const asset = (p) => import.meta.env.BASE_URL + p.replace(/^\//, '')
 
+// Indirizzo unico della cantina: lo usano sia i contatti nel footer sia il
+// mailto di richiesta acquisto del San Florian — va cambiato solo qui.
+const emailCantina = 'info@settefontanewinery.com'
+
 export const site = {
   name: 'Sette Fontane',
   nameParts: ['Sette', 'Fontane'],
@@ -166,6 +170,28 @@ export const sanFlorian = {
     { label: 'Servizio', value: '8–10 °C' },
   ],
   chiudi: 'Torna alla cantina',
+  // Richiesta d'acquisto: non c'è e-commerce, la vendita si concorda per
+  // e-mail. `oggetto` e `corpo` sono funzioni del formato selezionato, così
+  // il messaggio precompilato dice già cosa l'utente stava guardando.
+  acquisto: {
+    etichetta: 'Contattaci per acquistare',
+    email: emailCantina,
+    oggetto: (formato) =>
+      `Richiesta d'acquisto — San Florian ${formato.label} ${formato.volume}`,
+    corpo: (formato) =>
+      [
+        'Buongiorno,',
+        '',
+        `vorrei informazioni per acquistare il San Florian nel formato ${formato.label} (${formato.volume}).`,
+        '',
+        'Numero di bottiglie: ',
+        'Nome e cognome: ',
+        'Indirizzo di consegna o ritiro in cantina: ',
+        'Telefono: ',
+        '',
+        'Grazie,',
+      ].join('\n'),
+  },
   storia: {
     hint: 'Scorri per approfondire',
     titolo: 'La storia del San Florian',
@@ -370,7 +396,7 @@ export const footer = {
     // segnaposto (vigna d'autunno, luce di sera), da sostituire con una foto reale
   },
   indirizzo: 'Maso Sette Fontane — Giovo (TN), Val di Cembra [placeholder]',
-  email: 'info@settefontanewinery.com',
+  email: emailCantina,
   telefono: '+39 000 000 0000 [placeholder]',
   social: [
     { label: 'Instagram', href: 'https://instagram.com/', icon: 'instagram' },
