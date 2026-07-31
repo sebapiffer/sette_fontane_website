@@ -47,16 +47,13 @@ import { riduciMovimento, quandoPronto, BREAKPOINT_MD, BREAKPOINT_LG } from '../
 //      separati (i subBranches): la linea madre resta comunque una. In punta
 //      un ramo (a qualunque
 //      livello: anche un figlio, sotto-ramo secondario o terziario) può
-//      portare un `ricciolo`, in due varianti — entrambe restituiscono
-//      PUNTI campionati, accodati al gambo prima della stessa unica spline,
-//      niente giunzioni: `'induttore'` (default) — una fila di cappi auto-
-//      intersecanti in sequenza, ciascuno un nodo scorsoio come una "e"
-//      corsiva ripetuta (non un anello pulito: il simbolo della bobina in
-//      elettrotecnica ne ricorda solo il ritmo), con propria ampiezza,
-//      spaziatura da quella prima e inclinazione (vedi
-//      puntiRiccioloInduttore/costruisciCappio) — oppure `'piatta'` — la spirale
-//      continua che si stringe verso il centro, configurabile in ampiezza,
-//      giri e restringimento (vedi puntiSpiralePiatta).
+//      portare un `ricciolo` a induttore — PUNTI campionati, accodati al
+//      gambo prima della stessa unica spline, niente giunzioni: una fila di
+//      cappi auto-intersecanti in sequenza, ciascuno un nodo scorsoio come
+//      una "e" corsiva ripetuta (non un anello pulito: il simbolo della
+//      bobina in elettrotecnica ne ricorda solo il ritmo), con propria
+//      ampiezza, spaziatura da quella prima e inclinazione (vedi
+//      puntiRiccioloInduttore/costruisciCappio).
 //   4. dove un nodo dichiara `foglia` si genera un RAMOSCELLO — stessa logica
 //      di crescita dei `ramo` maggiori (`catenaGambo`, tangente all'innesto,
 //      poi svolta verso `lato`), ma corto e senza ricciolo finale — e in punta
@@ -186,7 +183,7 @@ const CAPPIO_USCITA_LOCALE = normalizza(0.55 - -0.25, -0.15 - 0.15)
 // piazzato in (punto, direzione) tramite la trasformazione locale→assoluta
 // puntoLocale. Ritorna l'array di `punti` (da accodare
 // al punto di partenza, che NON è incluso, per coerenza con
-// puntiSpiralePiatta) più punto e tangente d'uscita. Usato dalle asole
+// puntiRiccioloInduttore) più punto e tangente d'uscita. Usato dalle asole
 // della linea madre (arcoAsola) e da ogni spira di un ricciolo a induttore
 // (puntiRiccioloInduttore).
 function costruisciCappio(punto, direzione, raggio, lato) {
@@ -206,8 +203,8 @@ function arcoAsola(nodo, direzione, { raggio, lato = 'destra' }) {
 // intersecanti (vedi costruisciCappio) in sequenza, come il simbolo della
 // bobina in elettrotecnica ma con ogni spira annodata su di sé come una "e"
 // corsiva ripetuta, anziché un anello pulito — non una spirale continua
-// che si stringe da sé (per quella vedi puntiSpiralePiatta, la variante `ricciolo.tipo: 'piatta'` più
-// sotto), ma spire distinte descritte una per una dall'array `spire`. Ogni
+// che si stringe da sé, ma spire distinte descritte una per una
+// dall'array `spire`. Ogni
 // spira è `{ampiezza, spaziatura?, inclinazione?, lato?}`:
 //   - `ampiezza` è il suo raggio;
 //   - `spaziatura` è il tratto rettilineo — ma TANGENTE, quindi senza
@@ -221,7 +218,7 @@ function arcoAsola(nodo, direzione, { raggio, lato = 'destra' }) {
 //     e la spira che segue ereditano la nuova direzione;
 //   - `lato` (default quello del ramo) permette di alternare il verso di
 //     avvolgimento da una spira all'altra.
-// Come puntiSpiralePiatta, ritorna un array di PUNTI (non un path): tutte
+// Ritorna un array di PUNTI (non un path): tutte
 // le spire e i tratti di spaziatura fra loro finiscono, campionati, nella
 // STESSA passata di splineSegmento del gambo che le porta — un'unica curva
 // continua, niente giunzioni fra "gambo Bézier" e "ricciolo ad arco".
@@ -238,38 +235,6 @@ function puntiRiccioloInduttore(punto, direzione, spire, lato) {
     punti.push(...giro.punti)
     q = giro.uscita
     t = giro.tangente
-  }
-  return punti
-}
-
-// Ricciolo a spirale piatta: la spirale campionata che c'era prima del
-// passaggio dei rami a punti espliciti, ripristinata e resa configurabile —
-// non più un giro e mezzo a raggio e restringimento fissi, ma `ampiezza`
-// (raggio di partenza), `giri` (avvolgimenti) e `restringimento` (frazione
-// di raggio perduta per ogni giro completo: vicino a 0 resta quasi un
-// cerchio ripetuto, vicino a 1 collassa rapidamente al centro) tutti
-// parametrici. Parte da `punto` con tangente d'ingresso ESATTAMENTE uguale
-// a `direzione` (centro sulla perpendicolare, dal lato scelto): la tangenza
-// d'ingresso è ciò che la rende derivabile nel punto d'innesto, la curva
-// CONTINUA il moto del gambo. A differenza del ricciolo a induttore (archi
-// esatti, path a sé che si aggancia con un `tOut` imposto) questa funzione
-// ritorna un array di PUNTI campionati, non un path: vanno accodati al
-// gambo PRIMA dell'unica passata di splineSegmento che disegna l'intero
-// ramo, così tutta la curva — gambo e spirale insieme — nasce dalla stessa
-// spline Catmull-Rom, senza giunzioni (esattamente come funzionava prima).
-function puntiSpiralePiatta(punto, direzione, opzioni) {
-  const { ampiezza, giri = 1.5, restringimento = 0.88, lato = 'destra', campioni = 18 } = opzioni
-  const senso = lato === 'destra' ? 1 : -1
-  const cx = punto.x - senso * ampiezza * direzione.y
-  const cy = punto.y + senso * ampiezza * direzione.x
-  const a0 = Math.atan2(punto.y - cy, punto.x - cx)
-  const n = Math.max(2, Math.round(campioni * giri))
-  const punti = []
-  for (let k = 1; k <= n; k++) {
-    const t = k / n
-    const a = a0 + senso * Math.PI * 2 * giri * t
-    const r = ampiezza * (1 - restringimento * t)
-    punti.push({ x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) })
   }
   return punti
 }
@@ -379,22 +344,17 @@ function puntoLocale(innesto, tangente, lato, u, v) {
 // generazione, la frazione della linea madre a cui il ramo deve comparire —
 // senza mai rimisurare i path dal DOM.
 //
-// In punta si può innestare un `ricciolo`, in due varianti scelte da
-// `ricciolo.tipo`:
-//   - `'induttore'` (default) — vedi puntiRiccioloInduttore: `{spire}`, una
-//     fila di giri distinti, come il simbolo della bobina in elettrotecnica.
-//   - `'piatta'` — vedi puntiSpiralePiatta: `{ampiezza, giri?,
-//     restringimento?}`, una spirale continua che si stringe verso il
-//     centro.
-// Entrambe ritornano semplici PUNTI: si accodano al gambo e finiscono nella
-// STESSA, unica passata di splineSegmento che disegna l'intero ramo — non
-// c'è alcuna giunzione fra "gambo" e "ricciolo", è tutta una spline sola
+// In punta si può innestare un `ricciolo` — vedi puntiRiccioloInduttore:
+// `{spire}`, una fila di giri distinti, come il simbolo della bobina in
+// elettrotecnica. Ritorna semplici PUNTI: si accodano al gambo e finiscono
+// nella STESSA, unica passata di splineSegmento che disegna l'intero ramo —
+// non c'è alcuna giunzione fra "gambo" e "ricciolo", è tutta una spline sola
 // (coerente con la fluidità della linea madre, vedi costruisciCappio). La
 // tangente d'uscita del gambo, usata per seminare la geometria del
 // ricciolo, è stimata dagli ultimi due punti (stesso criterio di `figli`).
-// Entrambe le varianti funzionano su qualunque ramo, compresi i `figli`
-// (sotto-rami secondari/terziari), perché passano per questa stessa
-// funzione, ricorsivamente.
+// Funziona su qualunque ramo, compresi i `figli` (sotto-rami
+// secondari/terziari), perché passano per questa stessa funzione,
+// ricorsivamente.
 function generaRamo(innesto, tangente, opzioni, ritardo = 0) {
   const { lato = 'destra', punti = [], figli = [], ricciolo } = opzioni
   const gambo = [{ x: innesto.x, y: innesto.y }, ...punti]
@@ -405,10 +365,7 @@ function generaRamo(innesto, tangente, opzioni, ritardo = 0) {
       gambo.length > 1
         ? normalizza(ultimo.x - gambo[gambo.length - 2].x, ultimo.y - gambo[gambo.length - 2].y)
         : tangente
-    coda =
-      ricciolo.tipo === 'piatta'
-        ? puntiSpiralePiatta(ultimo, direzioneUscita, { lato, ...ricciolo })
-        : puntiRiccioloInduttore(ultimo, direzioneUscita, ricciolo.spire, ricciolo.lato ?? lato)
+    coda = puntiRiccioloInduttore(ultimo, direzioneUscita, ricciolo.spire, ricciolo.lato ?? lato)
   }
   const d = `M ${arrotonda(innesto.x)} ${arrotonda(innesto.y)}${splineSegmento([...gambo, ...coda], tangente, null)}`
   const paths = [{ d, inizio: innesto, ritardo }]
@@ -712,12 +669,12 @@ const CONFIGURAZIONI = [
           lato: 'destra',
           punti: [
             p('#territorio figure', -0.1018, 0.9426),
-            p('#territorio figure', -0.1093, 1.026),
-            p('#territorio figure', -0.1225, 1.106),
+            p('#territorio figure', -0.3225, 1.006),
           ],
-          // qui invece la spirale piatta ripristinata, che si stringe verso
-          // il centro in un giro e mezzo
-          ricciolo: { tipo: 'piatta', ampiezza: 9, giri: 2, restringimento: 0.88 },
+          // tre spire che si stringono, aprendosi appena a ventaglio
+          ricciolo: {
+            spire: [{ ampiezza: 19 }, { ampiezza: 16, inclinazione: -4 }, { ampiezza: 14, inclinazione: -4 }],
+          },
         },
       }),
       // Attraversa la fascia "I nostri vini" nel canale libero a destra del
