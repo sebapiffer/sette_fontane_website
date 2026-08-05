@@ -6,6 +6,7 @@ import Cta from './Cta.jsx'
 import SfondoSezione from './SfondoSezione.jsx'
 import SplitHeading from './SplitHeading.jsx'
 import { territorio } from '../data/content.js'
+import DivisoreOnda from './DivisoreOnda.jsx'
 
 export default function Territorio() {
   const ref = useRef(null)
@@ -61,7 +62,7 @@ export default function Territorio() {
           grande del sito dopo la hero. Il velo lo tiene sotto la soglia di
           rumore del testo — pieno a sinistra sulla colonna scritta, aperto a
           destra dove c'è solo la figura. */}
-      <SfondoSezione src={territorio.background.src} opacita={0.55}>
+      <SfondoSezione src={territorio.background.src} srcSet={territorio.background.srcSet} opacita={0.55}>
         <div className="absolute inset-0 bg-gradient-to-b from-offwhite/95 via-offwhite/85 to-offwhite/80 md:bg-gradient-to-r md:from-offwhite md:via-offwhite/80 md:to-offwhite/25" />
       </SfondoSezione>
 
@@ -98,6 +99,7 @@ export default function Territorio() {
           </div>
         </figure>
       </div>
+      <DivisoreOnda colore="antracite" posizione="sopra" specchia />
     </section>
   )
 }

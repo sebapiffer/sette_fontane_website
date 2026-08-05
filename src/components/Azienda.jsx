@@ -4,6 +4,7 @@ import Cta from './Cta.jsx'
 import SfondoSezione from './SfondoSezione.jsx'
 import SplitHeading from './SplitHeading.jsx'
 import { azienda } from '../data/content.js'
+import DivisoreOnda from './DivisoreOnda.jsx'
 
 export default function Azienda() {
   const ref = useReveal()
@@ -15,7 +16,7 @@ export default function Azienda() {
       data-nav-theme="light"
       className="relative overflow-hidden bg-creta pb-[clamp(5rem,12vw,9rem)] pt-[clamp(2.5rem,5vw,4rem)]"
     >
-      <SfondoSezione src={azienda.background.src} opacita={0.5}>
+      <SfondoSezione src={azienda.background.src} srcSet={azienda.background.srcSet} opacita={0.5}>
         {/* Il testo sta a sinistra: il velo è pieno lì e si alleggerisce verso
             la foto. In colonna singola le due metà si sovrappongono, quindi il
             gradiente scende invece di attraversare. */}
@@ -54,9 +55,16 @@ export default function Azienda() {
         {/* z-10: il viticcio decorativo passa dietro la foto */}
         <figure className="relative z-10 mx-auto w-full max-w-md overflow-hidden md:max-w-none">
           <div className="aspect-[4/5] w-full">
+            {/* `sizes` ricalca il layout vero, non 100vw: da `md` la figura è
+                una delle due colonne di un `max-w-7xl` con gap 5rem e padding
+                2rem, cioè ~568 px fissi; sotto, è larghezza piena meno il
+                padding ma tappata a `max-w-md` (28rem). Senza questo il
+                browser assume 100vw e scarica sempre la variante da 960. */}
             <img
               data-reveal-img
               src={azienda.image.src}
+              srcSet={azienda.image.srcSet}
+              sizes="(min-width: 768px) 568px, min(100vw - 2.5rem, 28rem)"
               alt={azienda.image.alt}
               loading="lazy"
               decoding="async"
@@ -67,6 +75,7 @@ export default function Azienda() {
           </div>
         </figure>
       </div>
+      <DivisoreOnda colore="antracite" posizione="sotto" />
     </section>
   )
 }

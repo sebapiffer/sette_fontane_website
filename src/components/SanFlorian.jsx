@@ -10,6 +10,7 @@ import SfondoSezione from "./SfondoSezione.jsx";
 import SplitHeading from "./SplitHeading.jsx";
 import { sanFlorian } from "../data/content.js";
 import { riduciMovimento, BREAKPOINT_LG } from "../lib/ambiente.js";
+import DivisoreOnda from './DivisoreOnda.jsx'
 
 export default function SanFlorian() {
   const sectionRef = useReveal();
@@ -212,7 +213,7 @@ export default function SanFlorian() {
           solo la stanza attorno. Il velo è pieno sulla colonna di testo e
           resta comunque scuro dietro l'alone, che deve continuare a leggersi
           come l'unica sorgente di luce della sezione. */}
-      <SfondoSezione src={sanFlorian.background.src} opacita={1}>
+      <SfondoSezione src={sanFlorian.background.src} srcSet={sanFlorian.background.srcSet} opacita={1}>
         <div className="absolute inset-0 bg-gradient-to-b from-antracite via-antracite/70 to-antracite" />
         <div className="absolute inset-0 bg-antracite/40 lg:bg-gradient-to-r lg:from-antracite lg:via-antracite/70 lg:to-antracite/45" />
       </SfondoSezione>
@@ -421,6 +422,7 @@ export default function SanFlorian() {
           </div>
         </div>
       </div>
+      <DivisoreOnda colore="creta" posizione="sotto" specchia />
     </section>
   );
 }
