@@ -3,7 +3,6 @@ import SfondoSezione from '../components/SfondoSezione.jsx'
 import SplitHeading from '../components/SplitHeading.jsx'
 import useReveal from '../hooks/useReveal.js'
 import { chiSiamoPage } from '../data/content.js'
-import DivisoreOnda from '../components/DivisoreOnda.jsx'
 
 // Un useReveal per ritratto, non uno per l'intera sezione: l'hook aggancia lo
 // ScrollTrigger al contenitore che riceve il ref, quindi con un ref condiviso
@@ -79,7 +78,7 @@ export default function ChiSiamo() {
           data-nav-theme="dark"
           className="relative overflow-hidden bg-antracite pb-[clamp(4rem,9vw,7rem)] pt-[clamp(8rem,15vw,11rem)]"
         >
-          <SfondoSezione src={chiSiamoPage.background.src} srcSet={chiSiamoPage.background.srcSet} opacita={0.5}>
+          <SfondoSezione src={chiSiamoPage.background.src} opacita={0.5}>
             <div className="absolute inset-0 bg-gradient-to-b from-antracite via-antracite/75 to-antracite" />
           </SfondoSezione>
           <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
@@ -100,7 +99,6 @@ export default function ChiSiamo() {
               {chiSiamoPage.intro}
             </p>
           </div>
-          <DivisoreOnda colore="creta" posizione="sotto" />
         </section>
 
         {/* Ritratti alternati: su mobile una colonna (ordine del DOM = ordine
@@ -122,7 +120,7 @@ export default function ChiSiamo() {
           data-nav-theme="dark"
           className="relative overflow-hidden bg-moro py-[clamp(5rem,12vw,9rem)]"
         >
-          <SfondoSezione src={chiSiamoPage.radiciBackground.src} srcSet={chiSiamoPage.radiciBackground.srcSet} opacita={0.5}>
+          <SfondoSezione src={chiSiamoPage.radiciBackground.src} opacita={0.5}>
             <div className="absolute inset-0 bg-gradient-to-b from-moro/90 via-moro/80 to-moro/90 md:bg-gradient-to-r md:from-moro/45 md:via-moro/75 md:to-moro" />
           </SfondoSezione>
           <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
@@ -172,8 +170,6 @@ export default function ChiSiamo() {
               </div>
             </div>
           </div>
-          <DivisoreOnda colore="creta" posizione="sopra" specchia />
-          <DivisoreOnda colore="antracite" posizione="sotto" />
         </section>
       </main>
       <Footer />

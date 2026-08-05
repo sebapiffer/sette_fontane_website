@@ -19,28 +19,11 @@
 // freddo; il contrasto appena alzato compensa la piattezza del bianco e nero.
 const FILTRO = 'grayscale(1) sepia(0.22) contrast(1.05)'
 
-// `sizes` dichiara di proposito MENO della larghezza reale (l'immagine e'
-// full-bleed, quindi 100vw). E' una sotto-fornitura voluta: lo sfondo e'
-// decorativo, desaturato e sotto un velo, e su mobile ad alta densita' `100vw`
-// farebbe scaricare la variante da 1600 px per dipingere 390 px di schermo
-// velato. Con 70vw sotto i 900 px un telefono a DPR 3 si ferma alla variante da
-// 1024 — su queste foto sono ~200 KB risparmiati per sezione, invisibili.
-// Le figure (i soggetti) NON usano questo trucco: quelle si guardano davvero.
-const SIZES = '(max-width: 900px) 70vw, 100vw'
-
-export default function SfondoSezione({
-  src,
-  srcSet,
-  opacita = 0.35,
-  filtro = FILTRO,
-  children,
-}) {
+export default function SfondoSezione({ src, opacita = 0.35, filtro = FILTRO, children }) {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
       <img
         src={src}
-        srcSet={srcSet}
-        sizes={srcSet ? SIZES : undefined}
         alt=""
         loading="lazy"
         decoding="async"

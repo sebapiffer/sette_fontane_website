@@ -5,7 +5,6 @@ import SfondoSezione from '../components/SfondoSezione.jsx'
 import SplitHeading from '../components/SplitHeading.jsx'
 import useReveal from '../hooks/useReveal.js'
 import { scopriAziendaPage } from '../data/content.js'
-import DivisoreOnda from '../components/DivisoreOnda.jsx'
 
 // Ogni blocco ha il proprio useReveal invece di condividere quello della
 // sezione: useReveal aggancia lo ScrollTrigger al contenitore che riceve il
@@ -105,7 +104,7 @@ export default function ScopriAzienda() {
           data-nav-theme="light"
           className="relative overflow-hidden bg-creta pb-[clamp(5rem,12vw,9rem)] pt-[clamp(8rem,15vw,11rem)]"
         >
-          <SfondoSezione src={scopriAziendaPage.background.src} srcSet={scopriAziendaPage.background.srcSet} opacita={0.5}>
+          <SfondoSezione src={scopriAziendaPage.background.src} opacita={0.5}>
             <div className="absolute inset-0 bg-gradient-to-b from-creta via-creta/85 to-creta/70" />
           </SfondoSezione>
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
@@ -157,13 +156,12 @@ export default function ScopriAzienda() {
               </figcaption>
             </figure>
           </div>
-          <DivisoreOnda colore="offwhite" posizione="sotto" />
         </section>
 
         <section
           ref={timelineRef}
           data-nav-theme="light"
-          className="relative bg-offwhite py-[clamp(5rem,12vw,9rem)]"
+          className="bg-offwhite py-[clamp(5rem,12vw,9rem)]"
         >
           <div className="mx-auto max-w-4xl px-5 sm:px-8">
             <p data-reveal className="eyebrow text-center text-moro">
@@ -215,7 +213,6 @@ export default function ScopriAzienda() {
               </ol>
             </div>
           </div>
-          <DivisoreOnda colore="creta" posizione="sotto" specchia />
         </section>
 
         {/* Blocchi alternati: su mobile una colonna (immagine sempre sotto il
@@ -226,7 +223,7 @@ export default function ScopriAzienda() {
           data-nav-theme="light"
           className="relative overflow-hidden bg-creta py-[clamp(5rem,12vw,9rem)]"
         >
-          <SfondoSezione src={scopriAziendaPage.blocchiBackground.src} srcSet={scopriAziendaPage.blocchiBackground.srcSet} opacita={0.6}>
+          <SfondoSezione src={scopriAziendaPage.blocchiBackground.src} opacita={0.6}>
             <div className="absolute inset-0 bg-creta/75" />
           </SfondoSezione>
           <div className="relative mx-auto max-w-7xl space-y-[clamp(4rem,10vw,8rem)] px-5 sm:px-8">
@@ -234,7 +231,6 @@ export default function ScopriAzienda() {
               <BloccoAlternato key={i} blocco={blocco} immagineASinistra={i % 2 === 1} />
             ))}
           </div>
-          <DivisoreOnda colore="antracite" posizione="sotto" />
         </section>
       </main>
       <Footer />

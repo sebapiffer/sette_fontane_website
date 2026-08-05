@@ -2,7 +2,6 @@ import useReveal from '../hooks/useReveal.js'
 import DropsLogo from './DropsLogo.jsx'
 import SplitHeading from './SplitHeading.jsx'
 import { comingSoon } from '../data/content.js'
-import DivisoreOnda from './DivisoreOnda.jsx'
 
 export default function ComingSoon() {
   const ref = useReveal()
@@ -12,7 +11,7 @@ export default function ComingSoon() {
       id="coming-soon"
       ref={ref}
       data-nav-theme="light"
-      className="relative bg-creta py-[clamp(5rem,12vw,8rem)] text-center"
+      className="bg-creta py-[clamp(5rem,12vw,8rem)] text-center"
     >
       <div className="mx-auto max-w-2xl px-5 sm:px-8">
         <DropsLogo data-reveal className="mx-auto h-14 w-auto text-tortora/50" />
@@ -30,7 +29,6 @@ export default function ComingSoon() {
           {comingSoon.text}
         </p>
       </div>
-      <DivisoreOnda colore="antracite" posizione="sotto" />
     </section>
   )
 }

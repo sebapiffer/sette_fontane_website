@@ -7,21 +7,6 @@
 // sotto GitHub Pages, dove il sito vive in una sottocartella. In dev è '/'.
 const asset = (p) => import.meta.env.BASE_URL + p.replace(/^\//, '')
 
-// Le foto reali sono esportate in piu' larghezze da `scripts/esporta-foto.py`,
-// col suffisso `-<larghezza>.webp`. `responsive` ricompone da nome base e
-// larghezze la coppia { src, srcSet } che i componenti passano all'`img`:
-// `src` e' la variante piu' grande (fallback per chi ignora srcSet), `srcSet`
-// lascia scegliere al browser. Chi consuma questi oggetti deve passare ANCHE
-// `sizes`, altrimenti il browser assume 100vw e scarica sempre la piu' grande.
-// Gli sfondi ancora segnaposto restano su un `src` singolo: nessun srcSet.
-const responsive = (base, larghezze) => ({
-  src: asset(`${base}-${larghezze[larghezze.length - 1]}.webp`),
-  srcSet: larghezze.map((w) => `${asset(`${base}-${w}.webp`)} ${w}w`).join(', '),
-})
-
-const SFONDO_W = [640, 1024, 1600]
-const FIGURA_W = [480, 720, 960]
-
 // Indirizzo unico della cantina: lo usano sia i contatti nel footer sia il
 // mailto di richiesta acquisto del San Florian — va cambiato solo qui.
 const emailCantina = 'info@settefontanewinery.com'
@@ -70,13 +55,17 @@ export const azienda = {
   ],
   cta: "Scopri l'azienda",
   image: {
-    ...responsive('/img/maso-vigne', FIGURA_W),
-    alt: 'Maso Sette Fontane visto dall’alto, con i filari che salgono fino alle case',
+    src: 'https://picsum.photos/seed/pergola/960/1200',
+    alt: 'Filari a pergola trentina del maso [placeholder]',
   },
   // Sfondo di sezione: foto ampia e poco leggibile in dettaglio (una vigna in
   // campo lungo), non un soggetto — sta sotto un velo di creta e serve come
   // profondità, non come informazione. Vedi SfondoSezione.
-  background: responsive('/img/sfondo-maso-campagna', SFONDO_W),
+  background: {
+    src: asset('/img/sfondo-vigna-filari.webp'),
+    // [placeholder] campo lungo dei filari del maso — immagine segnaposto (vigna
+    // di repertorio), da sostituire con una foto reale del maso
+  },
 }
 
 export const chiSiamo = {
@@ -104,9 +93,11 @@ export const chiSiamo = {
     },
   ],
   cta: 'Conoscici',
-  // Le vigne del maso al crepuscolo, sul versante che guarda la valle: tonalità
-  // scure, nessun soggetto leggibile — esattamente quel che serve sotto il velo.
-  background: responsive('/img/sfondo-valle-crepuscolo', SFONDO_W),
+  background: {
+    src: asset('/img/sfondo-vigna-strada.webp'),
+    // [placeholder] vigna al crepuscolo, tonalità scure — segnaposto (strada tra
+    // le viti, cielo carico), da sostituire con una foto reale
+  },
 }
 
 export const territorio = {
@@ -125,13 +116,7 @@ export const territorio = {
   background: {
     src: asset('/img/sfondo-vigna-monti.webp'),
     // [placeholder] panorama della Val di Cembra — segnaposto (vigna, prato e
-    // monti), da sostituire con una foto reale della valle.
-    // Nessuna delle foto del maso va bene qui: le vedute di valle che abbiamo
-    // inquadrano tutte la valle dell'Adige, e questa è la sola sezione che
-    // nomina la Val di Cembra — direbbero la valle sbagliata. La ripresa
-    // zenitale dei filari (l'unica senza fondovalle in campo) è stata provata e
-    // scartata: desaturata sotto il velo chiaro, il reticolo dei filari legge
-    // come graffi sulla pagina, non come profondità.
+    // monti), da sostituire con una foto reale della valle
   },
 }
 
@@ -152,9 +137,11 @@ export const sanFlorian = {
   intro:
     'Il nostro primo vino porta il nome della chiesa che veglia sulle vigne di Giovo. Questa bottiglia racconta il nostro Trentino: la memoria di una tradizione antica e il coraggio di una nuova generazione che guarda lontano.',
   cta: 'Assapora San Florian',
-  // Le vigne del maso verso sera, sotto un velo antracite pieno (opacita 1 in
-  // SanFlorian): serve una foto che regga la desaturazione senza sgranare.
-  background: responsive('/img/sfondo-vigne-monti-sera', SFONDO_W),
+  background: {
+    src: asset('/img/sfondo-vigna-terrazze.webp'),
+    // [placeholder] terrazzamenti vitati: sta sotto un velo antracite —
+    // segnaposto, da sostituire con una foto reale
+  },
   formats: [
     {
       id: 'renana',
@@ -222,8 +209,14 @@ export const scopriAziendaPage = {
   title: 'La storia di Maso Sette Fontane [placeholder]',
   // Sfondi fotografici di sezione (segnaposto, vigne di repertorio — vedi
   // SfondoSezione): sotto un velo tarato sul testo, servono da profondità.
-  background: responsive('/img/sfondo-maso-vigne', SFONDO_W),
-  blocchiBackground: responsive('/img/sfondo-valle-foschia', SFONDO_W),
+  background: {
+    src: asset('/img/sfondo-vigna-cielo.webp'),
+    // [placeholder] filari e cielo aperto — da sostituire con una foto del maso
+  },
+  blocchiBackground: {
+    src: asset('/img/sfondo-vigna-nebbia.webp'),
+    // [placeholder] collina vitata nella foschia — da sostituire con una foto reale
+  },
   intro: [
     'Testo placeholder: qui troverà spazio il racconto disteso del maso, della sua conduzione biologica e della filosofia che guida il lavoro in vigna. [Testo placeholder da sostituire.]',
     'Testo placeholder: un secondo paragrafo di approfondimento, con i dettagli che non trovano posto nella sintesi della home. [Testo placeholder da sostituire.]',
@@ -281,7 +274,10 @@ export const chiSiamoPage = {
   title: 'Chi siamo',
   // Sfondi fotografici di sezione (segnaposto — vedi SfondoSezione): sotto un
   // velo tarato sul testo, servono da profondità.
-  background: responsive('/img/sfondo-valle-mattino', SFONDO_W),
+  background: {
+    src: asset('/img/sfondo-borgo-vigna.webp'),
+    // [placeholder] il borgo e la chiesa sopra le vigne — da sostituire
+  },
   radiciBackground: {
     src: asset('/img/sfondo-vigna-bruma.webp'),
     // [placeholder] filari nella bruma (bianco e nero, tono d'archivio) — da sostituire
@@ -394,22 +390,16 @@ export const comingSoon = {
 export const footer = {
   id: 'contatti',
   heading: 'Contatti',
-  // Il maso visto da fuori, con le sue vigne intorno: è l'invito a venirci a
-  // trovare, ed è la foto giusta proprio sopra l'indirizzo.
-  background: responsive('/img/sfondo-maso-esterno', SFONDO_W),
+  background: {
+    src: asset('/img/sfondo-vigna-autunno.webp'),
+    // [placeholder] il maso visto da fuori: è l'invito a venirci a trovare —
+    // segnaposto (vigna d'autunno, luce di sera), da sostituire con una foto reale
+  },
   indirizzo: 'Maso Sette Fontane — Giovo (TN), Val di Cembra [placeholder]',
   email: emailCantina,
   telefono: '+39 000 000 0000 [placeholder]',
-  // `handle` è l'etichetta mostrata accanto all'icona: quando c'è, il footer
-  // scrive l'account per esteso invece di lasciare la sola icona muta. Instagram
-  // è l'account reale; Facebook resta un segnaposto e quindi non ha handle.
   social: [
-    {
-      label: 'Instagram',
-      handle: '@settefontanewinery',
-      href: 'https://www.instagram.com/settefontanewinery/',
-      icon: 'instagram',
-    },
+    { label: 'Instagram', href: 'https://instagram.com/', icon: 'instagram' },
     { label: 'Facebook', href: 'https://facebook.com/', icon: 'facebook' },
   ],
   note: [

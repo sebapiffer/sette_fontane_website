@@ -2,7 +2,6 @@ import { Instagram, Facebook } from 'lucide-react'
 import useReveal from '../hooks/useReveal.js'
 import DropsLogo from './DropsLogo.jsx'
 import SfondoSezione from './SfondoSezione.jsx'
-import { CLASSE_ALTEZZA } from './DivisoreOnda.jsx'
 import { site, footer } from '../data/content.js'
 
 const ICONS = { instagram: Instagram, facebook: Facebook }
@@ -20,17 +19,8 @@ export default function Footer() {
       {/* Il maso in fondo alla pagina: chiude il racconto proprio dove si
           invita a venire a trovarci. Sfuma nell'antracite verso il basso, dove
           stanno i contatti e le note legali. */}
-      <SfondoSezione src={footer.background.src} srcSet={footer.background.srcSet} opacita={0.52}>
+      <SfondoSezione src={footer.background.src} opacita={0.52}>
         <div className="absolute inset-0 bg-gradient-to-b from-antracite/85 via-antracite/85 to-antracite" />
-        {/* Fascia di antracite pieno in cima, alta esattamente quanto l'onda
-            che la sezione precedente disegna verso il basso. Il velo del
-            footer lascia passare un 15% di fotografia fin sul bordo
-            superiore, e lì l'onda — tinta piatta — ci appoggiava sopra la
-            propria base: uno scalino di ~15/255 che ridisegnava come riga
-            dritta proprio il confine che l'onda serve a togliere (visibile a
-            390 px sul terzo destro). Sotto la fascia la foto riprende: si
-            perde solo la striscia che l'onda copre comunque. */}
-        <div className={`absolute inset-x-0 top-0 ${CLASSE_ALTEZZA} bg-antracite`} />
       </SfondoSezione>
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 sm:px-8 md:grid-cols-3">
@@ -72,28 +62,17 @@ export default function Footer() {
 
         <div data-reveal>
           <h2 className="eyebrow text-tortora">Seguici</h2>
-          {/* In colonna e non in riga: accanto all'icona ci sta l'account per
-              esteso, che è anche l'unico modo di trovarci se qualcuno legge il
-              sito stampato o su uno screenshot. Chi non ha ancora un account
-              reale (`handle` assente) mostra solo il nome del social. */}
-          <ul className="mt-5 flex flex-col items-start gap-3">
+          <ul className="mt-5 flex gap-4">
             {footer.social.map((s) => {
               const Icon = ICONS[s.icon]
               return (
                 <li key={s.label}>
                   <a
                     href={s.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={s.handle ? `${s.label} — ${s.handle}` : s.label}
-                    className="group flex items-center gap-3 text-offwhite/70 transition-colors hover:text-sabbia"
+                    aria-label={s.label}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-offwhite/20 text-offwhite/70 transition-colors hover:border-sabbia hover:text-sabbia"
                   >
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-offwhite/20 transition-colors group-hover:border-sabbia">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <span className="font-sans text-sm font-light tracking-wide">
-                      {s.handle ?? s.label}
-                    </span>
+                    <Icon className="h-5 w-5" />
                   </a>
                 </li>
               )

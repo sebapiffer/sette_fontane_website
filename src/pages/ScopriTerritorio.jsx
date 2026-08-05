@@ -3,7 +3,6 @@ import SfondoSezione from '../components/SfondoSezione.jsx'
 import SplitHeading from '../components/SplitHeading.jsx'
 import useReveal from '../hooks/useReveal.js'
 import { scopriTerritorioPage } from '../data/content.js'
-import DivisoreOnda from '../components/DivisoreOnda.jsx'
 
 // Pin in stile Google Maps, ridisegnato con i colori di brand: profilo e
 // cerchio interno in antracite (#1D1D1B), corpo in tortora (#A48A7B). I colori
@@ -85,7 +84,7 @@ export default function ScopriTerritorio() {
           data-nav-theme="light"
           className="relative overflow-hidden bg-offwhite pb-[clamp(5rem,12vw,9rem)] pt-[clamp(8rem,15vw,11rem)]"
         >
-          <SfondoSezione src={scopriTerritorioPage.background.src} srcSet={scopriTerritorioPage.background.srcSet} opacita={0.5}>
+          <SfondoSezione src={scopriTerritorioPage.background.src} opacita={0.5}>
             <div className="absolute inset-0 bg-gradient-to-b from-offwhite via-offwhite/88 to-offwhite/72" />
           </SfondoSezione>
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
@@ -126,14 +125,13 @@ export default function ScopriTerritorio() {
               </figcaption>
             </figure>
           </div>
-          <DivisoreOnda colore="creta" posizione="sotto" />
         </section>
 
         {/* Testo a sinistra, mappa a destra. */}
         <section
           ref={mappaRef}
           data-nav-theme="light"
-          className="relative bg-creta py-[clamp(5rem,12vw,9rem)]"
+          className="bg-creta py-[clamp(5rem,12vw,9rem)]"
         >
           <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-5 sm:px-8 md:grid-cols-2 md:gap-16 lg:gap-24">
             <div>
@@ -153,7 +151,6 @@ export default function ScopriTerritorio() {
               <BoxMappa mappa={mappa} />
             </div>
           </div>
-          <DivisoreOnda colore="offwhite" posizione="sotto" specchia />
         </section>
 
         {/* Altre news: immagine a sinistra, testo a destra. Su mobile il testo
@@ -163,7 +160,7 @@ export default function ScopriTerritorio() {
           data-nav-theme="light"
           className="relative overflow-hidden bg-offwhite py-[clamp(5rem,12vw,9rem)]"
         >
-          <SfondoSezione src={scopriTerritorioPage.newsBackground.src} srcSet={scopriTerritorioPage.newsBackground.srcSet} opacita={0.55}>
+          <SfondoSezione src={scopriTerritorioPage.newsBackground.src} opacita={0.55}>
             <div className="absolute inset-0 bg-gradient-to-b from-offwhite/95 via-offwhite/85 to-offwhite/80 md:bg-gradient-to-r md:from-offwhite/28 md:via-offwhite/80 md:to-offwhite" />
           </SfondoSezione>
           <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-5 sm:px-8 md:grid-cols-2 md:gap-16 lg:gap-24">
@@ -206,7 +203,6 @@ export default function ScopriTerritorio() {
               </div>
             </figure>
           </div>
-          <DivisoreOnda colore="antracite" posizione="sotto" />
         </section>
       </main>
       <Footer />
