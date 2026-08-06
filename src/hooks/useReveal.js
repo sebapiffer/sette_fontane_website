@@ -93,10 +93,15 @@ export default function useReveal() {
           // venisse scritto. Non si muovono: l'enfasi sta tutta nel modo in
           // cui arrivano a fuoco e nel colore.
           //
-          // Tre cose insieme, e nessuna è uno spostamento:
-          // — la parola nasce SFOCATA e mette a fuoco (blur 9px → 0): è il
-          //   gesto dell'inchiostro che si asciuga, l'unico modo di dare peso
-          //   a un'entrata ferma senza farla traslare;
+          // Due cose insieme, e nessuna è uno spostamento:
+          // — la parola nasce TRASPARENTE e si opacizza: è l'inchiostro che
+          //   prende corpo sulla carta. Prima nasceva anche sfocata (blur 9px
+          //   → 0), ed era il gesto più bello ma il meno leggibile: per tutta
+          //   la prima metà della corsa la parola era illeggibile, e con lo
+          //   scrub quella metà dura quanto vuole chi scorre — ci si trovava a
+          //   leggere un paragrafo mezzo fuori fuoco. La sola trasparenza
+          //   lascia la forma delle lettere sempre nitida: si legge anche a
+          //   metà entrata, e chi si ferma non aspetta la messa a fuoco;
           // — nasce TORTORA e vira al proprio colore. È il colore del logo e
           //   del viticcio, quindi l'inchiostro del sito è letteralmente
           //   l'accento di brand che si posa e si spegne nel testo. Funziona
@@ -106,16 +111,13 @@ export default function useReveal() {
           //   scrittura si vede attraversare il paragrafo invece di
           //   accendersi quasi tutta insieme.
           //
-          // pulisci: blur e color vanno tolti a fine corsa. `filter` lasciato
-          // inline, anche a blur(0px), promuove OGNI parola a livello di
-          // composizione — su una pagina intera sono centinaia di livelli
-          // tenuti in memoria per niente; e il colore inline scavalcherebbe
+          // pulisci: il colore va tolto a fine corsa, o inline scavalcherebbe
           // per sempre le classi Tailwind del testo.
           inchiostro: {
             divisione: 'words',
             parti: (s) => s.words,
-            da: { autoAlpha: 0, filter: 'blur(9px)', color: '#A48A7B' },
-            pulisci: 'filter,color',
+            da: { autoAlpha: 0, color: '#A48A7B' },
+            pulisci: 'color',
             ease: 'power2.out',
             passo: 0.085,
             durata: 1.1,
