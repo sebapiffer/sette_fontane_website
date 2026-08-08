@@ -1,10 +1,10 @@
-import { Instagram, Facebook } from 'lucide-react'
+import { Instagram } from 'lucide-react'
 import useReveal from '../hooks/useReveal.js'
 import DropsLogo from './DropsLogo.jsx'
 import SfondoSezione from './SfondoSezione.jsx'
 import { site, footer } from '../data/content.js'
 
-const ICONS = { instagram: Instagram, facebook: Facebook }
+const ICONS = { instagram: Instagram }
 
 export default function Footer() {
   const ref = useReveal()

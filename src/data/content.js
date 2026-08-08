@@ -399,8 +399,7 @@ export const footer = {
   email: emailCantina,
   telefono: '+39 000 000 0000 [placeholder]',
   social: [
-    { label: 'Instagram', href: 'https://instagram.com/', icon: 'instagram' },
-    { label: 'Facebook', href: 'https://facebook.com/', icon: 'facebook' },
+    { label: 'Instagram', href: 'https://instagram.com/settefontanewinery', icon: 'instagram' },
   ],
   note: [
     '© 2026 Sette Fontane — Tutti i diritti riservati',
