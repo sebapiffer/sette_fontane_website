@@ -123,7 +123,7 @@ export default function Navbar() {
             <a
               href="#top"
               onClick={tornaInCima}
-              className="group flex items-center gap-3"
+              className="flex items-center gap-3"
               aria-label="Sette Fontane — inizio pagina"
             >
               <DropsLogo className="h-9 w-auto text-tortora" />
@@ -133,7 +133,7 @@ export default function Navbar() {
           ) : (
             <Link
               to="/"
-              className="group flex items-center gap-3"
+              className="flex items-center gap-3"
               aria-label="Sette Fontane — torna alla home"
             >
               <DropsLogo className="h-9 w-auto text-tortora" />
