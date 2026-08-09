@@ -753,9 +753,9 @@ const CONFIGURAZIONI = [
     // trovano spazio reale. Tarato con collisioni.mjs.
     nodi: ({ p, avvolgi, area }) => [
       p(area, 0.5, 0),
+      p(area, 0.5, 0.005, { foglia: { lato: 'destra', scala: 1.6, rotazione: -10 }}),
       // scende lungo il margine destro del testo dell'Azienda
-      p('#azienda h2', 1.028, 0.15),
-      p('#azienda .space-y-5', 1.03, 0.6),
+      p('#azienda h2', 1.028, -0.05),
       p('#azienda .space-y-5', 1.028, 0.93),
       // scavalca la foto del maso da destra e le esce sotto a sinistra
       p('#azienda figure', 0.82, -0.19),
@@ -768,10 +768,7 @@ const CONFIGURAZIONI = [
       // centrale della foto, poi ridiscende lungo il secondo
       p('#chi-siamo figure', 1.02, -0.18),
       p('#chi-siamo figure', 1.024, -0.07),
-      p('#chi-siamo figure', 0.94, 0),
-      p('#chi-siamo figure', 0.4, 0.02),
       p('#chi-siamo figure', 0.05, 0.15),
-      p('#chi-siamo figure', 0, 0.46),
       // scavalca il secondo ritratto restando SOPRA di esso (fy negativo) e poi
       // ridiscende lungo il MARGINE destro (fx>1, oltre il bordo del testo
       // bio), senza mai attraversarne la parte centrale, e rientra sotto la
@@ -780,9 +777,7 @@ const CONFIGURAZIONI = [
       p('#chi-siamo figure', -0.029, -0.04, {}, 1),
       p('#chi-siamo figure', 0.9, -0.02, {}, 1),
       p('#chi-siamo figure', 1.03, 0.15, {}, 1),
-      p('#chi-siamo figure', 1.03, 0.42, {}, 1),
-      p('#chi-siamo figure', 1.04, 0.66, {}, 1),
-      p('#chi-siamo figure', 1.04, 0.95, {}, 1),
+      p('#chi-siamo figure', 1.1, 0.42, {}, 1),
       p('#chi-siamo figure', 1.0, 1.16, {}, 1),
       // Niente avvolgimento del pulsante su mobile: la bio di Andrea occupa
       // tutta la larghezza tra foto e pulsante, e qualsiasi rientro verso il
@@ -811,7 +806,7 @@ const CONFIGURAZIONI = [
       // Seconda foglia: il vuoto tra Territorio e San Florian ora è occupato
       // dalla fascia "I nostri vini", quindi la foglia risale nella striscia
       // che resta sopra la fascia — mai a cavallo del suo bordo.
-      p('#territorio figure', 0.32, 1.06, { foglia: { lato: 'destra', scala: 1, rotazione: 10 } }),
+      p('#territorio figure', 0.37, 1.06, { foglia: { lato: 'sinistra', scala: 1.2, rotazione: -15 }}),
       // Attraversa la fascia nel canale libero a sinistra del titolo, ancorata
       // al filo sinistro (indice 0), che quel canale lo delimita da sé a ogni
       // larghezza. Vedi la nota gemella nella configurazione desktop.
