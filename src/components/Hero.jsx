@@ -84,7 +84,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-antracite/45 via-antracite/55 to-antracite/75" />
       </div>
 
-      <div className="hero-content relative flex flex-col items-center px-6 text-center">
+      <div className="hero-content relative flex flex-col items-center px-7 text-center">
         <DropsLogo
           title="Logo Sette Fontane: sette gocce d'acqua"
           className="h-[clamp(7rem,16vh,10.5rem)] w-auto text-tortora"

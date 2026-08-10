@@ -289,7 +289,7 @@ export const chiSiamoPage = {
     src: asset('/img/sfondo-valle-bruma.webp'),
   },
   intro:
-    'porcodioooooo',
+    'le persone al cuore della nostra azienda',
   // Ritratti: il primo ha l'immagine a destra, il secondo la specchia a
   // sinistra — l'alternanza è calcolata sull'indice in ChiSiamo.jsx.
   persone: [
@@ -323,7 +323,7 @@ export const chiSiamoPage = {
   radici: {
     eyebrow: 'Le nostre radici',
     citazione:
-      'fullgasa',
+      'i valori di nostro nonno',
     paragrafi: [
 "La nostra passione per il vino è cresciuta osservando le mani del nonno, un uomo semplice guidato da una dedizione incrollabile per la campagna. La storia della nostra azienda parte da appena mezzo ettaro lavorato con fatica e rispetto per la natura. ",
 "Giorno dopo giorno è riuscito a trasformare quei pochi filari in un sogno concreto, fino a raggiungere sei ettari e il nostro amato maso. Crescendo al suo fianco abbiamo imparato ad ascoltare la vigna e a capire il valore dell'attesa, vedendo nascere in entrambi l'amore per la viticoltura.",

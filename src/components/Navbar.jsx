@@ -116,7 +116,7 @@ export default function Navbar() {
           scrolled && !open ? 'bg-offwhite/5 backdrop-blur-md' : ''
         } ${onLight && !open ? 'text-antracite' : 'text-offwhite'}`}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-7 py-4 sm:px-8">
           {/* In Home il logo risale alla hero in scroll animato; dalle
               sottopagine è un link di rotta verso la Home. */}
           {inHome ? (

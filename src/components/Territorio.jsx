@@ -65,7 +65,7 @@ export default function Territorio() {
         <div className="absolute inset-0 bg-gradient-to-b from-offwhite/95 via-offwhite/85 to-offwhite/80 md:bg-gradient-to-r md:from-offwhite md:via-offwhite/80 md:to-offwhite/25" />
       </SfondoSezione>
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-7 sm:px-8 md:grid-cols-2 md:gap-20">
         <div className="territorio-content">
           <p className="eyebrow text-moro">{territorio.eyebrow}</p>
           <SplitHeading

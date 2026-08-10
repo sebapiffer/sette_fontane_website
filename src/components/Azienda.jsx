@@ -22,7 +22,7 @@ export default function Azienda() {
         <div className="absolute inset-0 bg-gradient-to-b from-creta/95 via-creta/85 to-creta/75 md:bg-gradient-to-r md:from-creta md:via-creta/85 md:to-creta/35" />
       </SfondoSezione>
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 md:grid-cols-2 md:gap-20">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-7 sm:px-8 md:grid-cols-2 md:gap-20">
         <div>
           <p data-reveal className="eyebrow text-moro">
             {azienda.eyebrow}

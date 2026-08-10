@@ -217,7 +217,7 @@ export default function SanFlorian() {
         <div className="absolute inset-0 bg-antracite/40 lg:bg-gradient-to-r lg:from-antracite lg:via-antracite/70 lg:to-antracite/45" />
       </SfondoSezione>
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-5 sm:px-8 lg:grid-cols-2">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-7 sm:px-8 lg:grid-cols-2">
         <div>
           <p data-reveal className="eyebrow text-tortora">
             {sanFlorian.eyebrow}
@@ -305,7 +305,7 @@ export default function SanFlorian() {
           <X className="h-5 w-5" />
         </button>
 
-        <div className="mx-auto min-h-full max-w-7xl px-5 pb-20 pt-[52vh] sm:px-8 lg:flex lg:items-center lg:py-24 lg:pr-[42vw] lg:pt-24">
+        <div className="mx-auto min-h-full max-w-7xl px-7 pb-20 pt-[52vh] sm:px-8 lg:flex lg:items-center lg:py-24 lg:pr-[42vw] lg:pt-24">
           <div className="max-w-xl">
             <p className="sf-detail eyebrow text-tortora">
               {sanFlorian.eyebrow}
@@ -399,7 +399,7 @@ export default function SanFlorian() {
             i paragrafi in più sono giustificati. */}
         <div
           id="san-florian-storia"
-          className="mx-auto max-w-7xl px-5 pb-24 pt-10 sm:px-8 lg:pr-[42vw]"
+          className="mx-auto max-w-7xl px-7 pb-24 pt-10 sm:px-8 lg:pr-[42vw]"
         >
           <div className="max-w-xl">
             <SplitHeading

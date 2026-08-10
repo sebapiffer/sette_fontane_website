@@ -23,7 +23,7 @@ export default function Footer() {
         <div className="absolute inset-0 bg-gradient-to-b from-antracite/85 via-antracite/85 to-antracite" />
       </SfondoSezione>
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 sm:px-8 md:grid-cols-3">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-7 sm:px-8 md:grid-cols-3">
         <div data-reveal>
           <div className="flex items-center gap-3">
             <DropsLogo className="h-10 w-auto text-tortora" />
@@ -83,7 +83,7 @@ export default function Footer() {
 
       <div
         data-reveal
-        className="relative mx-auto mt-14 max-w-7xl border-t border-offwhite/10 px-5 pt-6 sm:px-8"
+        className="relative mx-auto mt-14 max-w-7xl border-t border-offwhite/10 px-7 pt-6 sm:px-8"
       >
         <ul className="flex flex-col gap-2 font-sans text-xs font-light tracking-wide text-offwhite/40 sm:flex-row sm:justify-between">
           {footer.note.map((n) => (

@@ -31,7 +31,7 @@ function BloccoAlternato({ blocco, immagineASinistra }) {
       <SfondoSezione src={blocco.background.src} opacita={0.6}>
         <div className={`absolute inset-0 ${fondo.velo}`} />
       </SfondoSezione>
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-5 sm:px-8 md:grid-cols-2 md:gap-16 lg:gap-24">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-7 sm:px-8 md:grid-cols-2 md:gap-16 lg:gap-24">
         <div className={immagineASinistra ? 'md:order-2' : undefined}>
           <p data-reveal className="eyebrow text-moro">
             {blocco.eyebrow}
@@ -122,7 +122,7 @@ export default function ScopriAzienda() {
           <SfondoSezione src={scopriAziendaPage.background.src} opacita={0.5}>
             <div className="absolute inset-0 bg-gradient-to-b from-creta via-creta/85 to-creta/70" />
           </SfondoSezione>
-          <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="relative mx-auto max-w-7xl px-7 sm:px-8">
             <div className="mx-auto max-w-3xl text-center">
               <p data-reveal className="eyebrow text-moro">
                 {scopriAziendaPage.eyebrow}
@@ -196,7 +196,7 @@ export default function ScopriAzienda() {
           <SfondoSezione src={scopriAziendaPage.timelineBackground.src} opacita={0.45}>
             <div className="absolute inset-0 bg-offwhite/80" />
           </SfondoSezione>
-          <div className="relative mx-auto max-w-4xl px-5 sm:px-8">
+          <div className="relative mx-auto max-w-4xl px-7 sm:px-8">
             <p data-reveal className="eyebrow text-center text-moro">
               {scopriAziendaPage.timelineEyebrow}
             </p>

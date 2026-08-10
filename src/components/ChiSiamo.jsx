@@ -24,7 +24,7 @@ export default function ChiSiamo() {
         <div className="absolute inset-0 bg-antracite/45" />
       </SfondoSezione>
 
-      <div className="relative mx-auto max-w-7xl px-5 text-center sm:px-8">
+      <div className="relative mx-auto max-w-7xl px-7 text-center sm:px-8">
         <p data-reveal className="eyebrow text-sabbia">
           {chiSiamo.eyebrow}
         </p>

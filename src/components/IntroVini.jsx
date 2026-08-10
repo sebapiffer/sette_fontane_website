@@ -69,7 +69,7 @@ export default function IntroVini() {
 
       <div
         aria-hidden="true"
-        className="relative mx-auto flex max-w-[100rem] items-center gap-[clamp(0.75rem,2.5vw,2.25rem)] px-5 sm:px-8"
+        className="relative mx-auto flex max-w-[100rem] items-center gap-[clamp(0.75rem,2.5vw,2.25rem)] px-7 sm:px-8"
       >
         {/* Le due metà sono `flex-1 basis-0`: larghezza identica comunque siano
             lunghi i due tronconi ("LA NOSTRA" è più largo di "CANTINA"), quindi

@@ -13,7 +13,7 @@ export default function ComingSoon() {
       data-nav-theme="light"
       className="bg-creta py-[clamp(5rem,12vw,8rem)] text-center"
     >
-      <div className="mx-auto max-w-2xl px-5 sm:px-8">
+      <div className="mx-auto max-w-2xl px-7 sm:px-8">
         <DropsLogo data-reveal className="mx-auto h-14 w-auto text-tortora/50" />
         <p data-reveal className="eyebrow mt-8 text-moro">
           {comingSoon.eyebrow}

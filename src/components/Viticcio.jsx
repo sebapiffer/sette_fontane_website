@@ -747,8 +747,8 @@ const CONFIGURAZIONI = [
     spessoreLinea: 2.5,
     spessoreRamo: 1.75,
     foglia: { altezza: 30, lunghezza: 28 },
-    // Su mobile lo spazio è pochissimo: niente rami verso il margine (px-5 ≈
-    // 20px) né accanto alle foto (finirebbero nascosti dietro). I pochi rami
+    // Su mobile lo spazio è pochissimo: niente rami verso il margine (px-7 ≈
+    // 28px) né accanto alle foto (finirebbero nascosti dietro). I pochi rami
     // ampi vivono solo nel vuoto attorno alla bottiglia, dove divergendo
     // trovano spazio reale. Tarato con collisioni.mjs.
     nodi: ({ p, avvolgi, area }) => [

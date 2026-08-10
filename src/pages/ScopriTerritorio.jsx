@@ -87,7 +87,7 @@ export default function ScopriTerritorio() {
           <SfondoSezione src={scopriTerritorioPage.background.src} opacita={0.5}>
             <div className="absolute inset-0 bg-gradient-to-b from-offwhite via-offwhite/88 to-offwhite/72" />
           </SfondoSezione>
-          <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="relative mx-auto max-w-7xl px-7 sm:px-8">
             <div className="mx-auto max-w-3xl text-center">
               <p data-reveal className="eyebrow text-moro">
                 {scopriTerritorioPage.eyebrow}
@@ -133,7 +133,7 @@ export default function ScopriTerritorio() {
           data-nav-theme="light"
           className="bg-creta py-[clamp(5rem,12vw,9rem)]"
         >
-          <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-5 sm:px-8 md:grid-cols-2 md:gap-16 lg:gap-24">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-7 sm:px-8 md:grid-cols-2 md:gap-16 lg:gap-24">
             <div>
               <div className="space-y-5">
                 {scopriTerritorioPage.paragraphs.map((p, i) => (
@@ -163,7 +163,7 @@ export default function ScopriTerritorio() {
           <SfondoSezione src={scopriTerritorioPage.newsBackground.src} opacita={0.55}>
             <div className="absolute inset-0 bg-gradient-to-b from-offwhite/95 via-offwhite/85 to-offwhite/80 md:bg-gradient-to-r md:from-offwhite/28 md:via-offwhite/80 md:to-offwhite" />
           </SfondoSezione>
-          <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-5 sm:px-8 md:grid-cols-2 md:gap-16 lg:gap-24">
+          <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-7 sm:px-8 md:grid-cols-2 md:gap-16 lg:gap-24">
             <div className="md:order-2">
               <p data-reveal className="eyebrow text-moro">
                 {news.eyebrow}
