@@ -18,17 +18,20 @@ export const site = {
   location: 'Giovo · Val di Cembra · Trentino',
 }
 
-// Voci del menu: tutte puntano a una sezione della home (`href`), anche
-// quelle che hanno una pagina di approfondimento — a quelle ci si arriva dai
-// pulsanti dentro le sezioni, non dal menu. La sola `to` è la Home stessa.
-// Dalle sottopagine la Navbar antepone "/" all'ancora e ScrollToTop porta
-// alla sezione dopo il cambio rotta.
+// Voci del menu: quelle con una pagina di approfondimento sono rotte (`to`),
+// così dal menu ci si arriva diretti; le altre restano ancore alla home
+// (`href`). Dalle sottopagine la Navbar antepone "/" all'ancora e ScrollToTop
+// porta alla sezione dopo il cambio rotta.
 export const nav = {
   links: [
     { label: 'Home', to: '/' },
-    { label: "L'azienda", href: '#azienda' },
-    { label: 'Chi siamo', href: '#chi-siamo' },
-    { label: 'Il territorio', href: '#territorio' },
+    // Le voci con una pagina dedicata puntano alla rotta, non all'ancora in
+    // home: il menu porta direttamente all'approfondimento. San Florian resta
+    // un'ancora (non ha una pagina propria: è la sezione con lo zoom bottiglia)
+    // come Contatti, che vive nel footer.
+    { label: "L'azienda", to: '/scopri-azienda' },
+    { label: 'Chi siamo', to: '/chi-siamo' },
+    { label: 'Il territorio', to: '/scopri-territorio' },
     { label: 'San Florian', href: '#san-florian' },
     { label: 'Contatti', href: '#contatti' },
   ],
@@ -38,10 +41,11 @@ export const hero = {
   eyebrow: 'Maso e cantina biologica',
   location: 'Giovo · Val di Cembra',
   scrollHint: 'Scorri',
-  // [placeholder] sostituire con il video definitivo (stesso percorso o
-  // aggiornare src). Consigliato: mp4 H.264, 1080p, < 8 MB, senza audio.
+  // Ripresa aerea del maso all'ora dorata: una traslazione lenta e continua
+  // sopra i filari (H.264 1600x900, ~5,7 MB, senza audio) — sta sotto il velo
+  // antracite dell'hero, quindi non serve la piena risoluzione.
   video: {
-    src: asset('/video/hero-placeholder.mp4'),
+    src: asset('/video/hero-vigna-maso.mp4'),
   },
 }
 
@@ -55,19 +59,20 @@ export const azienda = {
   ],
   cta: "Scopri l'azienda",
   image: {
-    src: 'https://picsum.photos/seed/pergola/960/1200',
-    alt: 'Filari a pergola trentina del maso [placeholder]',
+    src: asset('/img/maso-pergola.webp'),
+    alt: 'Grappoli di Müller Thurgau tra i filari del maso, sopra la valle',
   },
   // Sfondo di sezione: foto ampia e poco leggibile in dettaglio (una vigna in
   // campo lungo), non un soggetto — sta sotto un velo di creta e serve come
   // profondità, non come informazione. Vedi SfondoSezione.
   background: {
-    src: asset('/img/sfondo-vigna-filari.webp'),
-    // [placeholder] campo lungo dei filari del maso — immagine segnaposto (vigna
-    // di repertorio), da sostituire con una foto reale del maso
+    src: asset('/img/sfondo-maso.webp'),
   },
 }
 
+// [placeholder] mancano i ritratti di Davide e Andrea: finché non arrivano, le
+// due figure ospitano una foto della vigna e una della bottiglia — coerenti con
+// il ruolo di ciascuno (campagna / cantina) — invece di un segnaposto estraneo.
 export const chiSiamo = {
   id: 'chi-siamo',
   eyebrow: 'Chi siamo',
@@ -78,8 +83,8 @@ export const chiSiamo = {
       role: 'Vigna e campagna',
       bio: 'Cresciuto tra i filari del maso, segue la vigna in ogni stagione: potatura, palco verde, vendemmia. [Testo placeholder da sostituire.]',
       image: {
-        src: 'https://picsum.photos/seed/davide/720/960',
-        alt: 'Ritratto di Davide [placeholder]',
+        src: asset('/img/vigna-pergola.webp'),
+        alt: 'I filari del maso sotto la pergola',
       },
     },
     {
@@ -87,16 +92,14 @@ export const chiSiamo = {
       role: 'Cantina e progetto',
       bio: 'Dalla pressa alla bottiglia, cura la cantina e l’anima del progetto Sette Fontane. [Testo placeholder da sostituire.]',
       image: {
-        src: 'https://picsum.photos/seed/andrea/720/960',
-        alt: 'Ritratto di Andrea [placeholder]',
+        src: asset('/img/bottiglie-san-florian.webp'),
+        alt: 'La bottiglia di San Florian e la confezione di spedizione',
       },
     },
   ],
   cta: 'Conoscici',
   background: {
-    src: asset('/img/sfondo-vigna-strada.webp'),
-    // [placeholder] vigna al crepuscolo, tonalità scure — segnaposto (strada tra
-    // le viti, cielo carico), da sostituire con una foto reale
+    src: asset('/img/sfondo-valle-sera.webp'),
   },
 }
 
@@ -110,13 +113,11 @@ export const territorio = {
   // qui però mostra un dettaglio — i terrazzamenti in porfido — perché il
   // panorama d'insieme è passato a fare da sfondo all'intera sezione.
   image: {
-    src: 'https://picsum.photos/seed/porfido/1200/1500',
-    alt: 'Terrazzamenti e muretti a secco in porfido [placeholder]',
+    src: asset('/img/terrazzamenti-porfido.webp'),
+    alt: 'I filari terrazzati del maso visti dall’alto, tra porfido e ghiaia bianca',
   },
   background: {
-    src: asset('/img/sfondo-vigna-monti.webp'),
-    // [placeholder] panorama della Val di Cembra — segnaposto (vigna, prato e
-    // monti), da sostituire con una foto reale della valle
+    src: asset('/img/sfondo-valle-monti.webp'),
   },
 }
 
@@ -138,9 +139,7 @@ export const sanFlorian = {
     'Il nostro primo vino porta il nome della chiesa che veglia sulle vigne di Giovo. Questa bottiglia racconta il nostro Trentino: la memoria di una tradizione antica e il coraggio di una nuova generazione che guarda lontano.',
   cta: 'Assapora San Florian',
   background: {
-    src: asset('/img/sfondo-vigna-terrazze.webp'),
-    // [placeholder] terrazzamenti vitati: sta sotto un velo antracite —
-    // segnaposto, da sostituire con una foto reale
+    src: asset('/img/sfondo-vigna-valle.webp'),
   },
   formats: [
     {
@@ -210,23 +209,23 @@ export const scopriAziendaPage = {
   // Sfondi fotografici di sezione (segnaposto, vigne di repertorio — vedi
   // SfondoSezione): sotto un velo tarato sul testo, servono da profondità.
   background: {
-    src: asset('/img/sfondo-vigna-cielo.webp'),
-    // [placeholder] filari e cielo aperto — da sostituire con una foto del maso
+    src: asset('/img/sfondo-maso-cielo.webp'),
   },
-  blocchiBackground: {
-    src: asset('/img/sfondo-vigna-nebbia.webp'),
-    // [placeholder] collina vitata nella foschia — da sostituire con una foto reale
+  timelineBackground: {
+    src: asset('/img/sfondo-valle-bruma.webp'),
   },
   intro: [
-    'Testo placeholder: qui troverà spazio il racconto disteso del maso, della sua conduzione biologica e della filosofia che guida il lavoro in vigna. [Testo placeholder da sostituire.]',
-    'Testo placeholder: un secondo paragrafo di approfondimento, con i dettagli che non trovano posto nella sintesi della home. [Testo placeholder da sostituire.]',
-  ],
-  // Foto di gruppo: apre la pagina sotto il titolo, formato panoramico
-  // (non full-bleed), didascalia sotto.
+"Al di sopra delle Colline Avisiane, ad un’altitudine di 550 metri, si trova Maso Sette Fontane, dove la vite affonda le sue radici fin dal 1734. Il nome richiama un'antica eredità legata alle sorgenti naturali d'acqua che nutrono questo territorio d'altitudine. Dagli anni 50 la nostra famiglia risiede qui e nel 2022 il testimone è passato a noi, proseguendo un cammino che dal 2010 abbraccia i principi dell’agricoltura biologica.",
+"L'agricoltura biologica è per noi una scelta identitaria profonda, facilitata dalla morfologia a corpo unico dell'azienda. Evitiamo le sostanze di sintesi e ci affidiamo unicamente ad ammendanti naturali per nutrire il terreno, rispettandone i cicli vitali e custodendo la biodiversità e le sorgenti che ci circondano.",
+"Ogni nostra bottiglia racchiude secoli di storia contadina, la pazienza del lavoro manuale e un patto quotidiano con l'ambiente. Coltiviamo questa terra con rispetto per chi l'ha lavorata prima di noi, con l'impegno di consegnare alle generazioni future un ecosistema sano, autentico e vivo.",
+],
+  // Apre la pagina sotto il titolo, formato panoramico (non full-bleed),
+  // didascalia sotto. Era previsto un ritratto di gruppo della famiglia: finché
+  // non arriva, il posto lo tiene la veduta aerea del maso e dei suoi filari.
   gruppo: {
-    src: 'https://picsum.photos/seed/maso-gruppo/1800/1100',
-    alt: 'Foto di gruppo della famiglia e delle persone del maso [placeholder]',
-    caption: 'Le persone di Maso Sette Fontane [didascalia placeholder]',
+    src: asset('/img/maso-dallalto.webp'),
+    alt: 'Maso Sette Fontane e i suoi vigneti visti dall’alto',
+    caption: 'Maso Sette Fontane, sulle Colline Avisiane a 550 metri',
   },
   timelineEyebrow: 'La nostra storia',
   timelineTitle: 'Una storia per tappe [placeholder]',
@@ -239,31 +238,40 @@ export const scopriAziendaPage = {
   ],
   // Blocchi alternati testo/immagine sotto la timeline: l'ordine visivo si
   // inverte a blocchi pari (immagine a sinistra) — vedi ScopriAzienda.
+  // Ogni blocco è una sezione a sé, con il proprio fondo e la propria foto:
+  // i fondi si alternano creta/offwhite senza mai ripetere quello della
+  // sezione precedente (la timeline chiude su offwhite, quindi si riparte da
+  // creta), così i blocchi si leggono come capitoli distinti e non come un
+  // unico muro. `fondo` sceglie anche il velo sopra la foto.
   blocchi: [
     {
+      fondo: 'creta',
+      background: { src: asset('/img/sfondo-colline-foschia.webp') },
       eyebrow: 'La filosofia [placeholder]',
       titolo: 'Lavorare assecondando la vigna [placeholder]',
       testo: [
-        'Testo placeholder: il primo paragrafo racconta l’approccio al lavoro in vigna, fatto di interventi minimi e di osservazione costante delle piante e del suolo. [Testo placeholder da sostituire.]',
-        'Testo placeholder: il secondo paragrafo entra nel merito delle pratiche biologiche adottate e del perché siano una scelta identitaria, non una certificazione da esibire. [Testo placeholder da sostituire.]',
-        'Testo placeholder: il terzo paragrafo chiude sul rapporto tra il tempo della vigna e il tempo del lavoro quotidiano. [Testo placeholder da sostituire.]',
-      ],
+"Coltivare Maso Sette Fontane richiede l'arte dell'ascolto e un'osservazione quotidiana delle piante e del suolo dolomitico che le nutre. Evitiamo le forzature meccaniche privilegiando la cura manuale: un dialogo costante con la vite che va dal primo taglio della potatura invernale fino alla rigorosa selezione dei grappoli durante la vendemmia.",
+"Assecondiamo l'orientamento del terreno e il microclima delle Colline Avisiane per permettere alla vigna di esprimere la sua naturale energia. Un aspetto per noi fondamentale è la gestione dell'età dell'impianto: accompagniamo le nostre piante nell'invecchiamento per garantire vini di superiore qualità e personalità.",
+"Crediamo in un intervento minimo, sia in campo che in cantina, lasciando che il terreno e il clima esprimano la loro vera identità. Ci sincronizziamo con il ritmo lento della natura, trovando nell'equilibrio tra lavoro artigianale e scorrere delle stagioni l'essenza stessa delle nostre produzioni.",
+   ],
       image: {
-        src: 'https://picsum.photos/seed/maso-filosofia/1200/1500',
-        alt: 'Dettaglio del lavoro in vigna [placeholder]',
+        src: asset('/img/vigna-uva.webp'),
+        alt: 'Grappoli di Müller Thurgau in maturazione tra i filari',
       },
     },
     {
+      fondo: 'offwhite',
+      background: { src: asset('/img/sfondo-borgo-vigne.webp') },
       eyebrow: 'I valori [placeholder]',
       titolo: 'Un maso, poche bottiglie, nessuna fretta [placeholder]',
       testo: [
-        'Testo placeholder: il primo paragrafo descrive la scelta di produrre poco e bene, con una resa contenuta per ettaro. [Testo placeholder da sostituire.]',
-        'Testo placeholder: il secondo paragrafo parla delle persone che contribuiscono al progetto e del legame con la comunità di Giovo. [Testo placeholder da sostituire.]',
-        'Testo placeholder: il terzo paragrafo guarda avanti, alle vendemmie che verranno e ai vini ancora in cantina. [Testo placeholder da sostituire.]',
-      ],
+"Abbiamo scelto consapevolmente di produrre poco e bene, mantenendo rese inferiori ai 90 quintali per ettaro per privilegiare la qualità senza compromessi. Concentrare le energie della pianta su un numero ridotto di grappoli ci permette di esaltare la concentrazione aromatica, l'equilibrio e l'espressività della viticoltura d'altitudine.",
+"Maso Sette Fontane non è solo terreno e filari, ma il risultato del lavoro di persone che mettono mani, testa e cuore in ciò che fanno. Siamo orgogliosi di far parte di un tessuto umano e sociale che da generazioni custodisce la cultura viticola di queste colline, riflettendo questa passione in ogni scelta aziendale.",
+"Guardiamo al futuro muovendoci al ritmo della natura, con i piedi ben saldi nella terra. Mentre le nostre riserve riposano in cantina evolvendo senza fretta, noi continuiamo a sperimentare e ad ascoltare il vigneto, creando vini capaci di raccontare la nostra storia e di sfidare il tempo.",
+     ],
       image: {
-        src: 'https://picsum.photos/seed/maso-valori/1200/1500',
-        alt: 'Bottiglie e cantina del maso [placeholder]',
+        src: asset('/img/confezione-sette-fontane.webp'),
+        alt: 'La confezione singola Sette Fontane con la bottiglia di San Florian',
       },
     },
   ],
@@ -275,15 +283,13 @@ export const chiSiamoPage = {
   // Sfondi fotografici di sezione (segnaposto — vedi SfondoSezione): sotto un
   // velo tarato sul testo, servono da profondità.
   background: {
-    src: asset('/img/sfondo-borgo-vigna.webp'),
-    // [placeholder] il borgo e la chiesa sopra le vigne — da sostituire
+    src: asset('/img/sfondo-chiesa-colle.webp'),
   },
   radiciBackground: {
-    src: asset('/img/sfondo-vigna-bruma.webp'),
-    // [placeholder] filari nella bruma (bianco e nero, tono d'archivio) — da sostituire
+    src: asset('/img/sfondo-valle-bruma.webp'),
   },
   intro:
-    'Testo placeholder: una riga di apertura che presenta i due fratelli e il maso. [Testo placeholder da sostituire.]',
+    'porcodioooooo',
   // Ritratti: il primo ha l'immagine a destra, il secondo la specchia a
   // sinistra — l'alternanza è calcolata sull'indice in ChiSiamo.jsx.
   persone: [
@@ -291,41 +297,45 @@ export const chiSiamoPage = {
       nome: 'Davide',
       ruolo: 'Vigna e campagna',
       paragrafi: [
-        'Testo placeholder: il ruolo di Davide in cantina e in vigna, il suo percorso di studi e la formazione agronomica che porta ogni giorno tra i filari. [Testo placeholder da sostituire.]',
-        'Testo placeholder: la dedizione alle stagioni — potatura, palco verde, vendemmia — e la scelta di intervenire il meno possibile, lasciando che sia la pianta a dettare i tempi. [Testo placeholder da sostituire.]',
-        'Testo placeholder: il suo approccio alla terra, fatto di osservazione e pazienza più che di ricette. [Testo placeholder da sostituire.]',
+      "Sono Davide Moser, ho 22 anni e la mia passione per la viticoltura nasce da lontano, ereditata da mio nonno, che ha coltivato queste stesse viti con una dedizione maniacale e una precisione assoluta.",
+      "Dopo aver frequentato la storica Fondazione Edmund Mach di San Michele all'Adige, ho completato la mia formazione diventando enologo.",
+      "Oggi, a Maso Sette Fontane, unisco il rigore della mia professione alla cura pratica di ogni fase: mi trovate sia in cantina a guidare l'evoluzione del vino, sia in campagna al volante del trattore tra i filari, custodendo con competenza l'eredità che mi è stata tramandata.",
       ],
       image: {
-        src: 'https://picsum.photos/seed/davide/1200/1500',
-        alt: 'Ritratto di Davide [placeholder]',
+        src: asset('/img/vigna-pergola.webp'),
+        alt: 'I filari del maso sotto la pergola',
       },
     },
     {
       nome: 'Andrea',
       ruolo: 'Cantina e progetto',
       paragrafi: [
-        'Testo placeholder: la personalità di Andrea e il modo in cui la sua curiosità ha dato forma all’identità del progetto Sette Fontane. [Testo placeholder da sostituire.]',
-        'Testo placeholder: le sue passioni, dentro e fuori dalla cantina, e come si riflettono nello stile dei vini. [Testo placeholder da sostituire.]',
-        'Testo placeholder: il contributo quotidiano, dalla pressa alla bottiglia, e il dialogo costante con il lavoro del fratello in vigna. [Testo placeholder da sostituire.]',
+        "Sono Andrea Moser, ho 18 anni e il mio legame con questa terra parte da lontano, ispirato dalla cura maniacale con cui nostro nonno ha sempre coltivato questi filari.",
+        "Dopo aver conseguito il diploma alla Fondazione Edmund Mach di San Michele all'Adige, ho scelto di proseguire gli studi iscrivendomi alla facoltà di Scienze ",
+        "Alimentari. A Maso Sette Fontane sono il cervello operativo in campo: pianifico e me ne occupo in prima persona di ogni lavorazione tra le viti, garantendo il massimo livello qualitativo in campagna. Allo stesso tempo rappresento un solido e costante aiuto in cantina, dove unisco la mia visione scientifica alla passione di famiglia. ",
       ],
       image: {
-        src: 'https://picsum.photos/seed/andrea/1200/1500',
-        alt: 'Ritratto di Andrea [placeholder]',
+        src: asset('/img/bottiglie-san-florian.webp'),
+        alt: 'La bottiglia di San Florian e la confezione di spedizione',
       },
     },
   ],
   radici: {
     eyebrow: 'Le nostre radici',
     citazione:
-      'Mio nonno diceva sempre che il vino non si fa in cantina, si fa ascoltando la terra.',
+      'fullgasa',
     paragrafi: [
-      'Testo placeholder: Davide e Andrea sono cresciuti seguendo i passi del nonno tra i filari, imparando prima a guardare che a fare — il tempo della vigna non si accorcia, si asseconda. [Testo placeholder da sostituire.]',
-      'Testo placeholder: da lui hanno raccolto il rispetto per i tempi della natura e un’eredità che non sta in un ettaro di terra, ma in un modo di stare al mondo. [Testo placeholder da sostituire.]',
+"La nostra passione per il vino è cresciuta osservando le mani del nonno, un uomo semplice guidato da una dedizione incrollabile per la campagna. La storia della nostra azienda parte da appena mezzo ettaro lavorato con fatica e rispetto per la natura. ",
+"Giorno dopo giorno è riuscito a trasformare quei pochi filari in un sogno concreto, fino a raggiungere sei ettari e il nostro amato maso. Crescendo al suo fianco abbiamo imparato ad ascoltare la vigna e a capire il valore dell'attesa, vedendo nascere in entrambi l'amore per la viticoltura.",
+"Oggi ne raccogliamo il testimone per produrre vino con la stessa autenticità. In ogni bottiglia racchiudiamo l'eredità di chi è partito dal nulla e la storia di una passione che continua a vivere.",
     ],
+    // [placeholder] al posto della foto d'archivio del nonno — che non è ancora
+    // arrivata — sta un filare del maso: la sezione lo rende comunque in bianco
+    // e nero, quindi il tono d'archivio regge.
     foto: {
-      src: 'https://picsum.photos/seed/nonno-vigna/1000/1200?grayscale',
-      alt: 'Fotografia d’archivio del nonno tra le vigne [placeholder]',
-      caption: 'Il nonno tra i filari del maso, anni ’60 [didascalia placeholder]',
+      src: asset('/img/filari-valle.webp'),
+      alt: 'I filari del maso affacciati sulla valle',
+      caption: 'I filari del maso, dove tutto è cominciato',
     },
   },
 }
@@ -336,24 +346,23 @@ export const scopriTerritorioPage = {
   // Sfondi fotografici di sezione (segnaposto — vedi SfondoSezione): sotto un
   // velo tarato sul testo, servono da profondità.
   background: {
-    src: asset('/img/sfondo-terrazzamenti.webp'),
-    // [placeholder] fianco terrazzato della valle — da sostituire con una foto reale
+    src: asset('/img/sfondo-cave-terrazze.webp'),
   },
   newsBackground: {
-    src: asset('/img/sfondo-borgo-monti.webp'),
-    // [placeholder] borgo vitato tra i monti — da sostituire con una foto reale
+    src: asset('/img/sfondo-borgo-vigne.webp'),
   },
   // Immagine d'apertura: larga ma non full-bleed, sotto il titolo.
   image: {
-    src: 'https://picsum.photos/seed/cembra-valle/1800/1100',
-    alt: 'Veduta della Valle di Cembra [placeholder]',
-    caption: 'I terrazzamenti della Val di Cembra [didascalia placeholder]',
+    src: asset('/img/valle-cembra.webp'),
+    alt: 'La Valle dell’Adige vista dai vigneti del maso, a Giovo',
+    caption: 'Dai filari del maso lo sguardo scende sulla valle e sulle vette del Brenta',
   },
   paragraphs: [
-    'Testo placeholder: la Val di Cembra si apre come una scala di terrazzamenti in porfido, settecento chilometri di muretti a secco che disegnano il fianco della montagna. [Testo placeholder da sostituire.]',
-    'Testo placeholder: il microclima nasce dall’escursione termica fra il giorno e la notte e dai venti che risalgono la valle, e regala ai bianchi acidità e profumo. [Testo placeholder da sostituire.]',
-    'Testo placeholder: suoli acidi e minerali, pendenze impossibili, vigne fra i 400 e gli 800 metri: qui la viticoltura è una scelta, mai una comodità. [Testo placeholder da sostituire.]',
-  ],
+  "Il Maso Sette Fontane affonda le sue radici nel cuore della Val di Cembra, nel comune di Giovo, un territorio dove la viticoltura è da sempre un’arte eroica scolpita tra terrazzamenti e forte pendenza. ",
+  "L’areale di Giovo beneficia di un microclima straordinario, caratterizzato da un'ottima esposizione solare e dalle forti escursioni termiche tra il giorno e la notte, garantite dalle correnti fresche alpine e dalla brezza dell’Ora del Garda. La vera identità dei nostri vini nasce da una duplice ricchezza del terreno.",
+  "Gran parte della nostra tenuta si sviluppa su autentici ed eccezionali suoli calcarei, recuperati da ex cave di ghiaia bianca: terreni poveri, drenanti e ricchi di scheletro, che infondono ai vini un’eleganza dritta, una straordinaria tensione acida e una spiccata finezza. ",
+  "Fa eccezione la zona dedicata ai nostri vigneti di Müller Thurgau, situata su terreni di matrice porfirica, nettamente più ricchi e strutturati, tipici della roccia vulcanica della valle. Qui il porfido dona alle uve una mineralità profonda, sapidità e un corredo aromatico di grande intensità. In questo contesto unico, lavorato quasi interamente a mano, il Maso Sette Fontane sintetizza la doppia anima del territorio di Giovo, traducendo la particolarità dei suoi suoli in vini di spiccata personalità, freschezza e longevità. ",
+],
   mappa: {
     // Mappa reale della Val di Cembra generata da tile OpenStreetMap e servita
     // in locale (niente chiave API né iframe di terze parti): centrata su Giovo,
@@ -371,12 +380,12 @@ export const scopriTerritorioPage = {
     eyebrow: 'Approfondimenti',
     titolo: 'La viticoltura eroica',
     paragrafi: [
-      'Testo placeholder: si chiama eroica la viticoltura che si pratica oltre il 30% di pendenza, dove nessun mezzo può salire e ogni gesto — potare, legare, vendemmiare — resta lavoro di mani. [Testo placeholder da sostituire.]',
-      'Testo placeholder: i muretti a secco che sostengono i terrazzamenti sono un paesaggio costruito pietra su pietra da generazioni, e vanno mantenuti come si mantiene una vigna. [Testo placeholder da sostituire.]',
+"Dall’alto del Maso Sette Fontane lo sguardo si apre su uno dei panorami più suggestivi del Trentino. Posizionato in una balconata naturale, il maso domina dall'alto la Valle dell’Adige, seguendo il nastro d'argento del fiume che scorre lento lungo il fondo valle. All’orizzonte la vista spazia in totale libertà, incontrando la maestosità della Paganella e le vette spettacolari del Gruppo Adamello-Brenta, che incorniciano il tramonto con i loro profili di roccia. ",
+"Essere affacciati su questo anfiteatro naturale non offre solo una bellezza contemplativa, ma definisce la vita stessa dei nostri vigneti. Da questa posizione privilegiata la tenuta intercetta costantemente la luce del sole e beneficia delle correnti d'aria che risalgono la valle, creando un microclima vivo e ventilato. Lavorare qui significa coltivare ogni filare immersi in uno scenario grandioso, dove la grandezza delle montagne e la forza del fiume si riflettono direttamente nel carattere dei nostri vini. ",
     ],
     image: {
-      src: 'https://picsum.photos/seed/muretti-secco/1200/1500',
-      alt: 'Muretti a secco e vendemmia eroica sui terrazzamenti [placeholder]',
+      src: asset('/img/muretti-terrazzamenti.webp'),
+      alt: 'I vigneti terrazzati sui ripidi pendii di Giovo',
     },
   },
 }
@@ -391,9 +400,7 @@ export const footer = {
   id: 'contatti',
   heading: 'Contatti',
   background: {
-    src: asset('/img/sfondo-vigna-autunno.webp'),
-    // [placeholder] il maso visto da fuori: è l'invito a venirci a trovare —
-    // segnaposto (vigna d'autunno, luce di sera), da sostituire con una foto reale
+    src: asset('/img/sfondo-maso-valle.webp'),
   },
   indirizzo: 'Maso Sette Fontane — Giovo (TN), Val di Cembra [placeholder]',
   email: emailCantina,
