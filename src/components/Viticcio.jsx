@@ -612,7 +612,7 @@ const CONFIGURAZIONI = [
     // una foto da costeggiare (visibili, mai nascosti dietro l'immagine z-10),
     // senza toccare testo né sovrapporsi alla linea. Tarati con collisioni.mjs.
     nodi: ({ p, avvolgi, area }) => [
-      p(area, 0.5, 0),
+      p(area, 0.5, 0, { foglia: { lato: 'destra', scala: 1.6, rotazione: -10 }}),
       // scavalca la foto del maso ed entra nel canale alla sua sinistra
       p('#azienda figure', 0.27, 0, { dy: -49 }),
       p('#azienda figure', 0.46, 0.085),
