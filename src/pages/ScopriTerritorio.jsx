@@ -58,7 +58,7 @@ function BoxMappa({ mappa }) {
       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 bg-gradient-to-t from-offwhite via-offwhite/90 to-transparent p-5 pt-12">
         <div>
           <p className="font-display text-lg text-antracite">{mappa.label}</p>
-          <p className="mt-1 font-prose text-sm text-antracite/60">{mappa.sublabel}</p>
+          <p className="mt-1 font-prose text-sm text-antracite/60 md:text-[0.95rem]">{mappa.sublabel}</p>
         </div>
         <span className="eyebrow whitespace-nowrap text-moro underline-offset-4 group-hover:underline">
           {mappa.cta}
@@ -119,7 +119,7 @@ export default function ScopriTerritorio() {
               </div>
               <figcaption
                 data-reveal
-                className="mt-5 text-center font-prose text-sm leading-relaxed text-antracite/60"
+                className="mt-5 text-center font-prose text-sm leading-relaxed md:text-[0.95rem] text-antracite/60"
               >
                 {scopriTerritorioPage.image.caption}
               </figcaption>
@@ -150,7 +150,7 @@ export default function ScopriTerritorio() {
                   <p
                     key={i}
                     data-reveal
-                    className="max-w-prose font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-antracite/75"
+                    className="max-w-prose font-prose text-[clamp(1.05rem,1.55vw,1.32rem)] leading-relaxed text-antracite/75"
                   >
                     {p}
                   </p>
@@ -190,7 +190,7 @@ export default function ScopriTerritorio() {
                   <p
                     key={i}
                     data-reveal
-                    className="max-w-prose font-prose text-[clamp(1rem,1.3vw,1.12rem)] leading-relaxed text-antracite/75"
+                    className="max-w-prose font-prose text-[clamp(1rem,1.45vw,1.24rem)] leading-relaxed text-antracite/75"
                   >
                     {p}
                   </p>

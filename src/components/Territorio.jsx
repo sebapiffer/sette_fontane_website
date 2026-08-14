@@ -74,7 +74,7 @@ export default function Territorio() {
           >
             {territorio.title}
           </SplitHeading>
-          <p className="mt-7 max-w-prose font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-antracite/70">
+          <p className="mt-7 max-w-prose font-prose text-[clamp(1.05rem,1.55vw,1.32rem)] leading-relaxed text-antracite/70">
             {territorio.text}
           </p>
           <div className="mt-10">

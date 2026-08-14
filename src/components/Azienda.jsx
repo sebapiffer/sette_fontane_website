@@ -39,7 +39,7 @@ export default function Azienda() {
               <p
                 key={i}
                 data-reveal
-                className="max-w-prose font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-antracite/75"
+                className="max-w-prose font-prose text-[clamp(1.05rem,1.55vw,1.32rem)] leading-relaxed text-antracite/75"
               >
                 {p}
               </p>

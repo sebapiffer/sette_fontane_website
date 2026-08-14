@@ -38,12 +38,12 @@ export default function Footer() {
             <span className="sr-only">{site.nameParts.join(' ')}</span>
             <Wordmark className="h-10 w-auto text-offwhite" />
           </div>
-          <p className="mt-5 font-sans text-sm font-light text-offwhite/50">{site.location}</p>
+          <p className="mt-5 font-sans text-sm font-light text-offwhite/50 md:text-[0.95rem]">{site.location}</p>
         </div>
 
         <div data-reveal>
           <h2 className="eyebrow text-tortora">{footer.heading}</h2>
-          <ul className="mt-5 space-y-2 font-sans text-sm font-light text-offwhite/70">
+          <ul className="mt-5 space-y-2 font-sans text-sm font-light text-offwhite/70 md:text-[0.95rem]">
             <li>{footer.indirizzo}</li>
             <li>
               <a href={`mailto:${footer.email}`} className="transition-colors hover:text-offwhite">

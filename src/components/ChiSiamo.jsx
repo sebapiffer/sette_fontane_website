@@ -57,7 +57,7 @@ export default function ChiSiamo() {
                 {/* La bio è opzionale: oggi non c'è (vedi content.js) e la
                     scheda si chiude sul ruolo. */}
                 {person.bio && (
-                  <p className="mt-4 font-prose text-[1.05rem] leading-relaxed text-offwhite/70">
+                  <p className="mt-4 font-prose text-[1.05rem] leading-relaxed md:text-[1.14rem] text-offwhite/70">
                     {person.bio}
                   </p>
                 )}

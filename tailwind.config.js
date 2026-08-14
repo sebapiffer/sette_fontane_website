@@ -11,6 +11,15 @@ export default {
         sabbia: '#C9B4A4',
         offwhite: '#FDFDFD',
       },
+      // Larghezza del contenitore di pagina: `max-w-7xl` è il contenitore
+      // condiviso da tutte le sezioni e dalla navbar, quindi ritoccarlo qui
+      // stringe il margine laterale ovunque in un colpo solo, senza sfasare
+      // l'allineamento fra navbar e contenuto. 80rem → 84rem: a 1440 px il
+      // margine passa da 80 a 48 px per lato (più il padding di sezione), e
+      // sotto i 1344 px non cambia nulla — è un ritocco solo desktop.
+      maxWidth: {
+        '7xl': '84rem',
+      },
       fontFamily: {
         display: ["'Mason Sans'", 'sans-serif'],
         sans: ["'LT Wave'", 'sans-serif'],

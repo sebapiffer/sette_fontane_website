@@ -46,7 +46,7 @@ function BloccoAlternato({ blocco, immagineASinistra }) {
               <p
                 key={j}
                 data-reveal
-                className="max-w-prose font-prose text-[clamp(1rem,1.3vw,1.12rem)] leading-relaxed text-antracite/75"
+                className="max-w-prose font-prose text-[clamp(1rem,1.45vw,1.24rem)] leading-relaxed text-antracite/75"
               >
                 {p}
               </p>
@@ -107,7 +107,7 @@ export default function ScopriAzienda() {
               <div className="mt-7">
                 <p
                   data-reveal
-                  className="font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-antracite/75"
+                  className="font-prose text-[clamp(1.05rem,1.55vw,1.32rem)] leading-relaxed text-antracite/75"
                 >
                   {scopriAziendaPage.intro[0]}
                 </p>
@@ -134,7 +134,7 @@ export default function ScopriAzienda() {
               </div>
               <figcaption
                 data-reveal
-                className="mt-5 text-center font-prose text-sm leading-relaxed text-antracite/60"
+                className="mt-5 text-center font-prose text-sm leading-relaxed md:text-[0.95rem] text-antracite/60"
               >
                 {scopriAziendaPage.gruppo.caption}
               </figcaption>
@@ -145,7 +145,7 @@ export default function ScopriAzienda() {
                 <p
                   key={i}
                   data-reveal
-                  className="font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-antracite/75"
+                  className="font-prose text-[clamp(1.05rem,1.55vw,1.32rem)] leading-relaxed text-antracite/75"
                 >
                   {p}
                 </p>

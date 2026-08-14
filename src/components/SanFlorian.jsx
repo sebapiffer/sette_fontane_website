@@ -237,7 +237,7 @@ export default function SanFlorian() {
           </p>
           <p
             data-reveal
-            className="mt-7 max-w-prose font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-offwhite/70"
+            className="mt-7 max-w-prose font-prose text-[clamp(1.05rem,1.55vw,1.32rem)] leading-relaxed text-offwhite/70"
           >
             {sanFlorian.intro}
           </p>
@@ -323,7 +323,7 @@ export default function SanFlorian() {
             <h4 className="sf-detail eyebrow mt-10 text-offwhite/50">
               {sanFlorian.degustazione.titolo}
             </h4>
-            <p className="sf-detail mt-4 font-prose text-[1.1rem] leading-relaxed text-offwhite/75">
+            <p className="sf-detail mt-4 font-prose text-[1.1rem] leading-relaxed md:text-[1.2rem] text-offwhite/75">
               {sanFlorian.degustazione.testo}
             </p>
 
@@ -331,7 +331,7 @@ export default function SanFlorian() {
               {sanFlorian.scheda.map((row) => (
                 <div key={row.label}>
                   <dt className="eyebrow text-tortora/80">{row.label}</dt>
-                  <dd className="mt-1.5 font-prose text-[1.02rem] text-offwhite/80">
+                  <dd className="mt-1.5 font-prose text-[1.02rem] md:text-[1.1rem] text-offwhite/80">
                     {row.value}
                   </dd>
                 </div>
@@ -412,7 +412,7 @@ export default function SanFlorian() {
               {sanFlorian.storia.paragrafi.map((testo) => (
                 <p
                   key={testo}
-                  className="text-justify font-prose text-[1.05rem] leading-relaxed text-offwhite/70"
+                  className="text-justify font-prose text-[1.05rem] leading-relaxed md:text-[1.14rem] text-offwhite/70"
                 >
                   {testo}
                 </p>

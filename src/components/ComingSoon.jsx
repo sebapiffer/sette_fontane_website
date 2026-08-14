@@ -25,7 +25,7 @@ export default function ComingSoon() {
         >
           {comingSoon.title}
         </SplitHeading>
-        <p data-reveal className="mt-4 font-prose text-lg text-antracite/60">
+        <p data-reveal className="mt-4 font-prose text-lg text-antracite/60 md:text-[1.24rem]">
           {comingSoon.text}
         </p>
       </div>

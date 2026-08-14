@@ -57,8 +57,13 @@
 }
 
 @layer components {
+  /* Gli occhielli sono l'unico testo del sito sotto i 12 px: da md in su
+     salgono di un gradino (0,7 → 0,78rem) perché su desktop, maiuscoletto e
+     con 0.35em di spaziatura, a 11 px si leggevano come una texture. Il
+     valore mobile resta com'era: lì la misura è già relativamente più grande
+     rispetto al resto della pagina. */
   .eyebrow {
-    @apply font-sans text-[0.7rem] font-medium uppercase tracking-[0.35em];
+    @apply font-sans text-[0.7rem] font-medium uppercase tracking-[0.35em] md:text-[0.78rem];
   }
   .btn {
     @apply relative isolate inline-flex items-center gap-3 overflow-hidden rounded-full border px-8 py-3

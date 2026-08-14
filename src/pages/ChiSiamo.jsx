@@ -32,7 +32,7 @@ function Ritratto({ persona, immagineASinistra }) {
             <p
               key={i}
               data-reveal
-              className="max-w-prose font-prose text-[clamp(1rem,1.3vw,1.12rem)] leading-relaxed text-antracite/75"
+              className="max-w-prose font-prose text-[clamp(1rem,1.45vw,1.24rem)] leading-relaxed text-antracite/75"
             >
               {p}
             </p>
@@ -95,7 +95,7 @@ export default function ChiSiamo() {
               </SplitHeading>
               <p
                 data-reveal
-                className="mx-auto mt-7 max-w-prose font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-offwhite/75"
+                className="mx-auto mt-7 max-w-prose font-prose text-[clamp(1.05rem,1.55vw,1.32rem)] leading-relaxed text-offwhite/75"
               >
                 {chiSiamoPage.intro}
               </p>
@@ -119,7 +119,7 @@ export default function ChiSiamo() {
               </div>
               <figcaption
                 data-reveal
-                className="mt-5 text-center font-prose text-sm leading-relaxed text-offwhite/60"
+                className="mt-5 text-center font-prose text-sm leading-relaxed md:text-[0.95rem] text-offwhite/60"
               >
                 {chiSiamoPage.image.caption}
               </figcaption>
@@ -173,7 +173,7 @@ export default function ChiSiamo() {
               </div>
               <figcaption
                 data-reveal
-                className="mt-4 text-center font-prose text-sm text-antracite/60"
+                className="mt-4 text-center font-prose text-sm text-antracite/60 md:text-[0.95rem]"
               >
                 {radici.foto.caption}
               </figcaption>
@@ -194,7 +194,7 @@ export default function ChiSiamo() {
                   <p
                     key={i}
                     data-reveal
-                    className="max-w-prose font-prose text-[clamp(1rem,1.3vw,1.12rem)] leading-relaxed text-offwhite/75"
+                    className="max-w-prose font-prose text-[clamp(1rem,1.45vw,1.24rem)] leading-relaxed text-offwhite/75"
                   >
                     {p}
                   </p>
