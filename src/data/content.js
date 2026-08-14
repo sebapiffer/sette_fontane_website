@@ -88,9 +88,15 @@ export const azienda = {
     'Oggi custodiamo quella storia con un’agricoltura interamente biologica, perché crediamo in una terra da ascoltare, rispettare e lasciare più viva di come l’abbiamo trovata.',
   ],
   cta: "Scopri l'azienda",
+  // Il maso vero, ripreso dal drone: la casa tra i filari, il bosco alle
+  // spalle. Sorgente `maso.jpg` (lo scatto verticale — i suoi pixel sono
+  // ruotati e vanno raddrizzati con l'EXIF; `maso_orizzontale.jpg` è lo stesso
+  // soggetto in 16:9). Si è preso il verticale perché lo slot è aspect-[4/5]:
+  // il ritaglio toglie un po' di cielo e di vigna sotto, mentre partendo dal
+  // 16:9 sarebbe finita fuori più di metà larghezza, maso compreso.
   image: {
-    src: asset('/img/maso-pergola.webp'),
-    alt: 'Grappoli di Müller Thurgau tra i filari del maso, sopra la valle',
+    src: asset('/img/maso-sette-fontane.webp'),
+    alt: 'Il maso Sette Fontane visto dall’alto, tra i filari e il bosco di Giovo',
   },
   // Sfondo di sezione: foto ampia e poco leggibile in dettaglio (una vigna in
   // campo lungo), non un soggetto — sta sotto un velo di creta e serve come
@@ -106,12 +112,17 @@ export const azienda = {
 export const chiSiamo = {
   id: 'chi-siamo',
   eyebrow: 'Chi siamo',
-  title: 'Due fratelli, una vigna',
+  title: 'Due fratelli con lo stesso sogno',
+  // Le due righe sotto il ruolo sono distillate dalle biografie vere di
+  // `chiSiamoPage.persone` — non sono più i placeholder inventati di prima, che
+  // per giunta dicevano l'opposto dei ruoli (mandavano Davide in vigna e Andrea
+  // in cantina). Tenute corte e della stessa lunghezza: le due schede stanno
+  // affiancate e una didascalia più lunga dell'altra sbilancia la griglia.
   people: [
     {
       name: 'Davide',
-      role: 'Vigna e campagna',
-      bio: 'Cresciuto tra i filari del maso, segue la vigna in ogni stagione: potatura, palco verde, vendemmia. [Testo placeholder da sostituire.]',
+      role: 'Poca campagna, tanta cantina',
+      bio: 'Enologo, diplomato alla Fondazione Edmund Mach: in cantina guida l’evoluzione del vino, e quando serve è tra i filari al volante del trattore.',
       image: {
         src: asset('/img/vigna-pergola.webp'),
         alt: 'I filari del maso sotto la pergola',
@@ -119,8 +130,8 @@ export const chiSiamo = {
     },
     {
       name: 'Andrea',
-      role: 'Cantina e progetto',
-      bio: 'Dalla pressa alla bottiglia, cura la cantina e l’anima del progetto Sette Fontane. [Testo placeholder da sostituire.]',
+      role: 'Campagna, marketing e non solo',
+      bio: 'Diplomato alla Fondazione Edmund Mach e studente di Scienze Alimentari: pianifica e segue di persona ogni lavorazione tra le viti.',
       image: {
         src: asset('/img/bottiglie-san-florian.webp'),
         alt: 'La bottiglia di San Florian e la confezione di spedizione',
@@ -325,7 +336,7 @@ export const chiSiamoPage = {
   persone: [
     {
       nome: 'Davide',
-      ruolo: 'Vigna e campagna',
+      ruolo: 'Poca campagna, tanta cantina',
       paragrafi: [
       "Sono Davide Moser, ho 22 anni e la mia passione per la viticoltura nasce da lontano, ereditata da mio nonno, che ha coltivato queste stesse viti con una dedizione maniacale e una precisione assoluta.",
       "Dopo aver frequentato la storica Fondazione Edmund Mach di San Michele all'Adige, ho completato la mia formazione diventando enologo.",
@@ -338,7 +349,7 @@ export const chiSiamoPage = {
     },
     {
       nome: 'Andrea',
-      ruolo: 'Cantina e progetto',
+      ruolo: 'Campagna, marketing e non solo',
       paragrafi: [
         "Sono Andrea Moser, ho 18 anni e il mio legame con questa terra parte da lontano, ispirato dalla cura maniacale con cui nostro nonno ha sempre coltivato questi filari.",
         "Dopo aver conseguito il diploma alla Fondazione Edmund Mach di San Michele all'Adige, ho scelto di proseguire gli studi iscrivendomi alla facoltà di Scienze ",

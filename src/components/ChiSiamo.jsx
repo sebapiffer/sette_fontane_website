@@ -54,9 +54,13 @@ export default function ChiSiamo() {
               <figcaption data-reveal className="mt-6">
                 <h3 className="font-display text-2xl text-offwhite">{person.name}</h3>
                 <p className="eyebrow mt-2 text-tortora">{person.role}</p>
-                <p className="mt-4 font-prose text-[1.05rem] leading-relaxed text-offwhite/70">
-                  {person.bio}
-                </p>
+                {/* La bio è opzionale: oggi non c'è (vedi content.js) e la
+                    scheda si chiude sul ruolo. */}
+                {person.bio && (
+                  <p className="mt-4 font-prose text-[1.05rem] leading-relaxed text-offwhite/70">
+                    {person.bio}
+                  </p>
+                )}
               </figcaption>
             </figure>
           ))}
