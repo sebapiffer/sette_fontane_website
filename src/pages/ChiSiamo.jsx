@@ -81,23 +81,49 @@ export default function ChiSiamo() {
           <SfondoSezione src={chiSiamoPage.background.src} opacita={0.5}>
             <div className="absolute inset-0 bg-gradient-to-b from-antracite via-antracite/75 to-antracite" />
           </SfondoSezione>
-          <div className="relative mx-auto max-w-3xl px-7 text-center sm:px-8">
-            <p data-reveal className="eyebrow text-sabbia">
-              {chiSiamoPage.eyebrow}
-            </p>
-            <SplitHeading
-              as="h1"
-              data-reveal-words
-              className="mt-5 font-display text-[clamp(2.4rem,5.5vw,4rem)] leading-[1.08] text-offwhite"
-            >
-              {chiSiamoPage.title}
-            </SplitHeading>
-            <p
-              data-reveal
-              className="mx-auto mt-7 max-w-prose font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-offwhite/75"
-            >
-              {chiSiamoPage.intro}
-            </p>
+          <div className="relative mx-auto max-w-7xl px-7 sm:px-8">
+            <div className="mx-auto max-w-3xl text-center">
+              <p data-reveal className="eyebrow text-sabbia">
+                {chiSiamoPage.eyebrow}
+              </p>
+              <SplitHeading
+                as="h1"
+                data-reveal-words
+                className="mt-5 font-display text-[clamp(2.4rem,5.5vw,4rem)] leading-[1.08] text-offwhite"
+              >
+                {chiSiamoPage.title}
+              </SplitHeading>
+              <p
+                data-reveal
+                className="mx-auto mt-7 max-w-prose font-prose text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-offwhite/75"
+              >
+                {chiSiamoPage.intro}
+              </p>
+            </div>
+
+            {/* Stessa figura d'apertura delle altre sottopagine: larga ma non
+                full-bleed (max-w-5xl dentro il contenitore di pagina), 16/9,
+                scoperta dalla tendina clip-path di useReveal. */}
+            <figure className="mx-auto mt-[clamp(3rem,7vw,5rem)] w-full max-w-5xl">
+              <div className="aspect-[16/9] w-full overflow-hidden">
+                <img
+                  data-reveal-img
+                  src={chiSiamoPage.image.src}
+                  alt={chiSiamoPage.image.alt}
+                  loading="lazy"
+                  decoding="async"
+                  width="1800"
+                  height="1013"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <figcaption
+                data-reveal
+                className="mt-5 text-center font-prose text-sm leading-relaxed text-offwhite/60"
+              >
+                {chiSiamoPage.image.caption}
+              </figcaption>
+            </figure>
           </div>
         </section>
 

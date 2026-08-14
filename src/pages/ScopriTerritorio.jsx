@@ -112,8 +112,8 @@ export default function ScopriTerritorio() {
                   alt={scopriTerritorioPage.image.alt}
                   loading="lazy"
                   decoding="async"
-                  width="1800"
-                  height="1100"
+                  width="1200"
+                  height="675"
                   className="h-full w-full object-cover"
                 />
               </div>
@@ -135,7 +135,17 @@ export default function ScopriTerritorio() {
         >
           <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-7 sm:px-8 md:grid-cols-2 md:gap-16 lg:gap-24">
             <div>
-              <div className="space-y-5">
+              <p data-reveal className="eyebrow text-moro">
+                {scopriTerritorioPage.paragraphsEyebrow}
+              </p>
+              <SplitHeading
+                as="h2"
+                data-reveal-words
+                className="mt-5 max-w-prose font-display text-[clamp(1.8rem,3.4vw,2.6rem)] leading-[1.12] text-antracite"
+              >
+                {scopriTerritorioPage.paragraphsTitle}
+              </SplitHeading>
+              <div className="mt-6 space-y-5">
                 {scopriTerritorioPage.paragraphs.map((p, i) => (
                   <p
                     key={i}

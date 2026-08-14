@@ -71,9 +71,11 @@ export const hero = {
   eyebrow: 'Maso e cantina biologica',
   location: 'Giovo · Val di Cembra',
   scrollHint: 'Scorri',
-  // Ripresa aerea del maso all'ora dorata: una traslazione lenta e continua
-  // sopra i filari (H.264 1600x900, ~5,7 MB, senza audio) — sta sotto il velo
-  // antracite dell'hero, quindi non serve la piena risoluzione.
+  // Ripresa aerea sopra i filari del maso, una traslazione lenta e continua
+  // che scopre la valle. Sorgente `video_hero.mp4`, 4K/23 s: qui è H.264
+  // 1600x900 senza audio, ~5,3 MB (crf 29) — il video autoplay+loop si scarica
+  // per intero, e sotto il velo antracite dell'hero la piena risoluzione non
+  // si vedrebbe comunque.
   video: {
     src: asset('/video/hero-vigna-maso.mp4'),
   },
@@ -122,7 +124,7 @@ export const chiSiamo = {
     {
       name: 'Davide',
       role: 'Poca campagna, tanta cantina',
-      bio: 'Enologo, diplomato alla Fondazione Edmund Mach: in cantina guida l’evoluzione del vino, e quando serve è tra i filari al volante del trattore.',
+      bio: "Enologo diplomato alla Fondazione Edmund Mach. In cantina è colui che guida l’evoluzione di ogni vino; in vigna non esita a salire sul trattore tra i filari. Scienza, sensibilità e stivali sporchi di terra: l'anima artigiana di Maso Sette Fontane.",
       image: {
         src: asset('/img/vigna-pergola.webp'),
         alt: 'I filari del maso sotto la pergola',
@@ -131,7 +133,7 @@ export const chiSiamo = {
     {
       name: 'Andrea',
       role: 'Campagna, marketing e non solo',
-      bio: 'Diplomato alla Fondazione Edmund Mach e studente di Scienze Alimentari: pianifica e segue di persona ogni lavorazione tra le viti.',
+      bio: "Con il diploma alla Fondazione Mach e gli studi in Scienze Alimentari, unisce precisione e creatività: cura in prima persona ogni dettaglio tra i filari e trasforma il lavoro sul campo nella strategia di marketing e comunicazione del domani.",
       image: {
         src: asset('/img/bottiglie-san-florian.webp'),
         alt: 'La bottiglia di San Florian e la confezione di spedizione',
@@ -148,18 +150,18 @@ export const territorio = {
   id: 'territorio',
   eyebrow: 'Il territorio',
   title: 'Giovo, Val di Cembra',
-  text: 'Pendii ripidi, terrazzamenti di porfido e un’escursione termica che firma i profumi del vino. Qui il Müller Thurgau ha trovato la sua casa di montagna. [Testo placeholder da sostituire.]',
+  text: "Scolpito tra i ripidi terrazzamenti di Giovo, l'areale della Val di Cembra è il regno di una viticoltura eroica ed autentica. Qui, tra forti escursioni termiche e brezze alpine, la vite affonda le radici in un mosaico unico di porfido e calcare. È un paesaggio disegnato dai muretti a secco, dove la pendenza della montagna incontra la cura paziente del lavoro manuale.",
   cta: 'Scopri il territorio',
-  // La figura resta la "finestra sul paesaggio" (rettangolare, mai ad arco) e
-  // mostra il paese che dà il titolo alla sezione: Giovo, con il campanile, i
-  // terrazzamenti attorno e il Brenta sul fondo. È un ritaglio verticale di un
-  // panorama molto largo (4000×1848), centrato sul borgo per tenere fuori sia
-  // il flare del sole a sinistra sia i rami in primo piano in basso. Non
-  // ripete lo sfondo di sezione: quello è una ripresa estiva dall'alto, senza
-  // paese, e comunque desaturata sotto il velo.
+  // La figura resta la "finestra sul paesaggio" (rettangolare, mai ad arco).
+  // Qui e nell'intestazione di /scopri-territorio le due vedute si sono
+  // scambiate di posto: in home va la Valle dell'Adige vista dai filari del
+  // maso, sulla sottopagina il borgo di Giovo. Il file è un ritaglio 4/5 dello
+  // scatto originale (4032×2268) perché lo slot è verticale — il panorama in
+  // 16/9 vive ora sulla sottopagina. Non ripete lo sfondo di sezione, che è
+  // un'altra veduta e comunque desaturata sotto il velo.
   image: {
-    src: asset('/img/giovo-borgo.webp'),
-    alt: 'Il paese di Giovo al tramonto, tra i terrazzamenti vitati e le cime innevate del Brenta',
+    src: asset('/img/valle-cembra-verticale.webp'),
+    alt: 'La Valle dell’Adige vista dai vigneti del maso, tra le cime della valle',
   },
   background: {
     src: asset('/img/sfondo-valle-monti.webp'),
@@ -177,7 +179,7 @@ export const vini = {
 
 export const sanFlorian = {
   id: 'san-florian',
-  eyebrow: 'La nostra cantina',
+  eyebrow: 'Da dove tutto è partito',
   title: 'San Florian',
   denominazione: 'Müller Thurgau DOC',
   intro:
@@ -260,7 +262,7 @@ export const scopriAziendaPage = {
     src: asset('/img/sfondo-valle-bruma.webp'),
   },
   intro: [
-"Al di sopra delle Colline Avisiane, ad un’altitudine di 550 metri, si trova Maso Sette Fontane, dove la vite affonda le sue radici fin dal 1734. Il nome richiama un'antica eredità legata alle sorgenti naturali d'acqua che nutrono questo territorio d'altitudine. Dagli anni 50 la nostra famiglia risiede qui e nel 2022 il testimone è passato a noi, proseguendo un cammino che dal 2010 abbraccia i principi dell’agricoltura biologica.",
+"Al di sopra delle Colline Avisiane, ad un’altitudine di 500 metri, si trova Maso Sette Fontane, dove la vite affonda le sue radici fin dal 1734. Il nome richiama un'antica eredità legata alle sorgenti naturali d'acqua che nutrono questo territorio d'altitudine. Dagli anni 50 la nostra famiglia risiede qui e nel 2022 il testimone è passato a noi, proseguendo un cammino che dal 2010 abbraccia i principi dell’agricoltura biologica.",
 "L'agricoltura biologica è per noi una scelta identitaria profonda, facilitata dalla morfologia a corpo unico dell'azienda. Evitiamo le sostanze di sintesi e ci affidiamo unicamente ad ammendanti naturali per nutrire il terreno, rispettandone i cicli vitali e custodendo la biodiversità e le sorgenti che ci circondano.",
 "Ogni nostra bottiglia racchiude secoli di storia contadina, la pazienza del lavoro manuale e un patto quotidiano con l'ambiente. Coltiviamo questa terra con rispetto per chi l'ha lavorata prima di noi, con l'impegno di consegnare alle generazioni future un ecosistema sano, autentico e vivo.",
 ],
@@ -314,9 +316,14 @@ export const scopriAziendaPage = {
 "Maso Sette Fontane non è solo terreno e filari, ma il risultato del lavoro di persone che mettono mani, testa e cuore in ciò che fanno. Siamo orgogliosi di far parte di un tessuto umano e sociale che da generazioni custodisce la cultura viticola di queste colline, riflettendo questa passione in ogni scelta aziendale.",
 "Guardiamo al futuro muovendoci al ritmo della natura, con i piedi ben saldi nella terra. Mentre le nostre riserve riposano in cantina evolvendo senza fretta, noi continuiamo a sperimentare e ad ascoltare il vigneto, creando vini capaci di raccontare la nostra storia e di sfidare il tempo.",
      ],
+      // Le bottiglie coricate in cantina, tappo verso l'obiettivo: il turacciolo
+      // marchiato con le sette gocce è il soggetto. Sorgente
+      // `qualità_prima_della_quantità.jpg`, uno scatto molto largo (4000×1848):
+      // lo slot è aspect-[4/5], quindi il file è già ritagliato in verticale
+      // attorno al tappo, non è tutta l'inquadratura.
       image: {
-        src: asset('/img/confezione-sette-fontane.webp'),
-        alt: 'La confezione singola Sette Fontane con la bottiglia di San Florian',
+        src: asset('/img/bottiglie-cantina.webp'),
+        alt: 'Bottiglie coricate in cantina, con il tappo marchiato Sette Fontane',
       },
     },
   ],
@@ -335,6 +342,17 @@ export const chiSiamoPage = {
   },
   intro:
     'le persone al cuore della nostra azienda',
+  // Immagine orizzontale sotto il titolo, come nelle altre sottopagine
+  // (`scopriAziendaPage.gruppo`, `scopriTerritorioPage.image`): apre la pagina
+  // con il luogo di cui le persone raccontano. È una ripresa più larga di
+  // quella di "Scopri l'azienda" — lì il maso è inquadrato da vicino, qui sta
+  // dentro i suoi filari con la valle sullo sfondo, quindi la stessa veduta
+  // non viene raccontata due volte.
+  image: {
+    src: asset('/img/maso-vigne-collina.webp'),
+    alt: 'Il maso tra i suoi filari sulle Colline Avisiane, con la valle sullo sfondo',
+    caption: 'Il maso e i suoi filari, dove lavoriamo ogni giorno',
+  },
   // Ritratti: il primo ha l'immagine a destra, il secondo la specchia a
   // sinistra — l'alternanza è calcolata sull'indice in ChiSiamo.jsx.
   persone: [
@@ -356,8 +374,8 @@ export const chiSiamoPage = {
       ruolo: 'Campagna, marketing e non solo',
       paragrafi: [
         "Sono Andrea Moser, ho 18 anni e il mio legame con questa terra parte da lontano, ispirato dalla cura maniacale con cui nostro nonno ha sempre coltivato questi filari.",
-        "Dopo aver conseguito il diploma alla Fondazione Edmund Mach di San Michele all'Adige, ho scelto di proseguire gli studi iscrivendomi alla facoltà di Scienze ",
-        "Alimentari. A Maso Sette Fontane sono il cervello operativo in campo: pianifico e me ne occupo in prima persona di ogni lavorazione tra le viti, garantendo il massimo livello qualitativo in campagna. Allo stesso tempo rappresento un solido e costante aiuto in cantina, dove unisco la mia visione scientifica alla passione di famiglia. ",
+        "Dopo aver conseguito il diploma alla Fondazione Edmund Mach di San Michele all'Adige, ho scelto di proseguire gli studi iscrivendomi alla facoltà di Scienze Alimentari.",
+        "A Maso Sette Fontane sono il cervello operativo in campo: pianifico e me ne occupo in prima persona di ogni lavorazione tra le viti, garantendo il massimo livello qualitativo in campagna. Allo stesso tempo rappresento un solido e costante aiuto in cantina, dove unisco la mia visione scientifica alla passione di famiglia. ",
       ],
       image: {
         src: asset('/img/bottiglie-san-florian.webp'),
@@ -368,9 +386,9 @@ export const chiSiamoPage = {
   radici: {
     eyebrow: 'Le nostre radici',
     citazione:
-      'i valori di nostro nonno',
+      'I valori di nostro nonno',
     paragrafi: [
-"La nostra passione per il vino è cresciuta osservando le mani del nonno, un uomo semplice guidato da una dedizione incrollabile per la campagna. La storia della nostra azienda parte da appena mezzo ettaro lavorato con fatica e rispetto per la natura. ",
+"La nostra passione per il vino è cresciuta osservando le mani del nonno Silvino, un uomo semplice guidato da una dedizione incrollabile per la campagna. La storia della nostra azienda parte da appena mezzo ettaro lavorato con fatica e rispetto per la natura. ",
 "Giorno dopo giorno è riuscito a trasformare quei pochi filari in un sogno concreto, fino a raggiungere sei ettari e il nostro amato maso. Crescendo al suo fianco abbiamo imparato ad ascoltare la vigna e a capire il valore dell'attesa, vedendo nascere in entrambi l'amore per la viticoltura.",
 "Oggi ne raccogliamo il testimone per produrre vino con la stessa autenticità. In ogni bottiglia racchiudiamo l'eredità di chi è partito dal nulla e la storia di una passione che continua a vivere.",
     ],
@@ -399,18 +417,29 @@ export const scopriTerritorioPage = {
   newsBackground: {
     src: asset('/img/sfondo-borgo-vigne.webp'),
   },
-  // Immagine d'apertura: larga ma non full-bleed, sotto il titolo.
+  // Immagine d'apertura: larga ma non full-bleed, sotto il titolo. È il borgo
+  // di Giovo — la veduta che stava nella sezione Territorio della home, con cui
+  // si è scambiata di posto — ritagliata in 16/9 sulla fascia paese + Paganella
+  // + Brenta (l'originale è il ritaglio verticale, archiviato in references).
   image: {
-    src: asset('/img/valle-cembra.webp'),
-    alt: 'La Valle dell’Adige vista dai vigneti del maso, a Giovo',
-    caption: 'Dai filari del maso lo sguardo scende sulla valle e sulle vette del Brenta',
+    src: asset('/img/giovo-borgo-largo.webp'),
+    alt: 'Il paese di Giovo al tramonto, tra i terrazzamenti vitati e le cime innevate del Brenta',
+    caption: 'Giovo, tra i terrazzamenti vitati e le cime del Brenta',
   },
+  // Il blocco accanto alla mappa ha ora il suo attacco — occhiello + titolo,
+  // come `news` qui sotto e come i blocchi di "Scopri l'azienda": senza, era
+  // l'unica colonna di testo del sito che partiva direttamente in prosa.
+  // Il titolo non ripete quello di pagina ("La Valle di Cembra") ma nomina la
+  // cosa che i paragrafi raccontano davvero: i due suoli.
+  paragraphsEyebrow: 'la località',
+  paragraphsTitle: 'Il nostro terroir',
+  // Versione più corta (era quattro paragrafi lunghi): la colonna sta accanto
+  // alla mappa, e superata la sua altezza il blocco si sbilanciava.
   paragraphs: [
-  "Il Maso Sette Fontane affonda le sue radici nel cuore della Val di Cembra, nel comune di Giovo, un territorio dove la viticoltura è da sempre un’arte eroica scolpita tra terrazzamenti e forte pendenza. ",
-  "L’areale di Giovo beneficia di un microclima straordinario, caratterizzato da un'ottima esposizione solare e dalle forti escursioni termiche tra il giorno e la notte, garantite dalle correnti fresche alpine e dalla brezza dell’Ora del Garda. La vera identità dei nostri vini nasce da una duplice ricchezza del terreno.",
-  "Gran parte della nostra tenuta si sviluppa su autentici ed eccezionali suoli calcarei, recuperati da ex cave di ghiaia bianca: terreni poveri, drenanti e ricchi di scheletro, che infondono ai vini un’eleganza dritta, una straordinaria tensione acida e una spiccata finezza. ",
-  "Fa eccezione la zona dedicata ai nostri vigneti di Müller Thurgau, situata su terreni di matrice porfirica, nettamente più ricchi e strutturati, tipici della roccia vulcanica della valle. Qui il porfido dona alle uve una mineralità profonda, sapidità e un corredo aromatico di grande intensità. In questo contesto unico, lavorato quasi interamente a mano, il Maso Sette Fontane sintetizza la doppia anima del territorio di Giovo, traducendo la particolarità dei suoi suoli in vini di spiccata personalità, freschezza e longevità. ",
-],
+    "Il Maso Sette Fontane affonda le sue radici nel cuore della Val di Cembra, a Giovo, dove la viticoltura è da sempre un'arte eroica scolpita tra terrazzamenti e forte pendenza. Il microclima fa il resto: ottima esposizione e forti escursioni termiche fra giorno e notte, garantite dalle correnti alpine e dalla brezza dell'Ora del Garda.",
+    "La vera identità dei nostri vini nasce però da una duplice ricchezza del terreno. Gran parte della tenuta si sviluppa su eccezionali suoli calcarei recuperati da ex cave di ghiaia bianca: poveri, drenanti e ricchi di scheletro, infondono ai vini un'eleganza dritta e una straordinaria tensione acida.",
+    "Fa eccezione la zona del Müller Thurgau, su terreni di matrice porfirica più ricchi e strutturati, dove la roccia vulcanica dona mineralità profonda, sapidità e aromi di grande intensità. Lavorate quasi interamente a mano, le due anime del territorio diventano vini di spiccata personalità, freschezza e longevità.",
+  ],
   mappa: {
     // Mappa reale della Val di Cembra generata da tile OpenStreetMap e servita
     // in locale (niente chiave API né iframe di terze parti): centrata su Giovo,
@@ -425,8 +454,8 @@ export const scopriTerritorioPage = {
     cta: 'Apri in Google Maps',
   },
   news: {
-    eyebrow: 'Approfondimenti',
-    titolo: 'La viticoltura eroica',
+    eyebrow: 'morfologia e paesaggio',
+    titolo: 'La vista dai nostri filari',
     paragrafi: [
 "Dall’alto del Maso Sette Fontane lo sguardo si apre su uno dei panorami più suggestivi del Trentino. Posizionato in una balconata naturale, il maso domina dall'alto la Valle dell’Adige, seguendo il nastro d'argento del fiume che scorre lento lungo il fondo valle. All’orizzonte la vista spazia in totale libertà, incontrando la maestosità della Paganella e le vette spettacolari del Gruppo Adamello-Brenta, che incorniciano il tramonto con i loro profili di roccia. ",
 "Essere affacciati su questo anfiteatro naturale non offre solo una bellezza contemplativa, ma definisce la vita stessa dei nostri vigneti. Da questa posizione privilegiata la tenuta intercetta costantemente la luce del sole e beneficia delle correnti d'aria che risalgono la valle, creando un microclima vivo e ventilato. Lavorare qui significa coltivare ogni filare immersi in uno scenario grandioso, dove la grandezza delle montagne e la forza del fiume si riflettono direttamente nel carattere dei nostri vini. ",
