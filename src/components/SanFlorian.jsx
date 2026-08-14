@@ -7,7 +7,7 @@ import { X } from "lucide-react";
 import useReveal from "../hooks/useReveal.js";
 import Cta from "./Cta.jsx";
 import SfondoSezione from "./SfondoSezione.jsx";
-import SplitHeading from "./SplitHeading.jsx";
+import SplitHeading, { DISCESA_PAROLA } from "./SplitHeading.jsx";
 import { sanFlorian } from "../data/content.js";
 import { riduciMovimento, BREAKPOINT_LG } from "../lib/ambiente.js";
 
@@ -131,7 +131,7 @@ export default function SanFlorian() {
       if (!zoomed) return;
       const dur = riduciMovimento() ? 0 : 0.62;
       gsap.from(".sf-detail .split-word", {
-        yPercent: 110,
+        yPercent: DISCESA_PAROLA,
         autoAlpha: 0,
         duration: dur * 0.6,
         ease: "power3.out",

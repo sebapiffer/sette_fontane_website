@@ -150,12 +150,16 @@ export const territorio = {
   title: 'Giovo, Val di Cembra',
   text: 'Pendii ripidi, terrazzamenti di porfido e un’escursione termica che firma i profumi del vino. Qui il Müller Thurgau ha trovato la sua casa di montagna. [Testo placeholder da sostituire.]',
   cta: 'Scopri il territorio',
-  // La figura resta la "finestra sul paesaggio" (rettangolare, mai ad arco):
-  // qui però mostra un dettaglio — i terrazzamenti in porfido — perché il
-  // panorama d'insieme è passato a fare da sfondo all'intera sezione.
+  // La figura resta la "finestra sul paesaggio" (rettangolare, mai ad arco) e
+  // mostra il paese che dà il titolo alla sezione: Giovo, con il campanile, i
+  // terrazzamenti attorno e il Brenta sul fondo. È un ritaglio verticale di un
+  // panorama molto largo (4000×1848), centrato sul borgo per tenere fuori sia
+  // il flare del sole a sinistra sia i rami in primo piano in basso. Non
+  // ripete lo sfondo di sezione: quello è una ripresa estiva dall'alto, senza
+  // paese, e comunque desaturata sotto il velo.
   image: {
-    src: asset('/img/terrazzamenti-porfido.webp'),
-    alt: 'I filari terrazzati del maso visti dall’alto, tra porfido e ghiaia bianca',
+    src: asset('/img/giovo-borgo.webp'),
+    alt: 'Il paese di Giovo al tramonto, tra i terrazzamenti vitati e le cime innevate del Brenta',
   },
   background: {
     src: asset('/img/sfondo-valle-monti.webp'),

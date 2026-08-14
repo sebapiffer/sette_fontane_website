@@ -3,6 +3,9 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { SplitText } from 'gsap/SplitText'
 import { quandoPronto } from '../lib/ambiente.js'
+// La discesa delle parole è la metà mobile del contratto con la maschera di
+// SplitHeading: il numero vive lì, insieme allo sbordo che deve coprire.
+import { DISCESA_PAROLA } from '../components/SplitHeading.jsx'
 
 // Reveal condiviso: i testi [data-reveal] entrano in fade-up, i titoli
 // [data-reveal-words] parola per parola da sotto la propria maschera, le
@@ -314,7 +317,7 @@ export default function useReveal() {
           apertura.from(
             parole,
             {
-              yPercent: 110,
+              yPercent: DISCESA_PAROLA,
               autoAlpha: 0,
               duration: 0.8,
               ease: 'power3.out',
@@ -330,7 +333,7 @@ export default function useReveal() {
           const parole = titolo.querySelectorAll('.split-word')
           if (!parole.length) return
           gsap.from(parole, {
-            yPercent: 110,
+            yPercent: DISCESA_PAROLA,
             autoAlpha: 0,
             duration: 1,
             ease: 'power3.out',

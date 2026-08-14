@@ -4,7 +4,7 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import Cta from './Cta.jsx'
 import SfondoSezione from './SfondoSezione.jsx'
-import SplitHeading from './SplitHeading.jsx'
+import SplitHeading, { DISCESA_PAROLA } from './SplitHeading.jsx'
 import { territorio } from '../data/content.js'
 
 export default function Territorio() {
@@ -38,7 +38,7 @@ export default function Territorio() {
           scrollTrigger: { trigger: ref.current, start: 'top 60%' },
         })
         gsap.from('.territorio-content .split-word', {
-          yPercent: 110,
+          yPercent: DISCESA_PAROLA,
           autoAlpha: 0,
           duration: 0.8,
           ease: 'power3.out',
