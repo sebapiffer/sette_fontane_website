@@ -175,7 +175,7 @@ export const sanFlorian = {
   id: 'san-florian',
   eyebrow: 'La nostra cantina',
   title: 'San Florian',
-  denominazione: 'Müller Thurgau DOCG',
+  denominazione: 'Müller Thurgau DOC',
   intro:
     'Il nostro primo vino porta il nome della chiesa che veglia sulle vigne di Giovo. Questa bottiglia racconta il nostro Trentino: la memoria di una tradizione antica e il coraggio di una nuova generazione che guarda lontano.',
   cta: 'Assapora San Florian',
@@ -234,7 +234,7 @@ export const sanFlorian = {
   },
   storia: {
     hint: 'Scorri per approfondire',
-    titolo: 'La storia del San Florian',
+    titolo: 'Da dove tutto è partito',
     paragrafi: [
       // [placeholder] testo in attesa della storia vera del vino
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -246,7 +246,7 @@ export const sanFlorian = {
 
 export const scopriAziendaPage = {
   eyebrow: "L'azienda",
-  title: 'La storia di Maso Sette Fontane [placeholder]',
+  title: 'La storia del nostro maso',
   // Sfondi fotografici di sezione (segnaposto, vigne di repertorio — vedi
   // SfondoSezione): sotto un velo tarato sul testo, servono da profondità.
   background: {
@@ -304,7 +304,7 @@ export const scopriAziendaPage = {
       fondo: 'offwhite',
       background: { src: asset('/img/sfondo-borgo-vigne.webp') },
       eyebrow: 'I valori [placeholder]',
-      titolo: 'Un maso, poche bottiglie, nessuna fretta [placeholder]',
+      titolo: 'Perché la qualità prima della quantità',
       testo: [
 "Abbiamo scelto consapevolmente di produrre poco e bene, mantenendo rese inferiori ai 90 quintali per ettaro per privilegiare la qualità senza compromessi. Concentrare le energie della pianta su un numero ridotto di grappoli ci permette di esaltare la concentrazione aromatica, l'equilibrio e l'espressività della viticoltura d'altitudine.",
 "Maso Sette Fontane non è solo terreno e filari, ma il risultato del lavoro di persone che mettono mani, testa e cuore in ciò che fanno. Siamo orgogliosi di far parte di un tessuto umano e sociale che da generazioni custodisce la cultura viticola di queste colline, riflettendo questa passione in ogni scelta aziendale.",
@@ -370,13 +370,16 @@ export const chiSiamoPage = {
 "Giorno dopo giorno è riuscito a trasformare quei pochi filari in un sogno concreto, fino a raggiungere sei ettari e il nostro amato maso. Crescendo al suo fianco abbiamo imparato ad ascoltare la vigna e a capire il valore dell'attesa, vedendo nascere in entrambi l'amore per la viticoltura.",
 "Oggi ne raccogliamo il testimone per produrre vino con la stessa autenticità. In ogni bottiglia racchiudiamo l'eredità di chi è partito dal nulla e la storia di una passione che continua a vivere.",
     ],
-    // [placeholder] al posto della foto d'archivio del nonno — che non è ancora
-    // arrivata — sta un filare del maso: la sezione lo rende comunque in bianco
-    // e nero, quindi il tono d'archivio regge.
+    // La foto d'archivio vera. La sorgente (`nonno.jpeg`) è la scansione di una
+    // pagina di calendario del 2014: lo scatto è incastonato dentro
+    // l'impaginato, quindi il file qui è il solo ritaglio della fotografia —
+    // niente cornice rossa, niente testo dell'articolo. È piccola (513×462, il
+    // massimo che la scansione contiene: ingrandirla non aggiungerebbe
+    // dettaglio) e la sezione la rende comunque in bianco e nero.
     foto: {
-      src: asset('/img/filari-valle.webp'),
-      alt: 'I filari del maso affacciati sulla valle',
-      caption: 'I filari del maso, dove tutto è cominciato',
+      src: asset('/img/nonno-silvino.webp'),
+      alt: 'Il nonno Silvino con i due nipoti davanti alla stufa, mentre insegna a legare i tralci',
+      caption: 'I momenti col nonno Silvino',
     },
   },
 }
@@ -445,13 +448,15 @@ export const footer = {
   },
   indirizzo: 'Maso Sette Fontane — Giovo (TN), Val di Cembra [placeholder]',
   email: emailCantina,
-  telefono: '+39 000 000 0000 [placeholder]',
+  // Numero di Davide. Il componente ne ricava da sé l'href `tel:` togliendo
+  // gli spazi, così qui resta la sola forma leggibile.
+  telefono: '+39 389 660 3382',
   social: [
     { label: 'Instagram', href: 'https://instagram.com/settefontanewinery', icon: 'instagram' },
   ],
   note: [
     '© 2026 Sette Fontane — Tutti i diritti riservati',
-    'P. IVA 00000000000 [placeholder]',
+    'P. IVA 02666160227',
     'Bevi responsabilmente',
   ],
 }

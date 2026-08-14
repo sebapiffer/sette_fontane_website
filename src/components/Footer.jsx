@@ -1,6 +1,7 @@
 import { Instagram } from 'lucide-react'
 import useReveal from '../hooks/useReveal.js'
 import DropsLogo from './DropsLogo.jsx'
+import Wordmark from './Wordmark.jsx'
 import SfondoSezione from './SfondoSezione.jsx'
 import { site, footer } from '../data/content.js'
 
@@ -25,16 +26,17 @@ export default function Footer() {
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-7 sm:px-8 md:grid-cols-3">
         <div data-reveal>
+          {/* Marchio ufficiale, lo stesso della navbar e della hero: le gocce
+              ricalcate dal PDF del cliente più il wordmark VETTORIALE. Qui il
+              nome era invece composto a mano in Mason Sans (due righe con
+              tracking diversi) — un'imitazione tipografica del logo, non il
+              logo: pesi e spaziature non erano quelli dell'originale, e in
+              fondo alla pagina il marchio si presentava diverso da come si
+              presenta in cima. */}
           <div className="flex items-center gap-3">
             <DropsLogo className="h-10 w-auto text-tortora" />
-            <span className="font-display leading-none">
-              <span className="block text-[0.65rem] font-light uppercase tracking-[0.5em] text-sabbia">
-                {site.nameParts[0]}
-              </span>
-              <span className="block text-[0.85rem] font-semibold uppercase tracking-[0.3em]">
-                {site.nameParts[1]}
-              </span>
-            </span>
+            <span className="sr-only">{site.nameParts.join(' ')}</span>
+            <Wordmark className="h-10 w-auto text-offwhite" />
           </div>
           <p className="mt-5 font-sans text-sm font-light text-offwhite/50">{site.location}</p>
         </div>
@@ -48,7 +50,17 @@ export default function Footer() {
                 {footer.email}
               </a>
             </li>
-            <li>{footer.telefono}</li>
+            <li>
+              {/* L'href si ricava dal numero togliendo gli spazi: in
+                  content.js resta la sola forma leggibile, e non c'è modo di
+                  aggiornare il numero dimenticandosi del link. */}
+              <a
+                href={`tel:${footer.telefono.replace(/\s/g, '')}`}
+                className="transition-colors hover:text-offwhite"
+              >
+                {footer.telefono}
+              </a>
+            </li>
             <li>
               <a
                 href={`https://${site.domain}`}

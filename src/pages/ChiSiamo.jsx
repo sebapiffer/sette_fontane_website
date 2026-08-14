@@ -125,17 +125,23 @@ export default function ChiSiamo() {
           </SfondoSezione>
           <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 px-7 sm:px-8 md:grid-cols-2 md:gap-20">
             {/* Foto d'archivio in cornice polaroid: bordo bianco, leggera
-                inclinazione, bianco e nero via grayscale. */}
+                inclinazione, bianco e nero via grayscale.
+                Il formato segue la fotografia, e non il contrario: la cornice
+                era 5/6 verticale, ma lo scatto del nonno è quasi quadrato
+                (513×462) e ritagliarlo in verticale tagliava a metà il volto
+                di uno dei due nipoti — cioè proprio il "momento" che la
+                didascalia annuncia. 10/9 è il rapporto nativo dello scatto:
+                object-cover non ha nulla da togliere. */}
             <figure className="mx-auto w-full max-w-sm -rotate-2 bg-offwhite p-3 pb-5 shadow-2xl shadow-antracite/40">
-              <div className="aspect-[5/6] w-full overflow-hidden">
+              <div className="aspect-[10/9] w-full overflow-hidden">
                 <img
                   data-reveal-img
                   src={radici.foto.src}
                   alt={radici.foto.alt}
                   loading="lazy"
                   decoding="async"
-                  width="1000"
-                  height="1200"
+                  width="513"
+                  height="462"
                   className="h-full w-full object-cover grayscale"
                 />
               </div>
