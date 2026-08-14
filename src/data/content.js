@@ -37,6 +37,36 @@ export const nav = {
   ],
 }
 
+// Popup d'ingresso, prima di qualunque contenuto. Testi separati dalla
+// meccanica dei componenti come tutto il resto: il legale può riscriverli qui
+// senza toccare l'overlay.
+export const verificaEta = {
+  titolo: 'Benvenuti',
+  domanda: 'Confermi di essere maggiorenne?',
+  si: 'Sì',
+  no: 'No',
+  nota: 'Bevi responsabilmente',
+  // Nessun rimando a siti esterni sul "No": chi risponde di no resta qui e
+  // legge il perché, non viene sbattuto fuori su una pagina che non ha chiesto.
+  rifiuto: {
+    titolo: 'Ci dispiace',
+    testo:
+      'Questo sito racconta vini e bevande alcoliche: l’accesso è riservato a chi ha compiuto diciotto anni. Ti aspettiamo tra qualche vendemmia.',
+    indietro: 'Ho sbagliato, torna indietro',
+  },
+}
+
+export const cookie = {
+  testo:
+    'Questo sito non usa cookie: nessuno analitico, nessuno di profilazione, nessun servizio di terze parti che ti segua.',
+  // La nota sul localStorage: dichiararla è ciò che tiene onesta la frase
+  // sopra — la conferma resta sul dispositivo di chi legge, non è un cookie e
+  // non identifica nessuno.
+  nota: 'Sul tuo browser resta solo la conferma della maggiore età e di questo messaggio, per non richiederle a ogni visita.',
+  bottone: 'Ho capito',
+  etichetta: 'Informativa cookie',
+}
+
 export const hero = {
   eyebrow: 'Maso e cantina biologica',
   location: 'Giovo · Val di Cembra',

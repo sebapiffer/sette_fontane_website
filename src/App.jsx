@@ -11,13 +11,16 @@ import SmoothScroll from './components/SmoothScroll.jsx'
 import Cursore from './components/Cursore.jsx'
 import Navbar from './components/Navbar.jsx'
 import PageTransition from './components/PageTransition.jsx'
+import VerificaEta from './components/VerificaEta.jsx'
+import BannerCookie from './components/BannerCookie.jsx'
 import Home from './pages/Home.jsx'
 import ScopriAzienda from './pages/ScopriAzienda.jsx'
 // Alias: il nome ChiSiamo è già preso dalla sezione della Home
 // (components/ChiSiamo.jsx), questa è la pagina dedicata.
 import ChiSiamoPage from './pages/ChiSiamo.jsx'
 import ScopriTerritorio from './pages/ScopriTerritorio.jsx'
-import { segnalaPronto } from './lib/ambiente.js'
+import { segnalaCaricato, segnalaPronto } from './lib/ambiente.js'
+import { attendiEta } from './lib/consensi.js'
 
 gsap.registerPlugin(ScrollTrigger, Flip, SplitText, useGSAP)
 
@@ -32,8 +35,13 @@ export default function App() {
   const rottaIniziale = useRef(useLocation().pathname)
   useEffect(() => {
     if (rottaIniziale.current === '/') return
+    // Qui non c'è schermata di caricamento da guardare: l'age gate può comporsi
+    // subito, invece di aspettare un preloader che su questa rotta non esiste.
+    segnalaCaricato()
     const font = document.fonts?.ready ?? Promise.resolve()
-    font.then(segnalaPronto)
+    // Come sulla Home: pronto significa anche "l'age gate è passato", altrimenti
+    // scroll fluido e reveal partirebbero sotto l'overlay ancora chiuso.
+    font.then(attendiEta).then(segnalaPronto)
   }, [])
 
   return (
@@ -54,6 +62,11 @@ export default function App() {
         <Route path="/chi-siamo" element={<ChiSiamoPage />} />
         <Route path="/scopri-territorio" element={<ScopriTerritorio />} />
       </Routes>
+      {/* Popup d'ingresso, fuori dalle Routes: valgono per tutto il sito e non
+          devono smontarsi al cambio pagina. L'age gate (z-95) copre tutto
+          tranne il preloader (z-100), che lo precede e lo scopre sfumando. */}
+      <BannerCookie />
+      <VerificaEta />
     </>
   )
 }
