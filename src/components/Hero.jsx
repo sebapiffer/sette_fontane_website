@@ -94,9 +94,13 @@ export default function Hero() {
           <Wordmark className="hero-word w-[clamp(13rem,42vw,26rem)]" />
         </h1>
         <span className="hero-rule mt-8 block h-px w-16 bg-tortora" aria-hidden="true" />
-        <p className="hero-sub eyebrow mt-6 text-tortora">
+        {/* Un gradino sopra la misura standard di .eyebrow (0,7rem): è la
+            prima riga di testo del sito, sotto un wordmark grande, e a 0,7
+            spariva. La riga del luogo resta alla misura di sistema, altrimenti
+            crescerebbe per ereditarietà e le due righe peserebbero uguale. */}
+        <p className="hero-sub eyebrow mt-6 text-[0.8rem] text-tortora">
           {hero.eyebrow}
-          <span className="mt-2 block font-light normal-case tracking-[0.25em] text-offwhite/60">
+          <span className="mt-2 block text-[0.7rem] font-light normal-case tracking-[0.25em] text-offwhite/60">
             {hero.location}
           </span>
         </p>

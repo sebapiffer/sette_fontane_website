@@ -1,5 +1,4 @@
-// Contenuti del sito — sostituire i testi segnalati come [placeholder]
-// prima della pubblicazione. La struttura non va modificata.
+// Contenuti del sito. La struttura non va modificata.
 
 // Gli asset in public/ sono referenziati con percorso assoluto (/img, /video):
 // Vite non riscrive le stringhe dei dati come fa per HTML/CSS/JS, quindi vanno
@@ -108,7 +107,7 @@ export const azienda = {
   },
 }
 
-// [placeholder] mancano i ritratti di Davide e Andrea: finché non arrivano, le
+// Mancano i ritratti di Davide e Andrea: finché non arrivano, le
 // due figure ospitano una foto della vigna e una della bottiglia — coerenti con
 // il ruolo di ciascuno (campagna / cantina) — invece di un segnaposto estraneo.
 export const chiSiamo = {
@@ -205,14 +204,14 @@ export const sanFlorian = {
   degustazione: {
     titolo: 'Note di degustazione',
     testo:
-      'Naso aromatico di fiori bianchi, salvia e mela verde; sorso teso, sapido, di montagna. [Testo placeholder da sostituire.]',
+      'Naso aromatico di fiori bianchi, salvia e mela verde; sorso teso, sapido, di montagna.',
   },
   scheda: [
     { label: 'Uvaggio', value: 'Müller Thurgau 100%' },
     { label: 'Zona', value: 'Giovo, Val di Cembra' },
-    { label: 'Suolo', value: 'Porfido [placeholder]' },
-    { label: 'Affinamento', value: 'Acciaio, sui lieviti [placeholder]' },
-    { label: 'Alcol', value: '12,5% vol. [placeholder]' },
+    { label: 'Suolo', value: 'Porfido' },
+    { label: 'Affinamento', value: 'Acciaio, sui lieviti' },
+    { label: 'Alcol', value: '12,5% vol.' },
     { label: 'Servizio', value: '8–10 °C' },
   ],
   chiudi: 'Torna alla cantina',
@@ -242,7 +241,7 @@ export const sanFlorian = {
     hint: 'Scorri per approfondire',
     titolo: 'Da dove tutto è partito',
     paragrafi: [
-      // [placeholder] testo in attesa della storia vera del vino
+      // testo in attesa della storia vera del vino
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
@@ -258,9 +257,6 @@ export const scopriAziendaPage = {
   background: {
     src: asset('/img/sfondo-maso-cielo.webp'),
   },
-  timelineBackground: {
-    src: asset('/img/sfondo-valle-bruma.webp'),
-  },
   intro: [
 "Al di sopra delle Colline Avisiane, ad un’altitudine di 500 metri, si trova Maso Sette Fontane, dove la vite affonda le sue radici fin dal 1734. Il nome richiama un'antica eredità legata alle sorgenti naturali d'acqua che nutrono questo territorio d'altitudine. Dagli anni 50 la nostra famiglia risiede qui e nel 2022 il testimone è passato a noi, proseguendo un cammino che dal 2010 abbraccia i principi dell’agricoltura biologica.",
 "L'agricoltura biologica è per noi una scelta identitaria profonda, facilitata dalla morfologia a corpo unico dell'azienda. Evitiamo le sostanze di sintesi e ci affidiamo unicamente ad ammendanti naturali per nutrire il terreno, rispettandone i cicli vitali e custodendo la biodiversità e le sorgenti che ci circondano.",
@@ -274,28 +270,21 @@ export const scopriAziendaPage = {
     alt: 'Maso Sette Fontane e i suoi vigneti visti dall’alto',
     caption: 'Maso Sette Fontane, sulle Colline Avisiane a 550 metri',
   },
-  timelineEyebrow: 'La nostra storia',
-  timelineTitle: 'Una storia per tappe [placeholder]',
-  timeline: [
-    { anno: '19xx [placeholder]', titolo: 'Le origini [placeholder]', testo: 'Testo placeholder da sostituire con il primo capitolo della storia del maso.' },
-    { anno: '19xx [placeholder]', titolo: 'La pergola trentina [placeholder]', testo: 'Testo placeholder da sostituire: l’impianto dei filari storici e i primi anni di conduzione familiare.' },
-    { anno: '20xx [placeholder]', titolo: 'La conversione biologica [placeholder]', testo: 'Testo placeholder da sostituire: la scelta di un’agricoltura interamente biologica.' },
-    { anno: '20xx [placeholder]', titolo: 'San Florian [placeholder]', testo: 'Testo placeholder da sostituire: la nascita del primo vino a portare il nome della chiesa di Giovo.' },
-    { anno: 'Oggi [placeholder]', titolo: 'Il progetto continua [placeholder]', testo: 'Testo placeholder da sostituire con lo stato attuale del progetto e le prospettive future.' },
-  ],
-  // Blocchi alternati testo/immagine sotto la timeline: l'ordine visivo si
+  // Blocchi alternati testo/immagine sotto l'intro: l'ordine visivo si
   // inverte a blocchi pari (immagine a sinistra) — vedi ScopriAzienda.
   // Ogni blocco è una sezione a sé, con il proprio fondo e la propria foto:
   // i fondi si alternano creta/offwhite senza mai ripetere quello della
-  // sezione precedente (la timeline chiude su offwhite, quindi si riparte da
-  // creta), così i blocchi si leggono come capitoli distinti e non come un
-  // unico muro. `fondo` sceglie anche il velo sopra la foto.
+  // sezione precedente: l'intro è su creta, quindi il primo blocco parte da
+  // offwhite e si alterna da lì (con la timeline in mezzo, che chiudeva su
+  // offwhite, l'ordine era l'opposto). Così i blocchi si leggono come capitoli
+  // distinti e non come un unico muro. `fondo` sceglie anche il velo sopra la
+  // foto.
   blocchi: [
     {
-      fondo: 'creta',
+      fondo: 'offwhite',
       background: { src: asset('/img/sfondo-colline-foschia.webp') },
-      eyebrow: 'La filosofia [placeholder]',
-      titolo: 'Lavorare assecondando la vigna [placeholder]',
+      eyebrow: 'La filosofia',
+      titolo: 'Lavorare assecondando la vigna',
       testo: [
 "Coltivare Maso Sette Fontane richiede l'arte dell'ascolto e un'osservazione quotidiana delle piante e del suolo dolomitico che le nutre. Evitiamo le forzature meccaniche privilegiando la cura manuale: un dialogo costante con la vite che va dal primo taglio della potatura invernale fino alla rigorosa selezione dei grappoli durante la vendemmia.",
 "Assecondiamo l'orientamento del terreno e il microclima delle Colline Avisiane per permettere alla vigna di esprimere la sua naturale energia. Un aspetto per noi fondamentale è la gestione dell'età dell'impianto: accompagniamo le nostre piante nell'invecchiamento per garantire vini di superiore qualità e personalità.",
@@ -307,9 +296,9 @@ export const scopriAziendaPage = {
       },
     },
     {
-      fondo: 'offwhite',
+      fondo: 'creta',
       background: { src: asset('/img/sfondo-borgo-vigne.webp') },
-      eyebrow: 'I valori [placeholder]',
+      eyebrow: 'I valori',
       titolo: 'Perché la qualità prima della quantità',
       testo: [
 "Abbiamo scelto consapevolmente di produrre poco e bene, mantenendo rese inferiori ai 90 quintali per ettaro per privilegiare la qualità senza compromessi. Concentrare le energie della pianta su un numero ridotto di grappoli ci permette di esaltare la concentrazione aromatica, l'equilibrio e l'espressività della viticoltura d'altitudine.",
@@ -479,7 +468,7 @@ export const footer = {
   background: {
     src: asset('/img/sfondo-maso-valle.webp'),
   },
-  indirizzo: 'Maso Sette Fontane — Giovo (TN), Val di Cembra [placeholder]',
+  indirizzo: 'Maso Sette Fontane — Giovo (TN), Val di Cembra',
   email: emailCantina,
   // Numero di Davide. Il componente ne ricava da sé l'href `tel:` togliendo
   // gli spazi, così qui resta la sola forma leggibile.
