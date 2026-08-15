@@ -416,19 +416,16 @@ export const scopriTerritorioPage = {
     alt: 'La Valle di Cembra al tramonto: il paese di Giovo, i terrazzamenti vitati e le cime del Brenta',
     caption: 'I terrazzamenti dell’areale al tramonto, con il Brenta all’orizzonte',
   },
-  // Il blocco accanto alla mappa ha ora il suo attacco — occhiello + titolo,
-  // come `news` qui sotto e come i blocchi di "Scopri l'azienda": senza, era
-  // l'unica colonna di testo del sito che partiva direttamente in prosa.
-  // Il titolo non ripete quello di pagina ("La Valle di Cembra") ma nomina la
-  // cosa che i paragrafi raccontano davvero: i due suoli.
-  paragraphsEyebrow: 'la località',
-  paragraphsTitle: 'Il nostro terroir',
-  // Versione più corta (era quattro paragrafi lunghi): la colonna sta accanto
-  // alla mappa, e superata la sua altezza il blocco si sbilanciava.
+  // Il blocco accanto alla mappa ha il suo attacco — occhiello + titolo, come
+  // `news` qui sotto e come i blocchi di "Scopri l'azienda": senza, era l'unica
+  // colonna di testo del sito che partiva direttamente in prosa. Testi scambiati
+  // con quelli di `news`: accanto alla mappa sta il racconto della vista dai
+  // filari, sotto la fotografia dei terrazzamenti quello dei suoli.
+  paragraphsEyebrow: 'morfologia e paesaggio',
+  paragraphsTitle: 'La vista dai nostri filari',
   paragraphs: [
-    "Il Maso Sette Fontane affonda le sue radici nel cuore della Val di Cembra, a Giovo, dove la viticoltura è da sempre un'arte eroica scolpita tra terrazzamenti e forte pendenza. Il microclima fa il resto: ottima esposizione e forti escursioni termiche fra giorno e notte, garantite dalle correnti alpine e dalla brezza dell'Ora del Garda.",
-    "La vera identità dei nostri vini nasce però da una duplice ricchezza del terreno. Gran parte della tenuta si sviluppa su eccezionali suoli calcarei recuperati da ex cave di ghiaia bianca: poveri, drenanti e ricchi di scheletro, infondono ai vini un'eleganza dritta e una straordinaria tensione acida.",
-    "Fa eccezione la zona del Müller Thurgau, su terreni di matrice porfirica più ricchi e strutturati, dove la roccia vulcanica dona mineralità profonda, sapidità e aromi di grande intensità. Lavorate quasi interamente a mano, le due anime del territorio diventano vini di spiccata personalità, freschezza e longevità.",
+    "Dall’alto del Maso Sette Fontane lo sguardo si apre su uno dei panorami più suggestivi del Trentino. Posizionato in una balconata naturale, il maso domina dall'alto la Valle dell’Adige, seguendo il nastro d'argento del fiume che scorre lento lungo il fondo valle. All’orizzonte la vista spazia in totale libertà, incontrando la maestosità della Paganella e le vette spettacolari del Gruppo Adamello-Brenta, che incorniciano il tramonto con i loro profili di roccia. ",
+    "Essere affacciati su questo anfiteatro naturale non offre solo una bellezza contemplativa, ma definisce la vita stessa dei nostri vigneti. Da questa posizione privilegiata la tenuta intercetta costantemente la luce del sole e beneficia delle correnti d'aria che risalgono la valle, creando un microclima vivo e ventilato. Lavorare qui significa coltivare ogni filare immersi in uno scenario grandioso, dove la grandezza delle montagne e la forza del fiume si riflettono direttamente nel carattere dei nostri vini. ",
   ],
   mappa: {
     // Mappa reale della Val di Cembra generata da tile OpenStreetMap e servita
@@ -444,11 +441,12 @@ export const scopriTerritorioPage = {
     cta: 'Apri in Google Maps',
   },
   news: {
-    eyebrow: 'morfologia e paesaggio',
-    titolo: 'La vista dai nostri filari',
+    eyebrow: 'la località',
+    titolo: 'Il nostro terroir',
     paragrafi: [
-"Dall’alto del Maso Sette Fontane lo sguardo si apre su uno dei panorami più suggestivi del Trentino. Posizionato in una balconata naturale, il maso domina dall'alto la Valle dell’Adige, seguendo il nastro d'argento del fiume che scorre lento lungo il fondo valle. All’orizzonte la vista spazia in totale libertà, incontrando la maestosità della Paganella e le vette spettacolari del Gruppo Adamello-Brenta, che incorniciano il tramonto con i loro profili di roccia. ",
-"Essere affacciati su questo anfiteatro naturale non offre solo una bellezza contemplativa, ma definisce la vita stessa dei nostri vigneti. Da questa posizione privilegiata la tenuta intercetta costantemente la luce del sole e beneficia delle correnti d'aria che risalgono la valle, creando un microclima vivo e ventilato. Lavorare qui significa coltivare ogni filare immersi in uno scenario grandioso, dove la grandezza delle montagne e la forza del fiume si riflettono direttamente nel carattere dei nostri vini. ",
+      "Il Maso Sette Fontane affonda le sue radici nel cuore della Val di Cembra, a Giovo, dove la viticoltura è da sempre un'arte eroica scolpita tra terrazzamenti e forte pendenza. Il microclima fa il resto: ottima esposizione e forti escursioni termiche fra giorno e notte, garantite dalle correnti alpine e dalla brezza dell'Ora del Garda.",
+      "La vera identità dei nostri vini nasce però da una duplice ricchezza del terreno. Gran parte della tenuta si sviluppa su eccezionali suoli calcarei recuperati da ex cave di ghiaia bianca: poveri, drenanti e ricchi di scheletro, infondono ai vini un'eleganza dritta e una straordinaria tensione acida.",
+      "Fa eccezione la zona del Müller Thurgau, su terreni di matrice porfirica più ricchi e strutturati, dove la roccia vulcanica dona mineralità profonda, sapidità e aromi di grande intensità. Lavorate quasi interamente a mano, le due anime del territorio diventano vini di spiccata personalità, freschezza e longevità.",
     ],
     image: {
       src: asset('/img/muretti-terrazzamenti.webp'),
