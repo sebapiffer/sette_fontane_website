@@ -107,9 +107,10 @@ export const azienda = {
   },
 }
 
-// Mancano i ritratti di Davide e Andrea: finché non arrivano, le
-// due figure ospitano una foto della vigna e una della bottiglia — coerenti con
-// il ruolo di ciascuno (campagna / cantina) — invece di un segnaposto estraneo.
+// I ritratti veri di Davide e Andrea (prima, in attesa, le due figure
+// ospitavano una foto della vigna e una della bottiglia). Sono gli stessi
+// scatti della pagina /chi-siamo: entrambi al trattore fra i filari, con la
+// valle alle spalle — una coppia, non due fotografie qualsiasi.
 export const chiSiamo = {
   id: 'chi-siamo',
   eyebrow: 'Chi siamo',
@@ -125,8 +126,8 @@ export const chiSiamo = {
       role: 'Poca campagna, tanta cantina',
       bio: "Enologo diplomato alla Fondazione Edmund Mach. In cantina è colui che guida l’evoluzione di ogni vino; in vigna non esita a salire sul trattore tra i filari. Scienza, sensibilità e stivali sporchi di terra: l'anima artigiana di Maso Sette Fontane.",
       image: {
-        src: asset('/img/vigna-pergola.webp'),
-        alt: 'I filari del maso sotto la pergola',
+        src: asset('/img/davide.webp'),
+        alt: 'Davide Moser appoggiato al trattore, tra i filari del maso',
       },
     },
     {
@@ -134,8 +135,8 @@ export const chiSiamo = {
       role: 'Campagna, marketing e non solo',
       bio: "Con il diploma alla Fondazione Mach e gli studi in Scienze Alimentari, unisce precisione e creatività: cura in prima persona ogni dettaglio tra i filari e trasforma il lavoro sul campo nella strategia di marketing e comunicazione del domani.",
       image: {
-        src: asset('/img/bottiglie-san-florian.webp'),
-        alt: 'La bottiglia di San Florian e la confezione di spedizione',
+        src: asset('/img/andrea.webp'),
+        alt: 'Andrea Moser davanti al trattore, tra i filari del maso',
       },
     },
   ],
@@ -332,15 +333,15 @@ export const chiSiamoPage = {
   intro:
     'le persone al cuore della nostra azienda',
   // Immagine orizzontale sotto il titolo, come nelle altre sottopagine
-  // (`scopriAziendaPage.gruppo`, `scopriTerritorioPage.image`): apre la pagina
-  // con il luogo di cui le persone raccontano. È una ripresa più larga di
-  // quella di "Scopri l'azienda" — lì il maso è inquadrato da vicino, qui sta
-  // dentro i suoi filari con la valle sullo sfondo, quindi la stessa veduta
-  // non viene raccontata due volte.
+  // (`scopriAziendaPage.gruppo`, `scopriTerritorioPage.image`). Qui però la
+  // pagina parla di persone, e la foto lo fa prima del testo: la squadra al
+  // completo davanti al trattore, con la valle alle spalle. Sorgente
+  // `chi_siamo_intestazione.jpeg`, i cui pixel sono ruotati di 90° (nessun
+  // EXIF a raddrizzarli): il file qui è già ruotato e ritagliato in 16/9.
   image: {
-    src: asset('/img/maso-vigne-collina.webp'),
-    alt: 'Il maso tra i suoi filari sulle Colline Avisiane, con la valle sullo sfondo',
-    caption: 'Il maso e i suoi filari, dove lavoriamo ogni giorno',
+    src: asset('/img/chi-siamo-gruppo.webp'),
+    alt: 'Il gruppo al completo davanti al trattore, sui terrazzamenti con la valle alle spalle',
+    caption: 'Chi lavora al maso, in vigna e in cantina',
   },
   // Ritratti: il primo ha l'immagine a destra, il secondo la specchia a
   // sinistra — l'alternanza è calcolata sull'indice in ChiSiamo.jsx.
@@ -354,8 +355,8 @@ export const chiSiamoPage = {
       "Oggi, a Maso Sette Fontane, unisco il rigore della mia professione alla cura pratica di ogni fase: mi trovate sia in cantina a guidare l'evoluzione del vino, sia in campagna al volante del trattore tra i filari, custodendo con competenza l'eredità che mi è stata tramandata.",
       ],
       image: {
-        src: asset('/img/vigna-pergola.webp'),
-        alt: 'I filari del maso sotto la pergola',
+        src: asset('/img/davide.webp'),
+        alt: 'Davide Moser appoggiato al trattore, tra i filari del maso',
       },
     },
     {
@@ -367,8 +368,8 @@ export const chiSiamoPage = {
         "A Maso Sette Fontane sono il cervello operativo in campo: pianifico e me ne occupo in prima persona di ogni lavorazione tra le viti, garantendo il massimo livello qualitativo in campagna. Allo stesso tempo rappresento un solido e costante aiuto in cantina, dove unisco la mia visione scientifica alla passione di famiglia. ",
       ],
       image: {
-        src: asset('/img/bottiglie-san-florian.webp'),
-        alt: 'La bottiglia di San Florian e la confezione di spedizione',
+        src: asset('/img/andrea.webp'),
+        alt: 'Andrea Moser davanti al trattore, tra i filari del maso',
       },
     },
   ],
@@ -406,14 +407,15 @@ export const scopriTerritorioPage = {
   newsBackground: {
     src: asset('/img/sfondo-borgo-vigne.webp'),
   },
-  // Immagine d'apertura: larga ma non full-bleed, sotto il titolo. È il borgo
-  // di Giovo — la veduta che stava nella sezione Territorio della home, con cui
-  // si è scambiata di posto — ritagliata in 16/9 sulla fascia paese + Paganella
-  // + Brenta (l'originale è il ritaglio verticale, archiviato in references).
+  // Immagine d'apertura: larga ma non full-bleed, sotto il titolo. È il
+  // panorama al tramonto sull'areale (sorgente `vdc_orizzontale.jpeg`, 4000×1848):
+  // il ritaglio 16/9 è preso sul lato destro dell'originale, perché a sinistra
+  // il sole basso entra nell'obiettivo e sbianca mezza inquadratura — così il
+  // controluce resta un accenno all'angolo invece che il soggetto.
   image: {
-    src: asset('/img/giovo-borgo-largo.webp'),
-    alt: 'Il paese di Giovo al tramonto, tra i terrazzamenti vitati e le cime innevate del Brenta',
-    caption: 'Giovo, tra i terrazzamenti vitati e le cime del Brenta',
+    src: asset('/img/valle-di-cembra-panorama.webp'),
+    alt: 'La Valle di Cembra al tramonto: il paese di Giovo, i terrazzamenti vitati e le cime del Brenta',
+    caption: 'I terrazzamenti dell’areale al tramonto, con il Brenta all’orizzonte',
   },
   // Il blocco accanto alla mappa ha ora il suo attacco — occhiello + titolo,
   // come `news` qui sotto e come i blocchi di "Scopri l'azienda": senza, era

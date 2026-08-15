@@ -112,8 +112,8 @@ export default function ChiSiamo() {
                   alt={chiSiamoPage.image.alt}
                   loading="lazy"
                   decoding="async"
-                  width="1800"
-                  height="1013"
+                  width="1600"
+                  height="900"
                   className="h-full w-full object-cover"
                 />
               </div>

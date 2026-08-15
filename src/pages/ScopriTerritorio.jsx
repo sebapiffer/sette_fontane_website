@@ -112,8 +112,8 @@ export default function ScopriTerritorio() {
                   alt={scopriTerritorioPage.image.alt}
                   loading="lazy"
                   decoding="async"
-                  width="1200"
-                  height="675"
+                  width="1800"
+                  height="1013"
                   className="h-full w-full object-cover"
                 />
               </div>
