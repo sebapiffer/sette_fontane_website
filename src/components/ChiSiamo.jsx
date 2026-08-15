@@ -46,8 +46,8 @@ export default function ChiSiamo() {
                   alt={person.image.alt}
                   loading="lazy"
                   decoding="async"
-                  width="720"
-                  height="960"
+                  width="1200"
+                  height="1600"
                   className="h-full w-full object-cover"
                 />
               </div>

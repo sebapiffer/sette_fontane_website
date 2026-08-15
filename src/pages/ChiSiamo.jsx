@@ -46,7 +46,11 @@ function Ritratto({ persona, immagineASinistra }) {
         {/* Ritaglio pulito, senza bordo/ombra/arrotondamento: stesso stile
             fotografico delle sezioni della home (foto rettangolari a taglio
             netto, la sola tendina di useReveal come trattamento). */}
-        <div className="aspect-[4/5] w-full overflow-hidden">
+        {/* 3/4 come le schede in home: i ritratti sono figure intere in piedi
+            e in 4/5 non ci stavano — al massimo ritaglio ricavabile dallo
+            scatto la persona era più alta del riquadro, e testa e scarpe
+            venivano rifilate. */}
+        <div className="aspect-[3/4] w-full overflow-hidden">
           <img
             data-reveal-img
             src={persona.image.src}
@@ -54,7 +58,7 @@ function Ritratto({ persona, immagineASinistra }) {
             loading="lazy"
             decoding="async"
             width="1200"
-            height="1500"
+            height="1600"
             className="h-full w-full object-cover"
           />
         </div>

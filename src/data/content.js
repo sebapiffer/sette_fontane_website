@@ -205,14 +205,14 @@ export const sanFlorian = {
   degustazione: {
     titolo: 'Note di degustazione',
     testo:
-      'Naso aromatico di fiori bianchi, salvia e mela verde; sorso teso, sapido, di montagna.',
+      'Al naso si riscontrano sentori di frutta tropicale, agrumi e fiori bianchi. In bocca si riscontra una spiccata verticalità, supportata da un’adeguata profondità; la sensazione retronasale rispecchia perfettamente i sentori riscontrati al naso.',
   },
   scheda: [
     { label: 'Uvaggio', value: 'Müller Thurgau 100%' },
     { label: 'Zona', value: 'Giovo, Val di Cembra' },
-    { label: 'Suolo', value: 'Porfido' },
+    { label: 'Suolo', value: 'Limoso, porfirico' },
     { label: 'Affinamento', value: 'Acciaio, sui lieviti' },
-    { label: 'Alcol', value: '12,5% vol.' },
+    { label: 'Alcol', value: '12% vol.' },
     { label: 'Servizio', value: '8–10 °C' },
   ],
   chiudi: 'Torna alla cantina',
@@ -242,10 +242,9 @@ export const sanFlorian = {
     hint: 'Scorri per approfondire',
     titolo: 'Da dove tutto è partito',
     paragrafi: [
-      // testo in attesa della storia vera del vino
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      'All’età di 16 anni iniziano le nostre prime prove di vinificazione, con piccoli quantitativi di uva “rubati” al nonno. Dopo sei vendemmie, affinata la tecnica e incoraggiati da molti amici, abbiamo deciso di fare sul serio, utilizzando per la prima volta delle uve prodotte da noi.',
+      'Il nome San Florian nasce dall’idea di trovare un filo conduttore per i nostri quattro vigneti di Müller Thurgau, situati attorno all’abitato di Valternigo. Oltre al suolo e alla varietà, l’aspetto comune di questi vigneti è la vista sulla magnifica chiesetta di San Floriano, che sovrasta l’intero comune di Giovo.',
+      'L’etichetta, pensata dal rinomato stilista nonché nostro grande amico Mirco Giovannini e concretizzata dal grafico Pierluigi Cambrini, prende ispirazione proprio dalla chiesetta e dagli elementi caratteristici che la contraddistinguono: mantiene uno stretto legame con la storia del luogo e del territorio, riprendendo al tempo stesso una chiave di modernità e giovinezza.',
     ],
   },
 }
