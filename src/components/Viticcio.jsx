@@ -243,7 +243,12 @@ function puntiRiccioloInduttore(punto, direzione, spire, lato) {
 // disegnare un ramo e una foglia. Serve anche in generazione: il ritardo di
 // un sotto-ramo è una frazione della durata di disegno del padre.
 const DURATA_RAMO = 0.05
-const DURATA_FOGLIA = 0.08
+// La foglia si disegna in fretta: il contorno è corto ma chiuso, e su una
+// timeline scrubbata la durata è SCROLL, non tempo — a 0.08 la foglia si
+// completava in ~450 px di pagina (più di un ramo intero, che è molto più
+// lungo), e sembrava trascinarsi dietro la linea. A 0.035 costa ~200 px:
+// arriva quasi di scatto, come una gemma che si apre.
+const DURATA_FOGLIA = 0.035
 
 // Quota di disegno su cui la linea madre "emerge" (vedi il commento sulla
 // timeline): sul 3% la linea ha già percorso qualche centinaio di px, quindi
@@ -598,11 +603,24 @@ function rettangolo(el, avvolgente) {
 // da [0,1] per punti oltre i bordi); dx/dy sono scostamenti in pixel.
 // asola/ramo passano al generatore. Tarate sul layout reale: se una sezione
 // cambia, rimisurare col DOM, non a occhio.
+// Corsa dello scrub (start/end del ScrollTrigger che disegna la linea). È per
+// configurazione perché decide DOVE, nella finestra, si trova la punta mentre
+// disegna: la linea avanza in lunghezza mentre la pagina avanza in pixel, e se
+// il tracciato scende più in fretta di quanto si scrolli, la punta finisce
+// sotto la piega e non si vede più nascere niente — resta solo linea già
+// fatta. Allungare la corsa (fine più tardi) rallenta il disegno rispetto allo
+// scroll e fa risalire la punta nella finestra.
+const CORSA_PREDEFINITA = { inizio: 'top 75%', fine: 'bottom bottom' }
+
 const CONFIGURAZIONI = [
   {
     // desktop ≥ lg: layout a due colonne
     nome: 'desktop',
     attivo: (larghezza) => larghezza >= BREAKPOINT_LG,
+    // Corsa dello scrub: qui la punta resta ben dentro la finestra per tutto
+    // il disegno (misurata a 1440×900: 434–916 px dal bordo alto), quindi il
+    // valore di default va bene. Vedi la nota sul mobile.
+    corsa: CORSA_PREDEFINITA,
     spessoreLinea: 3.5,
     spessoreRamo: 2.5,
     foglia: { altezza: 46, lunghezza: 40 },
@@ -644,8 +662,7 @@ const CONFIGURAZIONI = [
       // canale (il gap tra le due colonne), senza mai entrare nel secondo
       // ritratto: resta sul margine sinistro, fuori dalla foto
       p('#chi-siamo figure', 0.89, 0.03),
-      p('#chi-siamo figure', -0.05, 0.02, {}, 1),
-      p('#chi-siamo figure', 1.12, 0.2, {}, 1),
+      p('#chi-siamo figure', 1.12, 0.05, {}, 1),
       p('#chi-siamo figure', 1, 0.7, {}, 1),
       p('#chi-siamo figure', -0.1, 0.65, {}, 1),
       p('#chi-siamo figure', -0.139, 0.82, { asola: { raggio: 24, lato: 'sinistra' } }, 1),
@@ -744,6 +761,15 @@ const CONFIGURAZIONI = [
     // mobile < md: colonna singola, la linea serpeggia lungo i margini
     nome: 'mobile',
     attivo: (larghezza) => larghezza < BREAKPOINT_MD,
+    // A colonna singola il tracciato scende molto più della pagina (~6100 px
+    // di quota su ~5000 px di scroll utile): con la corsa predefinita la punta
+    // stava a 870–1120 px dal bordo alto in un viewport di 844, cioè SEMPRE
+    // sotto la piega — il disegno arrivava già fatto e l'animazione non si
+    // vedeva mai. La corsa finisce quindi più tardi (bordo basso del wrapper a
+    // 25% della finestra invece che a filo del bordo basso): il disegno
+    // rallenta rispetto allo scroll e la punta risale dentro la finestra,
+    // arrivando sul logo di Coming soon quando è già bene in vista.
+    corsa: { inizio: 'top 75%', fine: 'bottom 25%' },
     spessoreLinea: 2.5,
     spessoreRamo: 1.75,
     foglia: { altezza: 30, lunghezza: 28 },
@@ -970,8 +996,8 @@ export default function Viticcio() {
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: contenitore.current,
-          start: 'top 75%',
-          end: 'bottom bottom',
+          start: (stato.config.corsa || CORSA_PREDEFINITA).inizio,
+          end: (stato.config.corsa || CORSA_PREDEFINITA).fine,
           scrub: 0.8,
         },
       })
