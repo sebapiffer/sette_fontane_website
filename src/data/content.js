@@ -461,7 +461,7 @@ export const comingSoon = {
   text: 'Il prossimo vino di Sette Fontane arriverà con la sua vendemmia.',
   // Easter egg: compare dopo sette click sulle gocce del logo
   // qui sopra. [placeholder]
-  segreto: '3 è troppo, decisamente troppo',
+  segreto: '3 è troppo, decisamente troppo, 3 è assurdo',
 }
 
 export const footer = {
